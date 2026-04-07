@@ -1,0 +1,51 @@
+[submodule "apps/qtcloud-asset"]
+	path = apps/qtcloud-asset
+	url = https://github.com/quanttide/qtcloud-asset
+[submodule "apps/qtcloud-org"]
+	path = apps/qtcloud-org
+	url = https://github.com/quanttide/qtcloud-org
+[submodule "apps/qtcloud-finance"]
+	path = apps/qtcloud-finance
+	url = https://github.com/quanttide/qtcloud-finance
+[submodule "apps/qtcloud-think"]
+	path = apps/qtcloud-think
+	url = https://github.com/quanttide/qtcloud-think
+[submodule "apps/qtadmin"]
+	path = apps/qtadmin
+	url = https://github.com/quanttide/qtadmin
+[submodule "apps/qtcloud-data"]
+	path = apps/qtcloud-data
+	url = https://github.com/quanttide/qtcloud-data
+[submodule "apps/qtcloud-infra"]
+	path = apps/qtcloud-infra
+	url = https://github.com/quanttide/qtcloud-infra
+[submodule "apps/qtcloud-write"]
+	path = apps/qtcloud-write
+	url = https://github.com/quanttide/qtcloud-write
+[submodule "apps/qtcloud-read"]
+	path = apps/qtcloud-read
+	url = https://github.com/quanttide/qtcloud-read
+[submodule "apps/qtcloud-agent"]
+	path = apps/qtcloud-agent
+	url = https://github.com/quanttide/qtcloud-agent
+[submodule "apps/qtcloud-delib"]
+	path = apps/qtcloud-delib
+	url = https://github.com/quanttide/qtcloud-delib
+[submodule "apps/qtcloud"]
+	path = apps/qtcloud
+	url = https://github.com/quanttide/qtcloud
+[submodule "apps/qtcloud-audit"]
+	path = apps/qtcloud-audit
+	url = https://github.com/quanttide/qtcloud-audit
+[submodule "apps/qtcloud-connect"]
+	path = apps/qtcloud-connect
+	url = https://github.com/quanttide/qtcloud-connect
+[submodule "apps/qtcloud-product"]
+	path = apps/qtcloud-product
+	url = https://github.com/quanttide/qtcloud-product
+[submodule "apps/qtcloud-support"]
+	path = apps/qtcloud-support
+	url = https://github.com/quanttide/qtcloud-support
+[submodule "apps/qtcloud-course"]
+	path = apps/qtcloud-course
+	url = https://github.com/quanttide/qtcloud-course
