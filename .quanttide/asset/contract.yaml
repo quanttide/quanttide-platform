@@ -1,0 +1,20 @@
+# 量潮平台数字资产契约
+# 契约系统：将隐性工作流转化为显性的、可版本控制的数字资产
+# 参考：apps/qtcloud-asset/docs/add/contract.md
+
+contracts:
+  # 主仓库文档归档契约
+  platform_docs_archive:
+    name: 平台文档归档
+    version: 1
+    paths:
+      journal: docs/journal
+      archive: docs/archive/journal
+
+  # 主仓库 PRD 归档契约
+  platform_prd_archive:
+    name: 平台需求文档归档
+    version: 1
+    paths:
+      journal: docs/prd
+      archive: docs/archive/prd
