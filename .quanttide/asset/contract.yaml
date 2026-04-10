@@ -6,7 +6,7 @@
 assets:
   # 架构与设计文档
   add_docs:
-    name: 架构设计文档
+    title: 架构设计文档
     kind: documentation
     path: docs/add
     description: 平台架构、云服务设计、基础设施等设计文档
@@ -20,14 +20,14 @@ assets:
 
   # 产品需求文档
   prd_docs:
-    name: 产品需求文档
+    title: 产品需求文档
     kind: documentation
     path: docs/prd
     description: 产品需求规格文档
 
   # 根目录文档
   root_docs:
-    name: 根目录文档
+    title: 根目录文档
     kind: documentation
     path: .
     files:
@@ -39,109 +39,109 @@ assets:
   # ── 应用子模块（每个都是独立资产）────────────────────
 
   qtadmin:
-    name: 量潮管理后台
+    title: 量潮管理后台
     kind: submodule
     path: apps/qtadmin
     description: 团队管理、薪酬、绩效等
 
   qtcloud:
-    name: 量潮云
+    title: 量潮云
     kind: submodule
     path: apps/qtcloud
     description: 平台核心云服务
 
   qtcloud-data:
-    name: 量潮数据云
+    title: 量潮数据云
     kind: submodule
     path: apps/qtcloud-data
     description: 数据采集、清洗、治理
 
   qtcloud-finance:
-    name: 量潮财务云
+    title: 量潮财务云
     kind: submodule
     path: apps/qtcloud-finance
     description: 智能记账、对账、财务报表
 
   qtcloud-think:
-    name: 量潮思考云
+    title: 量潮思考云
     kind: submodule
     path: apps/qtcloud-think
     description: 思考收集、整理、澄清
 
   qtcloud-write:
-    name: 量潮写作
+    title: 量潮写作
     kind: submodule
     path: apps/qtcloud-write
     description: 写作辅助、内容生成
 
   qtcloud-read:
-    name: 量潮阅读
+    title: 量潮阅读
     kind: submodule
     path: apps/qtcloud-read
     description: 文档阅读、笔记提取
 
   qtcloud-agent:
-    name: 量潮智能体
+    title: 量潮智能体
     kind: submodule
     path: apps/qtcloud-agent
     description: AI 智能体平台
 
   qtcloud-asset:
-    name: 量潮数字资产云
+    title: 量潮数字资产云
     kind: submodule
     path: apps/qtcloud-asset
     description: 数字资产管理、契约、归档
 
   qtcloud-audit:
-    name: 量潮审计云
+    title: 量潮审计云
     kind: submodule
     path: apps/qtcloud-audit
     description: 审计、合规、追溯
 
   qtcloud-code:
-    name: 量潮代码云
+    title: 量潮代码云
     kind: submodule
     path: apps/qtcloud-code
     description: 代码管理、审查
 
   qtcloud-connect:
-    name: 量潮连接云
+    title: 量潮连接云
     kind: submodule
     path: apps/qtcloud-connect
     description: 系统集成、API 网关
 
   qtcloud-course:
-    name: 量潮课程
+    title: 量潮课程
     kind: submodule
     path: apps/qtcloud-course
     description: 课程内容、学习路径
 
   qtcloud-delib:
-    name: 量潮审议
+    title: 量潮审议
     kind: submodule
     path: apps/qtcloud-delib
     description: 议题审议、决策记录
 
   qtcloud-infra:
-    name: 量潮云基础设施
+    title: 量潮云基础设施
     kind: submodule
     path: apps/qtcloud-infra
     description: 基础设施、部署、运维
 
   qtcloud-org:
-    name: 量潮组织云
+    title: 量潮组织云
     kind: submodule
     path: apps/qtcloud-org
     description: 组织架构、权限、流程
 
   qtcloud-product:
-    name: 量潮产品云
+    title: 量潮产品云
     kind: submodule
     path: apps/qtcloud-product
     description: 产品管理、路线图
 
   qtcloud-support:
-    name: 量潮支持云
+    title: 量潮支持云
     kind: submodule
     path: apps/qtcloud-support
     description: 客户支持、工单管理
@@ -151,7 +151,7 @@ assets:
 operations:
   # 归档操作
   archive:
-    name: 文档归档
+    title: 文档归档
     description: 将 journal 类文档移动到 archive 目录
     contracts:
       - name: prd_archive
@@ -165,6 +165,6 @@ operations:
 
   # 同步操作
   sync_submodules:
-    name: 子模块同步
+    title: 子模块同步
     description: 拉取并更新所有应用子模块
     command: git submodule update --init --recursive
