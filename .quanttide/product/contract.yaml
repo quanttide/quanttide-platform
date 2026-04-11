@@ -1,0 +1,207 @@
+# 量潮平台产品边界契约
+# 回答每个产品"负责什么、不做什么、依赖谁"
+# 参考：apps/qtcloud-asset/docs/add/contract.md（契约即地图）
+
+# ── 应用层 ─────────────────────────────────────────────
+# 组合使用领域层产品的用户入口
+
+products:
+  qtcloud:
+    title: 量潮云
+    layer: application
+    status: exploring
+    description: 用户统一入口，组合使用所有领域云
+    provides:
+      - 单点登录与工作台
+      - 全局搜索与导航
+      - 跨云消息通知
+    depends_on:
+      - qtcloud-asset
+      - qtcloud-data
+      - qtcloud-finance
+      - qtcloud-think
+      - qtcloud-write
+      - qtcloud-read
+      - qtcloud-agent
+      - qtcloud-connect
+      - qtcloud-course
+      - qtcloud-code
+      - qtcloud-delib
+      - qtcloud-support
+      - qtcloud-audit
+      - qtcloud-infra
+      - qtcloud-org
+      - qtcloud-product
+
+  qtadmin:
+    title: 管理后台
+    layer: application
+    status: released
+    description: 内部管理与运营入口
+    provides:
+      - 员工管理
+      - 薪酬与绩效
+      - 系统配置
+    depends_on:
+      - qtcloud-org
+      - qtcloud-finance
+      - qtcloud-asset
+      - qtcloud-audit
+
+  # ── 领域层 ─────────────────────────────────────────────
+  # 独立业务能力，互不依赖
+
+  qtcloud-infra:
+    title: 基础设施云
+    layer: domain
+    status: placeholder
+    description: 部署、运维、基础设施即代码
+    provides:
+      - 容器编排与环境管理
+      - CI/CD 流水线
+      - 监控与告警
+    depends_on: []
+
+  qtcloud-org:
+    title: 组织云
+    layer: domain
+    status: placeholder
+    description: 组织架构、权限、流程
+    provides:
+      - 组织层级管理（集团/公司/部门）
+      - 角色与权限体系
+      - 审批流程引擎
+    depends_on: []
+
+  qtcloud-product:
+    title: 产品云
+    layer: domain
+    status: placeholder
+    description: 产品管理、路线图、需求池
+    provides:
+      - 产品生命周期管理
+      - 跨产品路线图
+      - 需求收集与优先级
+    depends_on: []
+
+  qtcloud-asset:
+    title: 数字资产云
+    layer: domain
+    status: validating
+    description: 数字资产管理、契约定义、归档执行
+    provides:
+      - 数字资产发现与注册
+      - 契约驱动的归档与流转
+      - 资产关系映射
+    depends_on: []
+
+  qtcloud-data:
+    title: 数据云
+    layer: domain
+    status: exploring
+    description: 数据管理、采集、清洗、治理
+    provides:
+      - 数据管道编排
+      - 数据质量管理
+      - 元数据管理
+    depends_on: []
+
+  qtcloud-finance:
+    title: 财务云
+    layer: domain
+    status: exploring
+    description: 智能财务共享中心，Beancount 智能记账
+    provides:
+      - 智能记账与对账
+      - 财务报表生成
+      - 发票与凭证管理
+    depends_on: []
+
+  qtcloud-think:
+    title: 思考云
+    layer: domain
+    status: validating
+    description: 思维收集、澄清、整理
+    provides:
+      - 思维流记录
+      - AI 辅助想法澄清
+      - 知识结构整理
+    depends_on: []
+
+  qtcloud-write:
+    title: 写作云
+    layer: domain
+    status: placeholder
+    description: 写作辅助、内容生成
+    provides: []
+    depends_on: []
+
+  qtcloud-read:
+    title: 阅读云
+    layer: domain
+    status: placeholder
+    description: 文档阅读、笔记提取
+    provides: []
+    depends_on: []
+
+  qtcloud-agent:
+    title: 智能体云
+    layer: domain
+    status: placeholder
+    description: AI 智能体编排与执行
+    provides: []
+    depends_on: []
+
+  qtcloud-connect:
+    title: 连接云
+    layer: domain
+    status: exploring
+    description: 沟通管理、系统集成、API 网关
+    provides:
+      - 多渠道沟通与消息聚合
+      - 外部系统集成
+      - API 网关与路由
+    depends_on: []
+
+  qtcloud-course:
+    title: 课程云
+    layer: domain
+    status: exploring
+    description: AI 原生课程研发与授课
+    provides:
+      - 课程内容管理
+      - AI 辅助课件生成
+      - 学习进度跟踪
+    depends_on: []
+
+  qtcloud-code:
+    title: 代码云
+    layer: domain
+    status: placeholder
+    description: 代码管理、审查
+    provides: []
+    depends_on: []
+
+  qtcloud-delib:
+    title: 审议云
+    layer: domain
+    status: placeholder
+    description: 议题审议、决策记录
+    provides: []
+    depends_on: []
+
+  qtcloud-support:
+    title: 支持云
+    layer: domain
+    status: placeholder
+    description: 客户支持、工单管理
+    provides: []
+    depends_on: []
+
+  qtcloud-audit:
+    title: 审计云
+    layer: domain
+    status: placeholder
+    description: 审计、合规、追溯
+    provides: []
+    depends_on: []
