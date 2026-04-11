@@ -3,4 +3,4 @@
 .vscode/
 
 # Jupyter Book
-_build/
+_build/.qwen/
