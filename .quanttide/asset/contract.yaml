@@ -146,10 +146,10 @@ assets:
     path: apps/qtcloud-support
     description: 客户支持、工单管理
 
-# ── 操作定义 ──────────────────────────────────────────
+# ── Skills ─────────────────────────────────────────────
 
-operations:
-  # 归档操作
+skills:
+  # 归档 Skill
   archive:
     title: 文档归档
     description: 将 journal 类文档移动到 archive 目录
@@ -163,7 +163,7 @@ operations:
         from: docs/add
         to: docs/archive/add
 
-  # 同步操作
+  # 同步 Skill
   sync_submodules:
     title: 子模块同步
     description: 拉取并更新所有应用子模块
