@@ -1,134 +1,193 @@
 ---
 name: devops-release
-description: 版本发布技能，遵循语义化版本规范，用于创建 Git 标签、更新 CHANGELOG 并发布 GitHub Release。当需要发布新版本、打标签、更新发布说明时使用。
+description: 发布 Git 仓库 Release，支持子模块和主仓库两种发布流程。创建 tag、推送远端、生成 GitHub Release。
 ---
 
-# 版本发布技能
+# devops-release
 
-用于 quanttide-gallery-of-business-entity 仓库的版本发布流程。
+发布 Git 仓库 Release。
 
-## 发布前检查
+## 规则
 
-1. 检查未发布内容:
-   ```bash
-   git log <last-version>..HEAD --oneline
-   ```
+- 版本号遵循 semver（MAJOR.MINOR.PATCH）
+- 发布前确认工作区干净
+- Release notes 只包含对应版本内容
+- 发布主仓库前确认所有子模块引用是最新的
 
-2. 确认发布就绪:
-   - [ ] 所有测试通过
-   - [ ] 文档已更新
-   - [ ] 无未提交的变更
-   - [ ] CHANGELOG已更新
-   - [ ] 版本号符合语义化版本规范
+## 依赖
 
-## 更新 CHANGELOG
+- devops-commit: 检查工作区状态
+- devops-submodule: 检查子模块状态
 
-1. 编辑 `CHANGELOG.md`:
-   ```markdown
-   # CHANGELOG
+## 工作流
 
-   ## [Unreleased]
+### 1. 预检查
 
-   ## [<version>] - <date>
-
-   ### Added
-   - 新增功能列表
-
-   ### Changed
-   - 修改内容列表
-
-   ### Fixed
-   - 修复问题列表
-
-   ### Removed
-   - 移除内容列表
-   ```
-
-2. 内容要求:
-   - 简洁明了，避免冗余描述
-   - 使用动词开头：「新增」「修改」「修复」「移除」
-   - 每条记录一行，不超过50字
-   - 按重要性排序
-
-3. 提交并推送:
-   ```bash
-   git add CHANGELOG.md
-   git commit -m "chore: update CHANGELOG for <version>"
-   git push origin main
-   ```
-
-## 创建 Git 标签
-
-1. 创建附注标签:
-   ```bash
-   git tag -a <version> -m "Release version <version-no-v>"
-   ```
-   其中 `<version-no-v>` 为不带 `v` 前缀的版本号（如 `0.0.2`）
-
-2. 推送标签到远程:
-   ```bash
-   git push origin <version>
-   ```
-
-## 创建 GitHub Release
-
-使用 GitHub CLI 创建 Release:
+**必须执行，不可跳过**
 
 ```bash
+# 检查工作区状态
+git status
+
+# 检查版本号格式（semver）
+VERSION="v0.4.0"
+if ! [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+  echo "错误: 版本号格式错误，应为 vX.Y.Z 或 vX.Y.Z-qualifier"
+  exit 1
+fi
+
+# 检查 CHANGELOG 是否包含目标版本
+if ! grep -q "^## \[${VERSION#v}\]" CHANGELOG.md; then
+  echo "错误: CHANGELOG.md 未找到 ${VERSION#v} 版本记录"
+  echo "请先更新 CHANGELOG.md"
+  exit 1
+fi
+
+# 提取版本内容测试
+NOTES=$(sed -n "/^## \[${VERSION#v}\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')
+if [ -z "$NOTES" ]; then
+  echo "错误: 无法提取 ${VERSION#v} 版本内容"
+  exit 1
+fi
+
+# 检查标签是否已存在
+if git tag -l | grep -q "^${VERSION}$"; then
+  echo "错误: 标签 $VERSION 已存在"
+  exit 1
+fi
+
+# 预览 Release Notes
+echo "=== Release Notes 预览 ==="
+echo "$NOTES"
+echo "========================="
+```
+
+### 2. 发布前确认
+
+**向用户展示以下信息并请求确认**
+
+```
+发布版本: vX.Y.Z
+
+检查结果:
+✓ 版本号格式正确
+✓ CHANGELOG.md 包含目标版本
+✓ Release Notes 提取成功
+✓ 标签不存在
+✓ 工作区干净
+
+待执行命令:
+1. git tag vX.Y.Z
+2. git push origin vX.Y.Z
+3. gh release create vX.Y.Z --title "vX.Y.Z" --notes "..."
+
+确认发布? (y/n)
+```
+
+### 3. 子模块发布 Release
+
+```bash
+# 1. 进入子模块目录
+cd <子模块路径>
+
+# 2. 执行预检查（步骤 1）
+
+# 3. 创建并推送标签
+git tag <version>
+git push origin <version>
+
+# 4. 创建 GitHub Release
 gh release create <version> \
-  --title "<version>" \
-  --generate-notes
+  --title "v<version>" \
+  --notes "$(sed -n "/^## \[${VERSION#v}\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')" \
+  --repo quanttide/<仓库名>
 ```
 
-如需更新 Release notes（使用 `--generate-notes` 时可能不符合 CHANGELOG 格式）：
+### 4. 主仓库发布 Release
+
 ```bash
-gh api repos/<owner>/<repo>/releases/<release-id> \
-  -X PATCH \
-  -f body="### Added
+# 1. 创建预发布版本（可选）
+gh release create vX.Y.Z-rc.1 \
+  --prerelease \
+  --title "vX.Y.Z RC" \
+  --notes "$(sed -n "/^## \[X.Y.Z\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')"
 
-- 内容从CHANGELOG提取
+# 2. 确认所有子模块已更新
+git submodule update --remote
+git status
 
-### Changed
+# 3. 更新 CHANGELOG.md
 
-- 内容从CHANGELOG提取"
+# 4. 提交 CHANGELOG.md
+git add CHANGELOG.md && git commit -m "docs: update CHANGELOG for vX.Y.Z"
+
+# 5. 执行预检查（步骤 1）
+
+# 6. 发布前确认（步骤 2）
+
+# 7. 创建标签并推送
+git tag <version> && git push origin <version>
+
+# 8. 创建 GitHub Release
+gh release create <version> \
+  --title "v<version>" \
+  --notes "$(sed -n "/^## \[${VERSION#v}\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')" \
+  --repo quanttide/quanttide-founder
+
+# 9. 验证 Release
+gh release view <version> --repo quanttide/quanttide-founder
 ```
 
-Release URL: `https://github.com/quanttide/quanttide-gallery-of-business-entity/releases/tag/<version>`
+### 5. 错误处理和回滚
 
-## 发布后确认
-
-- [ ] Git标签已创建并推送
-- [ ] GitHub Release已创建
-- [ ] Release notes内容准确
-- [ ] 主仓库子模块引用已更新
-- [ ] 版本号符合语义化版本规范
-
-验收方式：
 ```bash
-# 检查标签是否存在
-git tag -l v*
+# 标签已创建但 Release 失败
+git tag -d <version>
+git push origin --delete <version> 2>/dev/null || true
 
-# 检查标签格式是否为 vX.Y.Z
-git tag -l "v[0-9]*.[0-9]*.[0-9]*"
+# 恢复到发布前状态（如果有提交）
+git reset --hard HEAD~1
 
-# 检查 CHANGELOG 对应版本是否存在
-grep "## \[v" CHANGELOG.md
+# 清理预发布版本
+gh release delete vX.Y.Z-rc.1 --repo quanttide/quanttide-founder --yes
 ```
 
-版本号规则（语义化版本: `主版本.次版本.修订号`）：
+## 常见错误
 
-- **主版本（Major）**: 不兼容的API修改
-- **次版本（Minor）**: 向后兼容的功能新增
-- **修订号（Patch）**: 向后兼容的问题修复
+| 错误 | 原因 | 解决方案 |
+|------|------|----------|
+| CHANGELOG 缺少版本 | 忘记更新 CHANGELOG.md | 添加版本记录后再发布 |
+| 标签已存在 | 重复发布 | 删除旧标签或使用新版本号 |
+| 工作区脏 | 有未提交变更 | 提交或暂存变更后再发布 |
+| Release Notes 为空 | 版本格式不匹配 | 检查 CHANGELOG 版本标题格式 |
+| 子模块未更新 | 子模块有新提交 | 执行 `git submodule update --remote` |
 
-预发布版本格式：
+## 预发布检查清单
 
-- Alpha版本：`v0.0.1-alpha.1`
-- Beta版本：`v0.0.1-beta.1`
-- RC版本：`v0.0.1-rc.1`
-- Release版本：`v0.0.1`
+- [ ] 所有子模块版本已锁定
+- [ ] 通过 CI 测试
+- [ ] CHANGELOG.md 版本段已验证
+- [ ] 执行过 `npm run build` (如适用)
+- [ ] 版本号格式正确
+- [ ] Release Notes 提取成功
+- [ ] 工作区干净
 
-## 规范来源
+## 输出
 
-版本发布操作遵循量潮科技工程标准的版本发布标准
-[https://github.com/quanttide/quanttide-specification-of-business-entity/blob/v0.1.1/devops/release.md](https://github.com/quanttide/quanttide-specification-of-business-entity/blob/v0.1.1/devops/release.md)
+### 成功时返回
+
+```
+✓ Release vX.Y.Z 创建成功
+  标签: vX.Y.Z
+  URL: https://github.com/quanttide/quanttide-founder/releases/tag/vX.Y.Z
+  提交: <SHA>
+```
+
+### 失败时返回
+
+```
+✗ Release vX.Y.Z 创建失败
+  错误码: <ERROR_CODE>
+  原因: <错误描述>
+  建议: <解决方案>
+```
