@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## [0.2.0] - 2026-04-16
+
+仓库层级重构与产品边界定义。
+
+### Added
+- 新增 docs/index.md 说明仓库层级关系
+- 新增 docs/prd/relations/index.md 说明产品边界
+- 新增 CONTRIBUTING.md 产品设计语言
+- 新增 qtcloud-sales 子模块（报价与合同管理）
+- 新增 qtcloud 产品组合 relations 说明
+
+### Changed
+- 精简 AGENTS.md 至核心内容
+- 重新定义商务云（报价+合同）与销售云（获客）边界
+- qtcloud/docs/prd/ 从 spec 迁移至 add
+
+### Removed
+- 删除 docs/prd/qtcloud-write.md（已移至子模块）
+
+### Chore
+- 同步 qtcloud-business 子模块
+- 同步 qtcloud-sales 子模块
+- 同步 qtcloud 子模块
+
 ## [0.1.2] - 2026-04-12
 
 数字资产契约体系与 Agent Skills。
@@ -28,5 +52,3 @@
 - 增加云服务选型、语言和框架、应用体系。
 
 ## [0.1.0] - 2022-10-23
-
-初始版本。
