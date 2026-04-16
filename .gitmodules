@@ -55,3 +55,6 @@
 [submodule "apps/qtcloud-health"]
 	path = apps/qtcloud-health
 	url = https://github.com/quanttide/qtcloud-health
+[submodule "apps/qtcloud-business"]
+	path = apps/qtcloud-business
+	url = https://github.com/quanttide/qtcloud-business
