@@ -61,3 +61,9 @@
 [submodule "apps/qtcloud-sales"]
 	path = apps/qtcloud-sales
 	url = https://github.com/quanttide/qtcloud-sales
+[submodule "apps/qtcloud-hr"]
+	path = apps/qtcloud-hr
+	url = https://github.com/quanttide/qtcloud-hr.git
+[submodule "apps/qtcloud-media"]
+	path = apps/qtcloud-media
+	url = https://github.com/quanttide/qtcloud-media.git
