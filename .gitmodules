@@ -76,3 +76,6 @@
 [submodule "apps/qtclass"]
 	path = apps/qtclass
 	url = https://github.com/quanttide/qtclass
+[submodule "apps/qtcloud-knowl"]
+	path = apps/qtcloud-knowl
+	url = https://github.com/quanttide/qtcloud-knowl
