@@ -67,3 +67,9 @@
 [submodule "apps/qtcloud-media"]
 	path = apps/qtcloud-media
 	url = https://github.com/quanttide/qtcloud-media.git
+[submodule "apps/qtdata"]
+	path = apps/qtdata
+	url = https://github.com/quanttide/qtdata
+[submodule "apps/qtclass"]
+	path = apps/qtclass
+	url = https://github.com/quanttide/qtclass
