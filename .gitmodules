@@ -82,3 +82,6 @@
 [submodule "apps/qtcloud-growth"]
 	path = apps/qtcloud-growth
 	url = https://github.com/quanttide/qtcloud-growth.git
+[submodule "apps/qtweb"]
+	path = apps/qtweb
+	url = https://github.com/quanttide/qtweb.git
