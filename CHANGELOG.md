@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## [0.2.1] - 2026-04-29
+
+子模块与示例文件更新。
+
+### Added
+- 新增 qtcloud-devops examples/default/code.md
+- 新增 qtdata examples/default/ 目录（asset/cli/data/project 示例）
+
+### Removed
+- 移除 qtadmin 过时的 docs/add、docs/prd、docs/user 文件
+
+### Chore
+- 同步 qtadmin 子模块（清理过时文档）
+- 同步 qtcloud-devops 子模块（新增示例）
+- 同步 qtdata 子模块（新增默认示例）
+
 ## [0.2.0] - 2026-04-16
 
 仓库层级重构与产品边界定义。
