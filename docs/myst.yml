@@ -14,12 +14,12 @@ project:
         - title: 系统分层
           children:
             - file: add/layers/README.md
-            - file: add/layers/applications/README.md
-            - file: add/layers/applications/qtadmin.md
-            - file: add/layers/applications/qtcloud_pass/README.md
-            - file: add/layers/applications/qtcloud_pass/qtcloud-data.md
-            - file: add/layers/applications/qtcloud_sass/README.md
-            - file: add/layers/applications/qtopen/README.md
+            - file: add/layers/apps/README.md
+            - file: add/layers/apps/qtadmin.md
+            - file: add/layers/apps/qtcloud_pass/README.md
+            - file: add/layers/apps/qtcloud_pass/qtcloud-data.md
+            - file: add/layers/apps/qtcloud_sass/README.md
+            - file: add/layers/apps/qtopen/README.md
         - title: 通用概念
           children:
             - file: add/general/README.md
