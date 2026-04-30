@@ -92,6 +92,7 @@
 - **Phase**: Exploration (0.0.x) → Validation (0.x.y) → Release (x.y.z)
 - **Changelog**: Keep a Changelog 格式
 - **Commits**: Conventional Commits
+- **Pre-release**: `v0.x.y` 阶段，patch 用于修正/小调整，minor 用于新能力体系（方法论建立、规范落地、可复用的模板）
 
 ## 产品设计检查清单
 
