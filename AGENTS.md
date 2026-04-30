@@ -34,6 +34,19 @@ Use the skill tool to load a skill when a task matches its description.
 - **减法优先**：删除无效内容的优先级高于新增，宁可空着不放不确定的东西
 - **目录即语义**：目录名使用代码实际结构，不用抽象概念，有实体才建目录
 
+### 特殊文档提醒
+
+完成重要变更后，检查是否需要同步更新以下文档：
+
+| 文档 | 触发条件 |
+|------|---------|
+| [CHANGELOG.md](CHANGELOG.md) | 对用户可见的变更（新功能、重构、修复） |
+| [ROADMAP.md](ROADMAP.md) | 方向调整、阶段性成果达成 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | 工作方式或原则发生变化 |
+| [AGENTS.md](AGENTS.md) | AI 工作经验增加 |
+
+AI 应在完成工作后主动提醒用户是否需要更新这些文档，而非等用户提出。
+
 ## 子模块
 
 各子模块有自己的 AGENTS.md，开发前查阅具体模块。
