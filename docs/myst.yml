@@ -36,8 +36,8 @@ project:
             - file: add/infra/websites.md
         - title: 语言和框架
           children:
-            - file: add/languages_and_frameworks/README.md
-            - file: add/languages_and_frameworks/flutter.md
+            - file: add/packages/README.md
+            - file: add/packages/flutter.md
         - title: 专题
           children:
             - file: add/topics/README.md
