@@ -16,6 +16,10 @@ project:
             - file: add/layers/README.md
             - file: add/layers/applications/README.md
             - file: add/layers/applications/qtadmin.md
+            - file: add/layers/applications/qtcloud_pass/README.md
+            - file: add/layers/applications/qtcloud_pass/qtcloud-data.md
+            - file: add/layers/applications/qtcloud_sass/README.md
+            - file: add/layers/applications/qtopen/README.md
         - title: 通用概念
           children:
             - file: add/general/README.md
@@ -43,12 +47,5 @@ project:
             - file: add/topics/multi-tenants.md
             - file: add/topics/pushing_notifications.md
             - file: add/topics/timer.md
-        - title: 应用
-          children:
-            - file: add/applications/README.md
-            - file: add/applications/qtcloud_pass/README.md
-            - file: add/applications/qtcloud_pass/qtcloud-data.md
-            - file: add/applications/qtcloud_sass/README.md
-            - file: add/applications/qtopen/README.md
 site:
   template: book-theme
