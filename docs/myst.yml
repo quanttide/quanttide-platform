@@ -1,0 +1,46 @@
+# See docs at: https://mystmd.org
+version: 1
+project:
+  title: 量潮产品平台
+  description: 量潮产品平台（quanttide-platform）— 主仓库文档
+  toc:
+    - file: index.md
+    - title: PRD（产品组合策略）
+      children:
+        - file: prd/index.md
+    - title: ADD（跨模块架构标准）
+      children:
+        - file: add/README.md
+        - file: add/layers/README.md
+        - file: add/layers/applications/README.md
+        - file: add/layers/applications/qtadmin.md
+        - file: add/layers/domains/README.md
+        - file: add/layers/interfaces/README.md
+        - file: add/layers/infrastructures/README.md
+        - file: add/general/README.md
+        - file: add/general/ubiquitous_language.md
+        - file: add/cloud_services/README.md
+        - file: add/cloud_services/access_control.md
+        - file: add/cloud_services/databases.md
+        - file: add/cloud_services/logging_services.md
+        - file: add/cloud_services/microservers.md
+        - file: add/cloud_services/storages.md
+        - file: add/cloud_services/websites.md
+        - file: add/languages_and_frameworks/README.md
+        - file: add/languages_and_frameworks/django.md
+        - file: add/languages_and_frameworks/flutter.md
+        - file: add/infra/index.md
+        - file: add/topics/README.md
+        - file: add/topics/domain_events.md
+        - file: add/topics/domain_models.md
+        - file: add/topics/evolution.md
+        - file: add/topics/multi-tenants.md
+        - file: add/topics/pushing_notifications.md
+        - file: add/topics/timer.md
+        - file: add/applications/README.md
+        - file: add/applications/qtcloud_pass/README.md
+        - file: add/applications/qtcloud_pass/qtcloud-data.md
+        - file: add/applications/qtcloud_sass/README.md
+        - file: add/applications/qtopen/README.md
+site:
+  template: book-theme
