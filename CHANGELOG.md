@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## [0.2.2] - 2026-04-30
+
+文档架构重构与领域归位。
+
+### Added
+- 新增 CONTRIBUTING.md 领域归位原则及检查清单
+- 新增 AGENTS.md 文档地图（文档认知角色索引）
+
+### Changed
+- AGENTS.md 仅保留元认知信息（技能索引、文档地图、子模块指引）
+- CONTRIBUTING.md 补充项目约定（版本与发布）
+- README.md 作为陈述记忆（仓库结构、产品清单）
+- ROADMAP.md 去重，产品清单引用 README.md
+
+### Chore
+- 同步 qtadmin 子模块（迁出 asset_contract 到 qtcloud-asset）
+- 同步 qtcloud-asset 子模块（接收 asset_contract 模块）
+
 ## [0.2.1] - 2026-04-29
 
 子模块与示例文件更新。
