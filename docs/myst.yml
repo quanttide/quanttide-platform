@@ -15,10 +15,8 @@ project:
           children:
             - file: add/apps/README.md
             - file: add/apps/qtadmin.md
-            - file: add/apps/domains/README.md
+            - file: add/apps/domains/index.md
             - file: add/apps/domains/qtcloud-data.md
-            - file: add/apps/domains/saas.md
-            - file: add/apps/qtopen/README.md
         - title: 基础设施
           children:
             - file: add/infra/index.md
