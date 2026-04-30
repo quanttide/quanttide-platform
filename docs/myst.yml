@@ -11,15 +11,14 @@ project:
     - title: ADD（跨模块架构标准）
       children:
         - file: add/README.md
-        - title: 系统分层
+        - title: 应用
           children:
-            - file: add/layers/README.md
-            - file: add/layers/apps/README.md
-            - file: add/layers/apps/qtadmin.md
-            - file: add/layers/apps/qtcloud_pass/README.md
-            - file: add/layers/apps/qtcloud_pass/qtcloud-data.md
-            - file: add/layers/apps/qtcloud_sass/README.md
-            - file: add/layers/apps/qtopen/README.md
+            - file: add/apps/README.md
+            - file: add/apps/qtadmin.md
+            - file: add/apps/qtcloud_pass/README.md
+            - file: add/apps/qtcloud_pass/qtcloud-data.md
+            - file: add/apps/qtcloud_sass/README.md
+            - file: add/apps/qtopen/README.md
         - title: 通用概念
           children:
             - file: add/general/README.md
