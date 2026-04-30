@@ -10,6 +10,7 @@ Use the skill tool to load a skill when a task matches its description.
 | devops-commit | 规范提交 |
 | devops-release | 发布 Release |
 | devops-review | 流程审查 |
+| docs-deploy | MyST 文档站构建与 GitHub Pages 部署 |
 
 ## 文档地图
 
