@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## [0.3.1] - 2026-04-30
+
+ADD 文档整合与厂商解绑。
+
+### Added
+- 新增 docs-deploy SKILL（MyST + GitHub Pages 部署经验）
+- 新增 docs/add/CONTRIBUTING.md（ADD 工作经验总结）
+- 新增主仓库 MyST 文档站及 GitHub Pages 部署
+
+### Changed
+- ADD 文档整合：cloud_services → infra，applications → layers/apps → apps，topics+general → intro，languages_and_frameworks → packages
+- 移除所有占位符和空文档
+- 基础设施文档彻底解绑腾讯云，MySQL 替换为 PostgreSQL
+- CONTRIBUTING.md 精简，去除干扰性产品示例
+- ROADMAP.md 重写为三个范式方向
+
+### Chore
+- 同步 qtcloud-data 子模块（接收 ADD 文档）
+- 同步 qtadmin 子模块
+
 ## [0.3.0] - 2026-04-30
 
 逆向文档化与 MyST 文档站点。
