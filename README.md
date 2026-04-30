@@ -14,6 +14,10 @@ quanttide-platform/
 └── apps/qtcloud-knowl → 知识云
 ```
 
+→ [产品边界说明](docs/index.md)
+
+版本策略、设计原则等项目约定见 [CONTRIBUTING.md](CONTRIBUTING.md#项目约定)。
+
 ## 产品清单
 
 | 产品 | 定位 | 状态 |
