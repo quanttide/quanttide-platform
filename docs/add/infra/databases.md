@@ -2,7 +2,7 @@
 
 ## 选型
 
-腾讯云TDSQL-C MySQL版。
+PostgreSQL。
 
 ## 划分和命名
 
@@ -12,4 +12,4 @@
 
 一个租户使用一个schema。
 
-一个Django数据模型使用一个表，一个领域模型使用一个或者多个表，由Django的migration生成。
+一个数据模型使用一个表，一个领域模型使用一个或者多个表，由 ORM 的 migration 生成。
