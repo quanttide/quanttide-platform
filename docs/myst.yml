@@ -10,7 +10,6 @@ project:
         - file: prd/index.md
     - title: ADD（跨模块架构标准）
       children:
-        - file: add/README.md
         - file: add/index.md
         - title: 应用
           children:
