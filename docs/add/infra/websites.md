@@ -23,6 +23,11 @@
 - services.<hostname>用于数据服务平台（量潮数据服务APP）。
 - admin.<hostname>用于内部管理平台（量潮企业后台APP）。
 
+### 已分配域名
+
+- 管理后台客户端：`admin.quanttide.com`
+- 管理后台服务端：`api.admin.quanttide.com`
+
 ## 部署规则
 
 ![静态网站部署规则](images/websites_deployment.jpg)

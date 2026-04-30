@@ -14,7 +14,6 @@ project:
         - title: 应用
           children:
             - file: add/apps/README.md
-            - file: add/apps/qtadmin.md
             - file: add/apps/domains/index.md
             - file: add/apps/domains/qtcloud-data.md
         - title: 基础设施
