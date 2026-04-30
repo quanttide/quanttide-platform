@@ -43,6 +43,7 @@ Use the skill tool to load a skill when a task matches its description.
 | [CHANGELOG.md](CHANGELOG.md) | 对用户可见的变更（新功能、重构、修复） |
 | [ROADMAP.md](ROADMAP.md) | 方向调整、阶段性成果达成 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | 工作方式或原则发生变化 |
+| [README.md](README.md) | 产品功能或仓库结构变化 |
 | [AGENTS.md](AGENTS.md) | AI 工作经验增加 |
 
 AI 应在完成工作后主动提醒用户是否需要更新这些文档，而非等用户提出。
