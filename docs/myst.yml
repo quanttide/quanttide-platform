@@ -20,22 +20,20 @@ project:
           children:
             - file: add/general/README.md
             - file: add/general/ubiquitous_language.md
-        - title: 云服务
+        - title: 基础设施
           children:
-            - file: add/cloud_services/README.md
-            - file: add/cloud_services/access_control.md
-            - file: add/cloud_services/databases.md
-            - file: add/cloud_services/logging_services.md
-            - file: add/cloud_services/microservers.md
-            - file: add/cloud_services/storages.md
-            - file: add/cloud_services/websites.md
+            - file: add/infra/index.md
+            - file: add/infra/cloud_services.md
+            - file: add/infra/access_control.md
+            - file: add/infra/databases.md
+            - file: add/infra/logging_services.md
+            - file: add/infra/microservers.md
+            - file: add/infra/storages.md
+            - file: add/infra/websites.md
         - title: 语言和框架
           children:
             - file: add/languages_and_frameworks/README.md
             - file: add/languages_and_frameworks/flutter.md
-        - title: 基础设施
-          children:
-            - file: add/infra/index.md
         - title: 专题
           children:
             - file: add/topics/README.md
