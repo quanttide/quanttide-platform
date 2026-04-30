@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## [0.3.0] - 2026-04-30
+
+逆向文档化与 MyST 文档站点。
+
+### Added
+- 新增逆向文档化流程：代码 → ADD → PRD → BRD
+- 新增 qtcloud-hr Salary/Recruitment 完整 BRD→PRD→ADD 文档链
+- 新增 qtcloud-hr/qtcloud-asset MyST 文档站配置及 GitHub Pages CI/CD
+- 新增 qtcloud-hr AGENTS.md、CONTRIBUTING.md（含经验记录）
+- 新增 qtcloud-asset docs/index.md 产品简介
+- 新增 CHANGELOG.md Release 格式规范
+
+### Changed
+- qtcloud-hr Salary 模块：剥离 FastAPI/ORM/DB 依赖，只留纯领域逻辑
+- qtcloud-hr CONTRIBUTING.md 与 README.md 按认知角色重组
+- qtcloud-asset scripts → run-cli 目录重命名，README.cli 迁入 src/cli/
+
+### Chore
+- 同步 qtcloud-hr 子模块（文档体系建立）
+- 同步 qtcloud-asset 子模块（目录重构 + 文档站）
+- 同步 qtadmin 子模块（清理遗留代码）
+
 ## [0.2.2] - 2026-04-30
 
 文档架构重构与领域归位。
