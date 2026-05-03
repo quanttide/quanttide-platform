@@ -1,15 +1,20 @@
 ---
 name: devops-release
-description: 发布 Git 仓库 Release，支持子模块和主仓库两种发布流程。创建 tag、推送远端、生成 GitHub Release。
+description: 发布 Git 仓库 Release。必须先写 CHANGELOG 再打 tag，禁止跳步。支持子模块和主仓库两种流程。
 ---
 
 # devops-release
+
+> **⚠ 硬约束：不执行预检查 → 禁止发布**
+> 加载此 Skill 后，必须按下方工作流从头到尾逐行执行命令。
+> 标有"必须执行，不可跳过"的步骤是强制性的，AI 不得合并、跳过或提前执行后续步骤。
 
 发布 Git 仓库 Release。
 
 ## 规则
 
 - 版本号遵循 semver（MAJOR.MINOR.PATCH）
+- **必须先更新 CHANGELOG.md，提交推送，再执行发布**
 - 发布前确认工作区干净
 - Release notes 只包含对应版本内容
 - 发布主仓库前确认所有子模块引用是最新的

@@ -5,12 +5,16 @@ Use the skill tool to load a skill when a task matches its description.
 
 ## SKILL 快速索引
 
-| Skill | 用途 |
-|-------|------|
-| devops-commit | 规范提交 |
-| devops-release | 发布 Release |
-| devops-review | 流程审查 |
-| docs-deploy | MyST 文档站构建与 GitHub Pages 部署 |
+| Skill | 用途 | 约束 |
+|-------|------|------|
+| devops-commit | 规范提交 | 先 `git status` 再 `git diff`，确认无误后提交 |
+| devops-release | 发布 Release | **必须逐行执行**，跳过预检查则禁止发布 |
+| devops-review | 流程审查 | — |
+| docs-deploy | MyST 文档站构建与 GitHub Pages 部署 | — |
+
+### 执行规则
+
+调用 Skill 后，必须按 SKILL.md 中的工作流**从头到尾逐条执行**。标有"必须执行，不可跳过"的步骤不得省略。AI 视为在逐一执行命令，而非阅读参考。若无法完成某一步（如工具不可用），必须向用户说明并等待指示，不可自行跳过。
 
 ## 文档地图
 
