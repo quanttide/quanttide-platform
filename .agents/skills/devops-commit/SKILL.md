@@ -58,19 +58,14 @@ git add -A
 git commit -m "<type>: <description>"
 ```
 
-### 4. 确认
+### 4. 确认并推送
 
 ```bash
 git status
-```
-
-确认提交成功，当前分支应领先 origin/main n 个提交。
-
-### 5. 推送（如需）
-
-```bash
 git push
 ```
+
+确认提交成功并推送到远端。除非用户明确说"只提交不推"，否则默认推送。
 
 ## 子模块提交
 
