@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## [0.3.2] - 2026-05-04
+
+Skill 约束强化与 qtcloud-write 子模块功能交付。
+
+### Added
+- devops-release SKILL 硬约束：不执行预检查禁止发布
+- AGENTS.md 执行规则：调用 Skill 必须逐条执行 SKILL.md 工作流
+- qtcloud-write: Provider API（文章叙事分析 + 风格对比）
+- qtcloud-write: Studio Flutter Web 客户端（全平台支持）
+- qtcloud-write: 端到端集成测试（真实 Provider + Flutter 客户端）
+- qtcloud-write: scripts/run-tests.sh 测试脚本
+- qtcloud-write: 子模块独立 CHANGELOG（provider/、studio/）
+
+### Changed
+- devops-release SKILL 重写 description，强调必须先写 CHANGELOG 再打 tag
+
+### Chore
+- 同步 qtcloud-write 子模块（v0.1.0-alpha.1 发布：provider + studio）
+
 ## [0.3.1] - 2026-04-30
 
 ADD 文档整合与厂商解绑。
