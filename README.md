@@ -5,7 +5,7 @@
 ```
 quanttide-platform/
 ├── apps/              → 应用模块
-├── infra/             → 系统级基础设施（Google 单仓规范）
+├── manifests/         → 系统声明配置
 └── docs/              → 文档
 ```
 
@@ -30,16 +30,15 @@ quanttide-platform/
 | qtclass | 课堂服务 | 待开发 |
 | qtcloud-knowl | 知识云 | 探索期 |
 
-## 基础设施
+## 系统声明
 
-`infra/` 管理系统级共享资源，与 `apps/` 中的应用模块一一对应但职责分离。
+`manifests/` 声明系统级共享资源，与 `apps/` 中的应用模块一一对应但职责分离。
 
 ```
-infra/
+manifests/
 └── terraform/         → Terraform 配置（OpenTofu 兼容）
-    ├── environments/  → 环境变量文件（dev / staging / prod）
-    └── modules/       → 可复用模块
-└── kubernetes/        → 集群部署清单
+    └── templates/     → 配置文件模板
+└── kubernetes/        → 集群部署清单（预留）
     ├── overlays/      → 环境差异覆盖
     └── base/          → 基准配置
 └── docker/            → 本地开发编排（预留）

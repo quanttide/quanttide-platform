@@ -1,0 +1,15 @@
+storage "file" {
+  path = "${data_dir}"
+}
+
+listener "tcp" {
+  address     = "${bind_ip}:${bind_port}"
+  tls_disable = ${tls_disable}
+}
+
+ui = true
+
+audit "file" {
+  path    = "${logs_dir}/audit.log"
+  format  = "json"
+}
