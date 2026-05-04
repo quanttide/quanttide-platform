@@ -1,17 +1,12 @@
-# quanttide-platform
-
-量潮应用系统主仓库。
+# 量潮工作平台
 
 ## 仓库结构
 
 ```
 quanttide-platform/
-├── apps/qtcloud/       → qtcloud 产品线主仓库
-├── apps/qtadmin/       → qtadmin 管理后台
-├── apps/qtdata/        → qtdata 数据服务
-├── apps/qtclass/      → qtclass 课堂服务
-├── apps/qtcloud-*     → 独立产品模块
-└── apps/qtcloud-knowl → 知识云
+├── apps/              → 应用模块
+├── infra/             → 系统级基础设施（Google 单仓规范）
+└── docs/              → 文档
 ```
 
 → [产品边界说明](docs/index.md)
@@ -35,6 +30,20 @@ quanttide-platform/
 | qtclass | 课堂服务 | 待开发 |
 | qtcloud-knowl | 知识云 | 探索期 |
 
-## 快速链接
+## 基础设施
 
-- [CHANGELOG](CHANGELOG.md)
+`infra/` 管理系统级共享资源，与 `apps/` 中的应用模块一一对应但职责分离。
+
+```
+infra/
+└── terraform/         → Terraform 配置（OpenTofu 兼容）
+    ├── environments/  → 环境变量文件（dev / staging / prod）
+    └── modules/       → 可复用模块
+└── kubernetes/        → 集群部署清单
+    ├── overlays/      → 环境差异覆盖
+    └── base/          → 基准配置
+└── docker/            → 本地开发编排（预留）
+```
+
+- 每类工具一层（`terraform/`、`kubernetes/`、`docker/`），不跨层混合
+- 多环境差异用变量文件区分，不复制目录
