@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## [0.4.0] - 2026-05-04
+
+仓库结构定型为 apps/manifests/docs 三级，确立开发者视角的声明式配置目录哲学。
+
+### Added
+- manifests/ 目录骨架（terraform/kubernetes/docker）
+- manifests/terraform/vault.tf — Vault 本地部署配置模板
+
+### Changed
+- README 重构为 apps/manifests/docs 三级结构，标注 Google 单仓规范
+- `infra/` → `manifests/` 重命名（开发者视角，声明式而非运维式）
+
+### Chore
+- 更新 qtcloud-write 子模块（config 重构为 env-based，移除 Vault 依赖）
+
 ## [0.3.2] - 2026-05-04
 
 Skill 约束强化与 qtcloud-write 子模块功能交付。
