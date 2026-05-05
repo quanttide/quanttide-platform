@@ -86,6 +86,8 @@ jobs:
 
 ### 4. 启用 GitHub Pages
 
+**必须在推送之前执行**，否则第一次 deploy workflow 触发时 Pages 尚未开启，部署会失败且浪费一次运行。
+
 ```bash
 gh api repos/<owner>/<repo>/pages -X POST -f build_type=workflow
 ```
@@ -115,6 +117,7 @@ gh run view <run-id> --log 2>&1 | grep "Reported success"
 | SPA 路由 404 | Remix SPA 的客户端路由无 fallback | `cp index.html 404.html` |
 | checkout 拉子模块失败 | 主仓库子模块多且部分不可访问 | 移除 `submodules: recursive` |
 | 本机 curl 返回 000 | 网络环境阻断 GitHub Pages | Actions 日志确认 `Reported success!` 即可 |
+| 首次 push 后 deploy 失败 | Pages 未在推送前启用 | 先 `gh api .../pages -X POST`，再 trigger workflow |
 
 ## 经验记录
 
