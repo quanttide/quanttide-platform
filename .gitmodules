@@ -79,6 +79,7 @@
 [submodule "apps/qtcloud-knowl"]
 	path = apps/qtcloud-knowl
 	url = https://github.com/quanttide/qtcloud-knowl
+	branch = main
 [submodule "apps/qtcloud-growth"]
 	path = apps/qtcloud-growth
 	url = https://github.com/quanttide/qtcloud-growth.git
