@@ -85,3 +85,6 @@
 [submodule "apps/qtweb"]
 	path = apps/qtweb
 	url = https://github.com/quanttide/qtweb.git
+[submodule "apps/qtconsult"]
+	path = apps/qtconsult
+	url = https://github.com/quanttide/qtconsult.git
