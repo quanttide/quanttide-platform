@@ -1,106 +1,162 @@
-# Skill: product-studio
+---
+name: product-studio
+description: Flutter Studio 客户端开发流程。从需求到发布，覆盖项目初始化、数据模型、UI 开发、构建、录制演示的完整工作流。
+---
 
-量潮产品客户端（Flutter Studio）研发经验总结。
+# product-studio
 
-## 项目定位
+Flutter Studio 客户端开发流程。
 
-`qtconsult-studio` 和 `qtadmin-studio` 是量潮产品的 Flutter 桌面客户端，面向管理层/咨询顾问，以看板形式聚合信息。非通用移动端 App，而是**桌面优先**的管理工具。
+## 参考技能
 
-## 架构模式
+- devops-commit: 提交代码变更
 
-### 技术栈
-- **状态管理**: Provider + ChangeNotifier
-- **数据源**: JSON 资产文件（`assets/`），客户端直接加载渲染，无需后端
-- **数据模型**: 手写 `fromJson` 工厂 + `copyWith`（不用 freezed 代码生成）
-- **布局**: LayoutBuilder 做响应式判断，桌面端 Row 多栏，移动端单列流式
+## 工作流
 
-### 项目结构
+### 1. 初始化 Flutter 项目
+
+```bash
+flutter create --project-name <name> --org com.quanttide --platforms android,ios,web,macos,linux <path>
+```
+
+必须的参数：
+- `--project-name`: 包名，也是 Linux 产物名（如 `qtconsult_studio` → 产物 `qtconsult-studio`）
+- `--org`: Android 包名前缀
+- `--platforms`: 目标平台列表
+
+### 2. 配置 pubspec.yaml
+
+```yaml
+name: qtconsult_studio
+description: <中文描述>
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.5
+
+flutter:
+  assets:
+    - assets/<data>.json
+```
+
+必须添加的依赖：
+- `provider`：状态管理
+- `assets/`：数据源 JSON 文件
+
+### 3. 搭建目录结构
+
 ```
 lib/
-  main.dart                  # 入口，数据加载，Provider 注册
-  models/                    # 数据模型 + 枚举 + 视觉工具函数
-  services/                  # JSON 加载器 + ChangeNotifier 状态
-  screens/                   # 页面级组件（组装各栏）
-  widgets/                   # 栏级组件 + 卡片组件
+  main.dart             # 入口 + Provider 初始化
+  models/               # 数据模型
+  services/             # JSON 加载器 + ChangeNotifier
+  screens/              # 页面级组件
+  widgets/              # 可复用 UI 组件
 assets/
-  *.json                     # 模拟数据源
+  <data>.json           # 模拟数据
+scripts/
+  run-studio-linux.sh   # 构建运行脚本
+  record-studio-linux.sh # 录制演示视频
 ```
 
-## OODA 看板设计经验
+### 4. 设计数据模型
 
-### 四栏布局（调研 · 分析 · 决策 · 执行）
+每条模型必须包含：
+- `const` 构造函数
+- `factory fromJson(Map<String, dynamic>)` 工厂方法
+- `copyWith` 方法（可选）
+- 关联的枚举类型
+
+### 5. 开发 OODA 四栏看板
+
+布局结构：
 
 ```
 调研 · Observe  分析 · Orient  决策 · Decide  执行 · Act
 ```
 
-- 宽高比：调研 1.4 / 分析 1.0 / 决策 1.2 / 执行 0.4
-- 各栏独立纵向滚动
-- 桌面端：`Row` + `SizedBox` 定宽
-- 移动端：`SingleChildScrollView` + `Column` 堆叠
+列宽比例：调研 1.4 / 分析 1.0 / 决策 1.2 / 执行 0.4
 
-### 调研栏：业务需求与技术现实并列
+调研栏特殊要求：业务理想（左半区）与现实状况（右半区）**左右并列**，不同底色区分，各自独立滚动。
 
-- 左右两半：左"业务理想"，右"现实状况"
-- 不同底色区分（白底 vs 浅灰底），便于直观对比 gap
-- 各自独立纵向滚动
-- 每张卡片：标题 + 1-2 行正文 + 来源 + 确认状态 + 勾选框
+信息密度规则：
+- 正文 ≤ 2 行 (`maxLines: 2`)
+- 标题简明，去掉冗余前缀
+- 卡片 padding 14-16px，间距 10-12px
+- 标题 14px，正文 13px，meta 12px
 
-### 信息密度控制（关键经验）
+### 6. 修改应用名称
 
-| 规则 | 说明 |
-|------|------|
-| 正文 ≤ 2 行 | `maxLines: 2` + `TextOverflow.ellipsis` |
-| 标题 ≤ 8 字 | 去掉 "模拟 · " 等冗余前缀 |
-| 间距充足 | card padding 14-16px，gap 10-12px，行高 1.6 |
-| 字号偏大 | 标题 14px，正文 13px，meta 12px |
-| 操作元素醒目 | checkbox 22x22px，progress bar 4px 高 |
+**必须执行，不可跳过**
 
-### 决策栏：方案卡片
+Flutter 默认用项目目录名作为显示名称，需手动修改以下文件：
 
-- 每张卡片：名称 + 优先级标签 + 优势 + 概要 + 资源 + 关键假设
-- 底部：勾选框"倾向本方案" + 文本输入框（填顾虑/条件）
-- 选中态：深色边框 + 浅灰底色
+| 平台 | 文件 | 修改内容 |
+|------|------|---------|
+| Linux | `linux/runner/my_application.cc` | `gtk_header_bar_set_title(header_bar, "量潮咨询")` 和 `gtk_window_set_title(window, "量潮咨询")` |
+| Android | `android/app/src/main/AndroidManifest.xml` | `android:label="量潮咨询"` |
+| iOS | `ios/Runner/Info.plist` | `CFBundleDisplayName` 和 `CFBundleName` 改为中文名 |
 
-### 执行栏：任务卡片
-
-- 状态色：待开始（灰）/ 进行中（深灰边框）/ 已完成（深色）/ 受阻（虚线）
-- 进度条：底部 4px 高
-- 元信息紧凑排列
-
-## 命名规范
-
-### 应用名称
-修改以下位置（Flutter 默认用项目目录名 "studio"，需替换为中文名）：
-
-| 平台 | 文件 | 键/行 |
-|------|------|-------|
-| Linux | `linux/runner/my_application.cc` | `gtk_header_bar_set_title` + `gtk_window_set_title` |
-| Android | `android/app/src/main/AndroidManifest.xml` | `android:label` |
-| iOS | `ios/Runner/Info.plist` | `CFBundleDisplayName` + `CFBundleName` |
-
-### 打包产物名
-`pubspec.yaml` 的 `name` 字段决定 Dart 包名和 Linux 构建产物名：
-- `name: qtconsult_studio` → 产物 `build/linux/x64/release/bundle/qtconsult-studio`
-- 若项目目录名为 `studio`，产物名为 `studio`（不推荐，与包名不一致）
-
-## 录制演示视频
-
-使用 `scripts/record-studio-linux.sh`：
+### 7. 验证构建
 
 ```bash
-# 构建
-cd src/studio && flutter build linux
-
-# 录制（自动启动 App → 调整窗口 → 交互 → 结束）
-bash scripts/record-studio-linux.sh
+cd src/<project>
+dart analyze lib/
+flutter build linux
 ```
 
-依赖：`xdotool` + `ffmpeg`。坐标基于 1440×900 窗口，如需调整需同步修改 `click` 坐标。
+必须满足：
+- `dart analyze lib/` 零报错
+- `flutter build linux` 构建成功
 
-## 常见问题
+### 8. 创建录制脚本
 
-- **dart analyze 零警告**：提交前必须运行
-- **JSON 数据变更后需重跑 `flutter build`**：assets 不会热重载
-- **窗口标题搜不到**：检查 `my_application.cc` 中的字符串，中文需用 UTF-8
-- **录制时 BadWindow 错误**：xdotool windowsize 在某些 WM 下失效，加 `2>/dev/null || true`
+创建 `scripts/record-studio-linux.sh`：
+
+```bash
+# 核心流程
+cleanup() { ... }
+trap cleanup EXIT
+
+# 启动 App
+"$STUDIO_BIN" &
+sleep 4
+
+# 查找窗口
+WID=$(xdotool search --name "量潮咨询" 2>/dev/null | head -1)
+
+# 调整窗口
+xdotool windowsize "$WID" 1440 900
+
+# 录制
+ffmpeg -f x11grab -video_size "${WIDTH}x${HEIGHT}" \
+  -i ":0.0+${X},${Y}" -framerate 30 \
+  -c:v libx264 -preset ultrafast -crf 18 "$VIDEO_OUT"
+
+# 鼠标交互
+xdotool mousemove --window "$WID" <X> <Y> click 1
+```
+
+依赖：`xdotool`、`ffmpeg`。
+
+### 9. 提交流程
+
+遵循 devops-commit 规范，提交类型：
+- `feat`: 新功能
+- `fix`: 修复
+- `chore`: 构建/配置变更
+- `docs`: 文档
+
+子模块提交流程：
+
+```bash
+# 子模块内
+cd apps/<submodule>
+git add -A && git commit -m "feat: <描述>" && git push
+
+# 主仓库
+cd ../..
+git add apps/<submodule>
+git commit -m "chore: update <submodule> submodule (<描述>)" && git push
+```
