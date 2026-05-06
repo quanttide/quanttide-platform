@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## [0.4.1] - 2026-05-06
+
+### Added
+- apps/qtconsult — 量潮咨询子模块，含 .gitignore、业务数据目录 data/、README
+
+### Changed
+- apps/qtadmin 更新至 v0.0.3（含 studio/v0.0.2）
+- apps/qtcloud-write、qtcloud-product、qtcloud-infra 子模块更新
+
+### Docs
+- docs-deploy skill 新增 pages-before-push 顺序约束与部署经验记录
+
 ## [0.4.0] - 2026-05-04
 
 仓库结构定型为 apps/manifests/docs 三级，确立开发者视角的声明式配置目录哲学。
