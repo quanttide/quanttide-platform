@@ -5,6 +5,9 @@ project:
   description: 量潮工作平台（quanttide-platform）— 主仓库文档
   toc:
     - file: index.md
+    - title: BRD（问题领域边界）
+      children:
+        - file: brd/index.md
     - title: PRD（产品组合策略）
       children:
         - file: prd/index.md
