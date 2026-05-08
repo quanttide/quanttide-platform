@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.4.2] - 2026-05-08
+
+### Chore
+
+- apps/qtcloud-asset: 新增 CI/CD（Provider 镜像构建 + Studio Flutter Web 部署）
+- apps/qtcloud-asset: IaC 重构（VPC/OSS/Trigger 模块 → 直接资源管理）
+- apps/qtcloud-asset: Dockerfile 简化，Provider FastAPI 应用与 pyproject.toml 完善
+
 ## [0.4.1] - 2026-05-06
 
 ### Added
