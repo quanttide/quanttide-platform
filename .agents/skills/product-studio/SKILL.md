@@ -77,6 +77,62 @@ test/
 
 数据源按来源类型分（base/file/bundle），不按模型分。`theme.dart` 和 `constants.dart` 直接放在 `lib/` 根目录。
 
+#### 数据层架构
+
+替代原始方案以规避以下问题：
+
+- **不用每模型一个 Loader** — 6 个 loader 大量重复，新增模型需完整复制粘贴
+- **不用散落 try-catch 处理异常** — 无统一错误类型，调用方遗漏处理导致运行时崩溃
+- **不用 FileSource 为唯一实现** — Web 无 `dart:io`，直接文件 I/O 导致平台锁死
+
+改用三层抽象：
+
+```dart
+sealed class DataResult<T> { const DataResult(); }
+class DataSuccess<T> extends DataResult<T> {
+  final T data;
+  const DataSuccess(this.data);
+}
+class DataError<T> extends DataResult<T> {
+  final String message; final Object? error;
+  const DataError(this.message, {this.error});
+}
+
+abstract class DataSource {
+  Future<String> load(String path);
+}
+
+class DataLoader<T> {
+  final DataSource source;
+  final String path;
+  final T Function(Map<String, dynamic>) fromJson;
+  const DataLoader(this.source, this.path, this.fromJson);
+  Future<DataResult<T>> load() async { /* ... */ }
+}
+```
+
+默认使用 `BundleSource`（基于 `rootBundle`，跨所有平台包括 Web），避免 `FileSource`（依赖 `dart:io`，Web 不可用）。
+
+#### 路由架构
+
+替代原始方案以规避以下问题：
+
+- **不用 `buildScreen` 字符串 switch** — routeId→screen 双重映射，新增页面需改两处，遗漏则不生效
+- **不用 ShellRoute 内嵌 AppState 判断** — 每个子路由手动检查权限，新增路由易遗漏导航守卫
+- **不用各自拆解 raw JSON 传参** — 6 处重复 `json['params']` 拆解逻辑，字段名不一致导致隐蔽 bug
+
+改用以下模式：
+
+- **redirect-based GoRouter** — `redirect` 回调统一管理 AppLifecycle 和权限校验
+- **`Map<String, RouteConfig>` 路由表** — 自包含，消除双重映射
+- **`ScreenContext` 单 source 传参** — builder callback 统一解析 screen 参数
+
+```dart
+const routeConfigs = <String, RouteConfig>{
+  'projects': RouteConfig(path: '/projects', title: '项目'),
+};
+```
+
 ### 4. 设计数据模型
 
 使用 freezed 生成 `fromJson` / `copyWith` / `==` / `hashCode`。
@@ -230,6 +286,8 @@ flutter build linux
 - `dart analyze lib/ test/` 零报错
 - `flutter test` 全部通过
 - `flutter build linux` 构建成功
+
+> **注意**：pre-commit hook 仅运行 `dart analyze`，不包含 `flutter test`（非交互式 shell 中不稳定）。本地开发仍需以完整验证为目标。
 
 ### 8. 提交流程
 
