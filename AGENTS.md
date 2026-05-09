@@ -20,7 +20,8 @@ Use the skill tool to load a skill when a task matches its description.
 
 | 文档 | 认知角色 | 内容概要 |
 |------|----------|----------|
-| [CONTRIBUTING.md](CONTRIBUTING.md) | 程序记忆 | 设计原则、版本策略、检查清单 |
+| [docs/prd/index.md](docs/prd/index.md) | 程序记忆 | 设计原则、版本策略 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | 程序记忆 | 目录结构、apps/packages 约定 |
 | [README.md](README.md) | 陈述记忆 | 项目定位、仓库结构、产品清单 |
 | [ROADMAP.md](ROADMAP.md) | 方向 | 当前阶段目标、待办事项、优先级 |
 | [CHANGELOG.md](CHANGELOG.md) | 记忆 | 版本变更历史、发布记录 |
@@ -28,7 +29,7 @@ Use the skill tool to load a skill when a task matches its description.
 
 ## AI 执行指引
 
-开始工作前，先阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 的设计原则与项目约定。
+开始工作前，先阅读 [docs/prd/index.md](docs/prd/index.md) 的设计原则与 [CONTRIBUTING.md](CONTRIBUTING.md) 的项目约定。
 
 过往经验表明 AI 最容易在这些地方犯错，请特别注意：
 
@@ -47,7 +48,8 @@ Use the skill tool to load a skill when a task matches its description.
 |------|---------|
 | [CHANGELOG.md](CHANGELOG.md) | 对用户可见的变更（新功能、重构、修复） |
 | [ROADMAP.md](ROADMAP.md) | 方向调整、阶段性成果达成 |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | 工作方式或原则发生变化 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | 目录结构或 packages/apps 约定变化 |
+| [docs/prd/index.md](docs/prd/index.md) | 工作方式或原则发生变化 |
 | [README.md](README.md) | 产品功能或仓库结构变化 |
 | [AGENTS.md](AGENTS.md) | AI 工作经验增加 |
 

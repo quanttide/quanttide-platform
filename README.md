@@ -4,14 +4,15 @@
 
 ```
 quanttide-platform/
-├── apps/              → 应用模块
+├── apps/              → 产品/应用（子模块）
+├── packages/          → 跨应用 SDK/工具包（子模块）
 ├── manifests/         → 系统声明配置
 └── docs/              → 文档
 ```
 
 → [产品边界说明](docs/index.md)
 
-版本策略、设计原则等项目约定见 [CONTRIBUTING.md](CONTRIBUTING.md#项目约定)。
+版本策略、设计原则见 [docs/prd/index.md](docs/prd/index.md)，目录结构与 packages/apps 约定见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 产品清单
 
