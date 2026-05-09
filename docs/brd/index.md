@@ -104,4 +104,4 @@
 |---------|------|--------------|
 | 战略管理 | 战略层（探索与创造） | `docs/prd/strategy/` |
 | 创业管理 | 战术层（执行与运营） | `docs/prd/entrepreneurship/` |
-| 跨领域协作 | 集成层（互通与编排） | `docs/prd/qtcloud.md` |
+| 跨领域协作 | 集成层（互通与编排） | `apps/qtcloud/docs/prd/index.md` |
