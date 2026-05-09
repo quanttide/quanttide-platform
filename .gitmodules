@@ -92,3 +92,6 @@
 [submodule "apps/qtcloud-project"]
 	path = apps/qtcloud-project
 	url = https://github.com/quanttide/qtcloud-project
+[submodule "packages/quanttide-data-toolkit"]
+	path = packages/quanttide-data-toolkit
+	url = https://github.com/quanttide/quanttide-data-toolkit.git
