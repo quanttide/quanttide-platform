@@ -95,6 +95,3 @@
 [submodule "packages/quanttide-data-toolkit"]
 	path = packages/quanttide-data-toolkit
 	url = https://github.com/quanttide/quanttide-data-toolkit.git
-[submodule "packages/quanttide-project-toolkit"]
-	path = packages/quanttide-project-toolkit
-	url = https://github.com/quanttide/quanttide-project-toolkit.git
