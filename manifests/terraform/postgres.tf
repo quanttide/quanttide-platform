@@ -49,7 +49,6 @@ resource "local_file" "postgres_backup" {
   content = jsonencode({
     user     = local.db_user
     password = local.db_password
-    db       = local.db_name
     port     = local.db_port
   })
 }
