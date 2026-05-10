@@ -35,12 +35,6 @@ variable "logs_dir" {
 
 # --- Stack Auth ---
 
-variable "stack_server_image" {
-  description = "Stack Auth 服务端 Docker 镜像（默认使用本地构建的镜像）"
-  type        = string
-  default     = null
-}
-
 variable "stack_server_secret" {
   description = "Stack Auth 服务端签名密钥（留空自动生成）"
   type        = string

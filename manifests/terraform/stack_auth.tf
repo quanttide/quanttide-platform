@@ -7,7 +7,6 @@ locals {
   api_port       = 8102
   dashboard_port = 8101
   server_secret  = var.stack_server_secret != null ? var.stack_server_secret : random_password.stack_secret.result
-  server_image   = var.stack_server_image != null ? var.stack_server_image : "stack-auth-server:latest"
 }
 
 resource "random_password" "stack_db" {
@@ -30,18 +29,5 @@ resource "local_file" "stack_auth_env" {
     api_port        = local.api_port
     dashboard_port  = local.dashboard_port
     server_secret   = local.server_secret
-  })
-}
-
-resource "local_file" "stack_auth_compose" {
-  filename = "${local.stack_auth_dir}/docker-compose.yml"
-  content  = templatefile("${path.module}/templates/docker-compose.stack-auth.yml.tftpl", {
-    db_port       = local.db_port
-    db_user       = local.db_user
-    db_password   = local.db_password
-    db_name       = local.db_name
-    api_port      = local.api_port
-    dashboard_port = local.dashboard_port
-    server_image  = local.server_image
   })
 }
