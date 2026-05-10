@@ -19,5 +19,19 @@ services:
       timeout: 3s
       retries: 5
 
+  stack-server:
+    image: ${server_image}
+    container_name: stack-auth-server
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:${api_port}:8102"
+      - "127.0.0.1:${dashboard_port}:8101"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 volumes:
   stack-db-data:

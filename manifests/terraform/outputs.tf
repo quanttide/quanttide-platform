@@ -9,7 +9,8 @@ output "stack_db_password" {
   sensitive   = true
 }
 
-output "stack_db_connection" {
-  description = "Stack Auth 数据库连接串（不含密码）"
-  value       = "postgres://${local.db_user}:****@127.0.0.1:${local.db_port}/${local.db_name}"
+output "stack_server_secret" {
+  description = "Stack Auth 服务端签名密钥"
+  value       = local.server_secret
+  sensitive   = true
 }
