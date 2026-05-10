@@ -2,6 +2,8 @@ storage "file" {
   path = "${data_dir}"
 }
 
+disable_mlock = true
+
 listener "tcp" {
   address     = "${bind_ip}:${bind_port}"
   tls_disable = ${tls_disable}

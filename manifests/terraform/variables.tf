@@ -84,3 +84,11 @@ variable "stack_db_port" {
   type        = number
   default     = null
 }
+
+# --- 备份 ---
+
+variable "backup_dir" {
+  description = "备份目录（本地指向 Nutstore，模拟云端 HSM 备份）"
+  type        = string
+  default     = null
+}
