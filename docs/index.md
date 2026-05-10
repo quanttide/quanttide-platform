@@ -11,6 +11,15 @@ quanttide-platform (主仓库)
 └── apps/qtcloud-*  → quanttide/qtcloud-* (独立产品)
 ```
 
+## 文档类型
+
+| 目录 | 角色 |
+|------|------|
+| `docs/add/` | 架构决策（why、约束、原则） |
+| `docs/dev/` | 开发操作指南（how、命令、代码示例） |
+| `docs/brd/` | 业务需求 |
+| `docs/prd/` | 产品需求 |
+
 ## 设计逻辑
 
 ### 1. 组合与被组合

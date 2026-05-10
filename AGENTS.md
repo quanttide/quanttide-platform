@@ -25,7 +25,7 @@ Use the skill tool to load a skill when a task matches its description.
 | [README.md](README.md) | 陈述记忆 | 项目定位、仓库结构、产品清单 |
 | [ROADMAP.md](ROADMAP.md) | 方向 | 当前阶段目标、待办事项、优先级 |
 | [CHANGELOG.md](CHANGELOG.md) | 记忆 | 版本变更历史、发布记录 |
-| [docs/index.md](docs/index.md) | 架构 | 仓库层级关系、边界文档索引 |
+| [docs/index.md](docs/index.md) | 架构 | 仓库层级关系、文档类型（add/dev/brd/prd） |
 
 ## AI 执行指引
 
