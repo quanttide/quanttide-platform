@@ -5,15 +5,15 @@ output "stack_auth_dir" {
 
 output "stack_auth_start_command" {
   description = "Stack Auth 启动命令"
-  value       = "cd ~/stack-auth && ~/.stack-auth/start.sh pnpm dev"
+  value       = "cd ${local.stack_target_dir} && ~/.stack-auth/start.sh pnpm dev"
 }
 
 output "stack_setup_commands" {
   description = "首次部署步骤"
   value = <<-EOT
-    sudo bash ~/.local/bin/setup-postgres.sh
+    sudo bash ~/.local/bin/bootstrap-postgres.sh
     bash ~/.local/bin/clone-stack-auth.sh
-    cd ~/stack-auth && ~/.stack-auth/start.sh pnpm dev
+    cd ${local.stack_target_dir} && ~/.stack-auth/start.sh pnpm dev
   EOT
 }
 

@@ -80,21 +80,21 @@ variable "stack_dashboard_port" {
 }
 
 variable "stack_db_port" {
-  description = "Stack Auth 数据库映射端口"
+  description = "PostgreSQL 端口"
   type        = number
-  default     = null
+  default     = null  # 默认 5432
 }
 
 variable "stack_repo_url" {
   description = "Stack Auth 源码仓库地址"
   type        = string
-  default     = "https://github.com/stackframe/stack-auth.git"
+  default     = "https://github.com/stack-auth/stack-auth.git"
 }
 
 variable "stack_target_dir" {
   description = "Stack Auth 源码本地目录"
   type        = string
-  default     = null
+  default     = null  # 需传绝对路径，如 /home/user/repos/stack-auth
 }
 
 # --- 备份 ---

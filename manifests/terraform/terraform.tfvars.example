@@ -7,6 +7,7 @@
 #
 # 备份
 # backup_dir = "/home/your-username/Nutstore Files/secrets"
+
 #
 # Stack Auth
 # stack_vault_mount = "secret"
@@ -15,5 +16,5 @@
 # stack_db_port = 8128
 # stack_db_user = "postgres"
 # stack_db_name = "stackframe"
-# stack_repo_url = "https://github.com/stackframe/stack-auth.git"
+# stack_repo_url = "https://github.com/stack-auth/stack-auth.git"
 # stack_target_dir = "/home/your-username/stack-auth"
