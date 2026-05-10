@@ -28,4 +28,4 @@
 
 ## 身份服务
 
-采用自托管身份方案（stack-auth）作为基础设施，提供 OAuth/OIDC 认证、用户管理和角色权限。详见 [身份云](../apps/auth.md)。
+采用自托管身份方案作为基础设施，提供 OAuth/OIDC 认证、用户管理和角色权限。底层实现按阶段演进：初期 Stack Auth（速度），中期 SuperTokens（稳定性），远期 Authlib（完全控制）。详见 [身份云](../apps/auth.md)。
