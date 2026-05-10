@@ -32,3 +32,56 @@ variable "logs_dir" {
   type        = string
   default     = null
 }
+
+# --- Stack Auth ---
+
+variable "stack_db_user" {
+  description = "Stack Auth 数据库用户"
+  type        = string
+  default     = null
+}
+
+variable "stack_db_password" {
+  description = "Stack Auth 数据库密码（留空自动生成）"
+  type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "stack_db_name" {
+  description = "Stack Auth 数据库名"
+  type        = string
+  default     = null
+}
+
+variable "stack_db_port" {
+  description = "Stack Auth 数据库映射端口"
+  type        = number
+  default     = null
+}
+
+variable "stack_api_port" {
+  description = "Stack Auth API 端口"
+  type        = number
+  default     = null
+}
+
+variable "stack_dashboard_port" {
+  description = "Stack Auth Dashboard 端口"
+  type        = number
+  default     = null
+}
+
+variable "stack_secret_key" {
+  description = "Stack Auth 服务端密钥（留空自动生成）"
+  type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "stack_admin_key" {
+  description = "Stack Auth 管理员 API Key（留空自动生成）"
+  type        = string
+  default     = null
+  sensitive   = true
+}
