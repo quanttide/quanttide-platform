@@ -1,0 +1,17 @@
+#!/bin/bash
+# Stack Auth 启动包装脚本 — 由 Terraform 自动生成
+# 从 Vault 读取密钥注入环境变量，然后执行传入的命令
+# 用法: path/to/start.sh pnpm dev
+
+set -euo pipefail
+
+export STACK_SERVER_SECRET=$(vault kv get -mount=${vault_mount} -field=value stack-auth/STACK_SERVER_SECRET)
+export STACK_DATABASE_CONNECTION_STRING=$(vault kv get -mount=${vault_mount} -field=value stack-auth/STACK_DATABASE_CONNECTION_STRING)
+export NEXT_PUBLIC_STACK_API_URL=http://127.0.0.1:${api_port}
+export NEXT_PUBLIC_STACK_DASHBOARD_URL=http://127.0.0.1:${dashboard_port}
+export STACK_SEED_INTERNAL_PROJECT_ALLOW_LOCALHOST=true
+export STACK_SEED_INTERNAL_PROJECT_SIGN_UP_ENABLED=true
+export STACK_RUN_MIGRATIONS=true
+export STACK_RUN_SEED_SCRIPT=true
+
+exec "$@"

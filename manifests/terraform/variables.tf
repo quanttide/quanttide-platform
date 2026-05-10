@@ -61,6 +61,12 @@ variable "stack_db_name" {
   default     = null
 }
 
+variable "stack_vault_mount" {
+  description = "Vault KV secrets engine 挂载路径"
+  type        = string
+  default     = null
+}
+
 variable "stack_db_port" {
   description = "Stack Auth 数据库映射端口"
   type        = number
