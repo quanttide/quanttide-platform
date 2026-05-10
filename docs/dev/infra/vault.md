@@ -1,6 +1,8 @@
 # Vault
 
-## 密钥命名
+## 维护
+
+### 路径命名
 
 路径按来源分两类：
 
@@ -9,19 +11,32 @@
 | 私有 | `secret/<app>/` | 仅该应用 | `secret/stack-auth/` |
 | 公共 | `secret/<provider>/` | 多个应用共享 | `secret/deepseek/` |
 
+## 使用
 
-**不要**让 Vault key 名 = Python 字段名。它们是不同层的命名：
+### API 路径差异
+
+KV v2 引擎强制 API 路径带 `/data/`：
+
+| 场景 | 写法 | 例子 |
+|------|------|------|
+| CLI | `secret/<name>` | `vault kv get secret/deepseek` |
+| 代码 | `secret/data/<name>` | `"vault_secret_path": "secret/data/deepseek"` |
+
+### 命名风格
+
+**不要**让 Vault key 名 = 应用字段名。它们是不同层的命名：
 
 | 层级 | 命名原则 | 例子 |
 |------|---------|------|
 | Vault 路径 | 标识提供商/范围 | `secret/deepseek` |
 | Vault key | 简短自描述，路径已做区隔 | `api_key`、`base_url` |
-| Python 字段 | 遵循应用自有命名 | `llm_api_key` |
+| 应用字段 | 遵循应用自有命名 | `llm_api_key` |
 
 Vault key 只需在路径范围内自描述即可，不要跟应用字段名强行一致。
 
+## 语言与框架
 
-## Python 应用接入
+### Python 应用接入
 
 依赖：
 
