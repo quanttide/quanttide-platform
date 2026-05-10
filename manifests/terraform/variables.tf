@@ -35,6 +35,23 @@ variable "logs_dir" {
 
 # --- Stack Auth ---
 
+variable "stack_project_id" {
+  description = "Stack Auth 项目 ID（来自 https://app.stack-auth.com）"
+  type        = string
+}
+
+variable "stack_client_key" {
+  description = "Stack Auth 客户端密钥（来自 https://app.stack-auth.com）"
+  type        = string
+  sensitive   = true
+}
+
+variable "stack_secret_key" {
+  description = "Stack Auth 服务端密钥（来自 https://app.stack-auth.com）"
+  type        = string
+  sensitive   = true
+}
+
 variable "stack_db_user" {
   description = "Stack Auth 数据库用户"
   type        = string
@@ -58,36 +75,4 @@ variable "stack_db_port" {
   description = "Stack Auth 数据库映射端口"
   type        = number
   default     = null
-}
-
-variable "stack_api_port" {
-  description = "Stack Auth API 端口"
-  type        = number
-  default     = null
-}
-
-variable "stack_dashboard_port" {
-  description = "Stack Auth Dashboard 端口"
-  type        = number
-  default     = null
-}
-
-variable "stack_image_tag" {
-  description = "Stack Auth Docker 镜像标签"
-  type        = string
-  default     = "latest"
-}
-
-variable "stack_secret_key" {
-  description = "Stack Auth 服务端密钥（留空自动生成）"
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
-variable "stack_admin_key" {
-  description = "Stack Auth 管理员 API Key（留空自动生成）"
-  type        = string
-  default     = null
-  sensitive   = true
 }
