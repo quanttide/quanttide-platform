@@ -1,0 +1,14 @@
+# Terraform 变量示例 — 复制为 terraform.tfvars 使用
+# home = "/home/your-username"
+#
+# Vault
+# bind_ip = "127.0.0.1"
+# container_port = 8200
+#
+# Stack Auth
+# stack_vault_mount = "secret"
+# stack_api_port = 8102
+# stack_dashboard_port = 8101
+# stack_db_port = 8128
+# stack_db_user = "postgres"
+# stack_db_name = "stackframe"

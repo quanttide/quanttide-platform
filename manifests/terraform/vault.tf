@@ -26,17 +26,15 @@ locals {
   config_dir    = "${local.vault_basedir}/.vault-data/config"
 }
 
-data "vault_auth_backends" "all" {}
-
 resource "vault_mount" "kv_secret" {
-  path        = "secret"
+  path        = var.stack_vault_mount != null ? var.stack_vault_mount : "secret"
   type        = "kv-v2"
   description = "KV v2 secrets engine managed by terraform"
 }
 
 resource "local_file" "vault_config" {
   filename = "${local.config_dir}/vault.hcl"
-  content  = templatefile("${path.module}/templates/vault.hcl.tftpl", {
+  content = templatefile("${path.module}/templates/vault.hcl.tftpl", {
     bind_ip     = var.bind_ip
     bind_port   = var.container_port
     data_dir    = local.data_dir

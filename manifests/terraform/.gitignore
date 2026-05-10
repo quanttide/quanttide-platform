@@ -6,4 +6,4 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
-.terraform.lock.hcl
+# .terraform.lock.hcl 不应排除，需提交以锁定 provider 版本

@@ -5,8 +5,22 @@
 
 set -euo pipefail
 
-export STACK_SERVER_SECRET=$(vault kv get -mount=${vault_mount} -field=value stack-auth/STACK_SERVER_SECRET)
-export STACK_DATABASE_CONNECTION_STRING=$(vault kv get -mount=${vault_mount} -field=value stack-auth/STACK_DATABASE_CONNECTION_STRING)
+VAULT_MOUNT=${vault_mount}
+
+# 检查 Vault 连通性
+if ! vault status &>/dev/null; then
+  echo "错误: Vault 不可访问。请确保 vault 已启动、unseal，并设置 VAULT_ADDR 和 VAULT_TOKEN。" >&2
+  exit 1
+fi
+
+if ! vault token lookup &>/dev/null; then
+  echo "错误: Vault token 无效或已过期。请重新设置 VAULT_TOKEN。" >&2
+  exit 1
+fi
+
+# 从 Vault 读取密钥
+export STACK_SERVER_SECRET=$(vault kv get -mount="$${VAULT_MOUNT}" -field=value stack-auth/STACK_SERVER_SECRET)
+export STACK_DATABASE_CONNECTION_STRING=$(vault kv get -mount="$${VAULT_MOUNT}" -field=value stack-auth/STACK_DATABASE_CONNECTION_STRING)
 export NEXT_PUBLIC_STACK_API_URL=http://127.0.0.1:${api_port}
 export NEXT_PUBLIC_STACK_DASHBOARD_URL=http://127.0.0.1:${dashboard_port}
 export STACK_SEED_INTERNAL_PROJECT_ALLOW_LOCALHOST=true

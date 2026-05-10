@@ -67,6 +67,18 @@ variable "stack_vault_mount" {
   default     = null
 }
 
+variable "stack_api_port" {
+  description = "Stack Auth API 端口"
+  type        = number
+  default     = null
+}
+
+variable "stack_dashboard_port" {
+  description = "Stack Auth Dashboard 端口"
+  type        = number
+  default     = null
+}
+
 variable "stack_db_port" {
   description = "Stack Auth 数据库映射端口"
   type        = number

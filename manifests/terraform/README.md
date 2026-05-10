@@ -51,6 +51,8 @@ terraform apply -var="home=$HOME"
 |------|------|------|
 | `stack_server_secret` | 自动生成 | 服务端签名密钥（写入 Vault） |
 | `stack_vault_mount` | `secret` | Vault KV 引擎挂载路径 |
+| `stack_api_port` | `8102` | API 端口 |
+| `stack_dashboard_port` | `8101` | Dashboard 端口 |
 | `stack_db_user` | `postgres` | 数据库用户 |
 | `stack_db_password` | 自动生成 | 数据库密码（写入 Vault） |
 | `stack_db_name` | `stackframe` | 数据库名 |
