@@ -37,11 +37,20 @@ terraform 会确保 KV v2 secrets engine 已挂载到 `secret/`。
 
 terraform 将密钥写入 Vault（`secret/stack-auth/`），生成 `~/.stack-auth/start.sh` 启动包装脚本。
 
-```bash
-terraform apply -var="home=$HOME"
-# 密钥写入 Vault，生成 start.sh
+### 首次部署
 
-# 启动 Stack Auth（Vault 注入环境变量）
+```bash
+# 1. 生成所有配置
+terraform apply -var="home=$HOME" -var="stack_target_dir=$HOME/stack-auth"
+
+# 2. 安装 PostgreSQL（需一次 sudo）
+sudo bash ~/.local/bin/setup-postgres.sh
+
+# 3. 克隆源码并安装依赖
+bash ~/.local/bin/clone-stack-auth.sh
+
+# 4. 启动（Vault 注入环境变量）
+cd ~/stack-auth
 ~/.stack-auth/start.sh pnpm dev
 ```
 

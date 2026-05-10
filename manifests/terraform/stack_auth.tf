@@ -50,6 +50,14 @@ resource "local_file" "stack_auth_backup" {
   })
 }
 
+resource "local_file" "clone_stack_auth" {
+  filename = "${var.home}/.local/bin/clone-stack-auth.sh"
+  content = templatefile("${path.module}/templates/clone-stack-auth.sh.tftpl", {
+    repo_url    = var.stack_repo_url
+    target_dir  = var.stack_target_dir
+  })
+}
+
 resource "local_file" "stack_auth_start" {
   filename = "${local.stack_auth_dir}/start.sh"
   content = templatefile("${path.module}/templates/stack-auth-start.sh.tftpl", {

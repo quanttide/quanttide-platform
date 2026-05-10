@@ -1,0 +1,32 @@
+#!/bin/bash
+# PostgreSQL 安装与配置 — 由 Terraform 自动生成
+# 用法: sudo bash setup-postgres.sh
+
+set -euo pipefail
+
+PG_USER=${pg_user}
+PG_PASSWORD=${pg_password}
+PG_DB=${pg_db}
+PG_PORT=${pg_port}
+
+# 安装
+if ! command -v psql &>/dev/null; then
+  apt-get update -qq
+  apt-get install -y -qq postgresql postgresql-client
+fi
+
+# 启动
+pg_ctlcluster "$(pg_lsclusters -h | head -1 | awk '{print $1, $2}')" start 2>/dev/null || true
+
+# 配置密码
+sudo -u postgres psql -c "ALTER USER \"$${PG_USER}\" WITH PASSWORD '$${PG_PASSWORD}';" 2>/dev/null || \
+sudo -u postgres psql -c "CREATE USER \"$${PG_USER}\" WITH PASSWORD '$${PG_PASSWORD}';"
+
+# 创建库
+sudo -u postgres createdb -O "$${PG_USER}" "$${PG_DB}" 2>/dev/null || true
+
+# 更新端口
+sudo -u postgres psql -c "ALTER SYSTEM SET port = $${PG_PORT};"
+pg_ctlcluster "$(pg_lsclusters -h | head -1 | awk '{print $1, $2}')" reload
+
+echo "PostgreSQL 就绪: $${PG_USER}@127.0.0.1:$${PG_PORT}/$${PG_DB}"

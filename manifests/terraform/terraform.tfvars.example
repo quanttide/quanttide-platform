@@ -15,3 +15,5 @@
 # stack_db_port = 8128
 # stack_db_user = "postgres"
 # stack_db_name = "stackframe"
+# stack_repo_url = "https://github.com/stackframe/stack-auth.git"
+# stack_target_dir = "/home/your-username/stack-auth"

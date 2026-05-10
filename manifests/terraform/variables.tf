@@ -85,6 +85,18 @@ variable "stack_db_port" {
   default     = null
 }
 
+variable "stack_repo_url" {
+  description = "Stack Auth 源码仓库地址"
+  type        = string
+  default     = "https://github.com/stackframe/stack-auth.git"
+}
+
+variable "stack_target_dir" {
+  description = "Stack Auth 源码本地目录"
+  type        = string
+  default     = null
+}
+
 # --- 备份 ---
 
 variable "backup_dir" {
