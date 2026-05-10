@@ -25,10 +25,17 @@ terraform apply -var="home=$HOME"
 生成 `~/.stack-auth/` 下的 docker-compose 和环境配置：
 
 ```bash
-terraform apply -var="home=$HOME"            # 自动生成密钥
+# 自动生成所有密钥
+terraform apply -var="home=$HOME"
+
+# 查看生成的密钥（后续 apply 自动从 state 读取，不会重新生成）
+terraform output stack_admin_key
+
+# 指定密钥（可复现）
 terraform apply -var="home=$HOME" \
   -var="stack_secret_key=xxx" \
-  -var="stack_admin_key=xxx"                  # 指定密钥
+  -var="stack_admin_key=xxx" \
+  -var="stack_image_tag=0.9.0"
 
 # 启动
 docker compose -f ~/.stack-auth/docker-compose.yml up -d
@@ -46,3 +53,14 @@ docker compose -f ~/.stack-auth/docker-compose.yml up -d
 | `stack_dashboard_port` | `8101` | Dashboard 端口 |
 | `stack_secret_key` | 自动生成 | 服务端密钥 |
 | `stack_admin_key` | 自动生成 | 管理员 API Key |
+| `stack_image_tag` | `latest` | Docker 镜像标签（上线后应锁定到具体版本） |
+
+### Outputs
+
+自动生成的密钥通过 `terraform output` 查看：
+
+```bash
+terraform output stack_admin_key    # 敏感，显示后需记录
+terraform output stack_db_password  # 敏感
+terraform output stack_auth_dir     # 配置文件路径
+```

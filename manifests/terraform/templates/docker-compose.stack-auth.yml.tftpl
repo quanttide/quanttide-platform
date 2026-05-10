@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  stack-auth-net:
+    driver: bridge
+
 services:
   stack-db:
     image: postgres:16-alpine
@@ -13,19 +17,29 @@ services:
       - "127.0.0.1:${db_port}:5432"
     volumes:
       - stack-db-data:/var/lib/postgresql/data
+    networks:
+      - stack-auth-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${db_user} -d ${db_name}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   stack-api:
-    image: ghcr.io/stack-auth/stack:latest
+    image: ${api_image}
     container_name: stack-auth-api
     restart: unless-stopped
     env_file: .env
     ports:
       - "127.0.0.1:${api_port}:8100"
     depends_on:
-      - stack-db
+      stack-db:
+        condition: service_healthy
+    networks:
+      - stack-auth-net
 
   stack-dashboard:
-    image: ghcr.io/stack-auth/stack-dashboard:latest
+    image: ${dashboard_image}
     container_name: stack-auth-dashboard
     restart: unless-stopped
     environment:
@@ -33,7 +47,10 @@ services:
     ports:
       - "127.0.0.1:${dashboard_port}:8101"
     depends_on:
-      - stack-api
+      stack-api:
+        condition: service_started
+    networks:
+      - stack-auth-net
 
 volumes:
   stack-db-data:

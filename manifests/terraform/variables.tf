@@ -72,6 +72,12 @@ variable "stack_dashboard_port" {
   default     = null
 }
 
+variable "stack_image_tag" {
+  description = "Stack Auth Docker 镜像标签"
+  type        = string
+  default     = "latest"
+}
+
 variable "stack_secret_key" {
   description = "Stack Auth 服务端密钥（留空自动生成）"
   type        = string
