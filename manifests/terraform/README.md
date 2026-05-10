@@ -1,68 +1,60 @@
 # Terraform — 系统基础设施
 
-Terraform 负责生成各组件的本地配置，通过 Vault 注入敏感信息。
+文件按组件划分：
 
-```bash
-export VAULT_ADDR=http://127.0.0.1:8200
-export VAULT_TOKEN=your-root-token
-terraform init
-terraform apply -var="home=$HOME"
+| 文件 | 管理层 | 部署层 |
+|------|--------|--------|
+| `main.tf` | provider 声明 | — |
+| `vault.tf` | `vault_mount.kv_secret` | `local_file.vault_config` |
+| `postgres.tf` | — | 密码生成、建库、备份、连通性验证 |
+| `stack_auth.tf` | — | 密钥写入 Vault、克隆脚本、启动脚本 |
+
+## 依赖
+
+```
+Vault (手动启动, unseal)
+    └→ terraform apply
+        ├→ vault_mount.kv_secret (KV v2 引擎)
+        ├→ random_password.stack_db → vault_kv_secret_v2.stack_auth (密钥入 Vault)
+        ├→ random_password.stack_db → postgres_bootstrap (TCP 建库)
+        └→ local_file.* (配置脚本)
+
+PostgreSQL (手动安装)
+    └→ sudo bootstrap-postgres.sh (设密码, 建库, 一次性)
 ```
 
-## Vault
-
-生成 `~/.vault-data/config/vault.hcl`，用户自行启动：
+## 首次部署
 
 ```bash
+# 1. 启动 Vault
 vault server -config=~/.vault-data/config/vault.hcl
-# 另开终端
-vault operator unseal  # 输入 3 个 unseal key 中的任意一个
-export VAULT_TOKEN=your-root-token
-```
+vault operator unseal
 
-terraform 会确保 KV v2 secrets engine 已挂载到 `secret/`。
+# 2. 手动安装 PostgreSQL
+sudo apt-get install -y postgresql postgresql-client
+sudo bash ~/.local/bin/bootstrap-postgres.sh
 
-### 变量
+# 3. 运行 Terraform
+VAULT_TOKEN=$(cat ~/.vault-token) terraform apply
 
-| 变量 | 默认 | 说明 |
-|------|------|------|
-| `home` | **(必填)** | 用户家目录绝对路径 |
-| `bind_ip` | `127.0.0.1` | 监听 IP |
-| `container_port` | `8200` | 监听端口 |
-| `tls_disable` | `true` | 关闭 TLS |
-| `data_dir` | `null`（派生自 home） | 存储数据目录 |
-| `logs_dir` | `null`（派生自 home） | 审计日志目录 |
-
-## Stack Auth
-
-terraform 将密钥写入 Vault（`secret/stack-auth/`），生成 `~/.stack-auth/start.sh` 启动包装脚本。
-
-### 首次部署
-
-```bash
-# 1. 生成所有配置
-terraform apply -var="home=$HOME" -var="stack_target_dir=$HOME/stack-auth"
-
-# 2. 安装 PostgreSQL（需一次 sudo）
-sudo bash ~/.local/bin/setup-postgres.sh
-
-# 3. 克隆源码并安装依赖
+# 4. 克隆 Stack Auth 并启动
 bash ~/.local/bin/clone-stack-auth.sh
-
-# 4. 启动（Vault 注入环境变量）
-cd ~/stack-auth
-~/.stack-auth/start.sh pnpm dev
+cd ~/repos/stack-auth && ~/.stack-auth/start.sh pnpm dev
 ```
 
-### 变量
+## 变量
 
 | 变量 | 默认 | 说明 |
 |------|------|------|
-| `stack_server_secret` | 自动生成 | 服务端签名密钥（写入 Vault） |
-| `stack_vault_mount` | `secret` | Vault KV 引擎挂载路径 |
-| `stack_api_port` | `8102` | API 端口 |
-| `stack_dashboard_port` | `8101` | Dashboard 端口 |
+| `home` | **(必填)** | 用户家目录 |
+| `backup_dir` | `null` | Nutstore 备份目录 |
+| `bind_ip` | `127.0.0.1` | Vault 监听 IP |
+| `container_port` | `8200` | Vault 端口 |
 | `stack_db_user` | `postgres` | 数据库用户 |
-| `stack_db_password` | 自动生成 | 数据库密码（写入 Vault） |
+| `stack_db_password` | 自动生成 | 数据库密码（入 Vault） |
 | `stack_db_name` | `stackframe` | 数据库名 |
-| `stack_db_port` | `8128` | 数据库端口 |
+| `stack_db_port` | `5432` | 数据库端口 |
+| `stack_api_port` | `8102` | Stack Auth API 端口 |
+| `stack_dashboard_port` | `8101` | Dashboard 端口 |
+| `stack_target_dir` | `~/repos/stack-auth` | Stack Auth 源码目录 |
+| `stack_repo_url` | `https://github.com/stack-auth/stack-auth.git` | 仓库地址 |
