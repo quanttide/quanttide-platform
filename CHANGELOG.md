@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## [0.5.0] - 2026-05-12
+
+Apache 2.0 许可证覆盖与基础设施声明式管理。
+
+### Added
+
+- Apache 2.0 LICENSE 覆盖主仓库及所有 31 个 apps 子模块
+- Terraform 基础设施栈：Vault（mlock 禁用、备份、section 约定）、Stack Auth（Docker + 密钥注入）、PostgreSQL
+- Identity Cloud（qtcloud-auth）领域产品与三阶段演进策略文档
+- GitOps 架构风格与多云基础设施策略文档
+- quanttide-project-toolkit 和 quanttide-data-toolkit 子模块
+- Terraform 输出、镜像标签锁定、Docker 健康检查
+
+### Changed
+
+- qtcloud-connect LICENSE 从 AGPL v3 替换为 Apache 2.0
+- CONTRIBUTING.md 与 AGENTS.md 重组，packages/ 纳入 README 结构
+- manifests/ 边界明确：Terraform 为组装层，docker/k8s 为制品槽
+- Stack Auth 部署模型：自构建 Docker 镜像，自托管环境变量，移除对 Docker Compose 的依赖
+- Vault 开发文档重组为维护/使用/框架三部分
+- ADD 文档与应用文档分离，Vault key 命名约定写入 AGENTS.md
+
+### Fixed
+
+- Terraform 缺陷：锁定文件追踪、死代码移除、Vault 检查、端口变量、tfvars 示例
+- Password hash 可移植性作为不可协商迁移约束
+- Stack Auth Terraform 配置：仅 SDK 部署，无 Docker 镜像
+- 移除过时的 compose version 属性
+
+### Chore
+
+- 更新 qtadmin、qtcloud、qtcloud-asset、qtcloud-devops、qtconsult 等子模块
+- 更新 quanttide-project-toolkit 子模块指针
+
+## [0.4.3] - 2026-05-10
+
+### Chore
+
+- 更新 qtadmin 子模块（studio v0.0.6、路由重构、元数据优化）
+
 ## [0.4.2] - 2026-05-08
 
 ### Chore
