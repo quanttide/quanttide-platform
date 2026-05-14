@@ -59,6 +59,21 @@ PipelineDisplaying, PipelineDisplayed, PipelineDisplayFailed
 
 ## 3. 场景讨论：什么时候用三态
 
+### 初始态
+
+每个 Bloc 需要一个初始态作为"尚未执行任何操作"的起点。初始态独立于任何操作的三态之外：
+
+```dart
+sealed class PipelineState {}
+
+class PipelineInitial extends PipelineState {}  // 独立起点
+class PipelineDisplaying extends PipelineState {}
+class PipelineDisplayed extends PipelineState { ... }
+class PipelineDisplayFailed extends PipelineState { ... }
+```
+
+UI 层对初始态通常不做渲染（或显示空白占位），等到第一个操作触发后才进入操作的三态流程。
+
 ### 三态的意义
 
 定义三态不是为了异步兼容（那是附带效果），而是把操作的生命周期写进类型系统。
