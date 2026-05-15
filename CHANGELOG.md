@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.6.0] - 2026-05-15
+
+示例仓库体系建立，新增 examples/ 目录。
+
+### Added
+
+- examples/founder — quanttide-example-of-founder 示例子模块
+- examples/company — quanttide-example-of-business-entity 示例子模块
+
+### Chore
+
+- 更新 qtdata 子模块（studio v0.0.4）及多个子模块指针同步
+- 更新 quanttide-data-toolkit 子模块（dart v0.3.0）
+
 ## [0.5.0] - 2026-05-12
 
 Apache 2.0 许可证覆盖与基础设施声明式管理。
