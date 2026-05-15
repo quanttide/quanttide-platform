@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [0.6.1] - 2026-05-15
+
+### Added
+
+- examples/default — quanttide-example-of-platform 示例子模块
+
 ## [0.6.0] - 2026-05-15
 
 示例仓库体系建立，新增 examples/ 目录。
