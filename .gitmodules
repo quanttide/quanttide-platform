@@ -101,3 +101,6 @@
 [submodule "examples/founder"]
 	path = examples/founder
 	url = https://github.com/quanttide/quanttide-example-of-founder.git
+[submodule "examples/company"]
+	path = examples/company
+	url = https://github.com/quanttide/quanttide-example-of-business-entity.git
