@@ -98,3 +98,6 @@
 [submodule "packages/quanttide-project-toolkit"]
 	path = packages/quanttide-project-toolkit
 	url = https://github.com/quanttide/quanttide-project-toolkit.git
+[submodule "examples/founder"]
+	path = examples/founder
+	url = https://github.com/quanttide/quanttide-example-of-founder.git
