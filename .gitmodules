@@ -108,3 +108,6 @@
 	path = examples/default
 	url = https://github.com/quanttide/quanttide-example-of-platform.git
 	branch = main
+[submodule "packages/quanttide-course-toolkit"]
+	path = packages/quanttide-course-toolkit
+	url = https://github.com/quanttide/quanttide-course-toolkit.git
