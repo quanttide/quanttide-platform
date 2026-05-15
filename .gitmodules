@@ -104,3 +104,7 @@
 [submodule "examples/company"]
 	path = examples/company
 	url = https://github.com/quanttide/quanttide-example-of-business-entity.git
+[submodule "examples/default"]
+	path = examples/default
+	url = https://github.com/quanttide/quanttide-example-of-platform.git
+	branch = main
