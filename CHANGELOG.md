@@ -5,7 +5,8 @@
 ### Added
 
 - examples/default — quanttide-example-of-platform 示例子模块
-- packages/quanttide-docs-toolkit — 文档工程工具包子模块，提供 Dart/Python/Flutter SDK
+- packages/quanttide-docs-toolkit — 文档工程工具包，提供 Dart/Python/Flutter SDK
+- packages/quanttide-connect-toolkit — 沟通工程工具包（Dart SDK）
 
 ## [0.6.0] - 2026-05-15
 
