@@ -7,7 +7,9 @@ quanttide-platform/
 ├── apps/       → 独立可部署的应用/产品（子模块）
 │   └── qtconsult/ 等 31 个
 ├── packages/   → 跨应用共享的 SDK/工具包（子模块）
+│   ├── quanttide-course-toolkit/  — 课程 SDK
 │   ├── quanttide-data-toolkit/    — 数据 SDK（Django/Flutter/Python）
+│   ├── quanttide-docs-toolkit/    — 文档工程工具包（Dart/Python/Flutter）
 │   └── quanttide-project-toolkit/ — 项目工具包
 ├── manifests/  → 系统声明配置
 └── docs/       → 文档
