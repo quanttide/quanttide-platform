@@ -7,6 +7,7 @@ quanttide-docs-toolkit/
 ├── AGENTS.md
 ├── CHANGELOG.md
 ├── packages/
+│   ├── dart/      # Dart SDK
 │   ├── python/    # Python SDK
 │   └── flutter/   # Flutter UI 组件
 ├── docs/
