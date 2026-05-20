@@ -117,3 +117,6 @@
 [submodule "packages/quanttide-base-toolkit"]
 	path = packages/quanttide-base-toolkit
 	url = https://github.com/quanttide/quanttide-base-toolkit
+[submodule "packages/quanttide-agent-toolkit"]
+	path = packages/quanttide-agent-toolkit
+	url = https://github.com/quanttide/quanttide-agent-toolkit
