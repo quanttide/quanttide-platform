@@ -114,3 +114,6 @@
 [submodule "packages/quanttide-connect-toolkit"]
 	path = packages/quanttide-connect-toolkit
 	url = https://github.com/quanttide/quanttide-connect-toolkit.git
+[submodule "packages/quanttide-base-toolkit"]
+	path = packages/quanttide-base-toolkit
+	url = https://github.com/quanttide/quanttide-base-toolkit
