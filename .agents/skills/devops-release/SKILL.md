@@ -64,20 +64,25 @@ CLI 会在执行前展示发布摘要并等待 `y/N` 确认。使用 `-y` 跳过
 
 ### 3. 子模块发布 Release
 
-子模块使用 scoped tag（如 `cli/v0.1.0`、`python/v0.1.0`），在子模块目录内执行：
+子模块使用 scoped tag（如 `cli/v0.1.0`、`python/v0.1.0`），在子模块目录内执行。
+
+注意：如果 CHANGELOG 不在子模块根目录（如 qtcloud-devops 在 `src/cli/CHANGELOG.md`），需用 `--changelog` 指定路径。
 
 ```bash
 # 1. 进入子模块目录
 cd <子模块路径>
 
-# 2. 预检查
-qtcloud-devops release --version "scope/vX.Y.Z" --dry-run
-
-# 3. 发布（自动使用子模块的 remote）
+# 2. 设置版本号和 changelog 路径
 VERSION="scope/vX.Y.Z"
-qtcloud-devops release --version "$VERSION" -y
+CHANGELOG="CHANGELOG.md"  # 不在根目录时改为实际路径
 
-# 4. 返回主仓库，更新子模块引用
+# 3. 预检查
+qtcloud-devops release --version "$VERSION" --changelog "$CHANGELOG" --dry-run
+
+# 4. 发布（自动使用子模块的 remote）
+qtcloud-devops release --version "$VERSION" --changelog "$CHANGELOG" -y
+
+# 5. 返回主仓库，更新子模块引用
 cd <主仓库根目录>
 git add <子模块路径>
 git commit -m "chore: update <子模块路径> submodule — $VERSION"
