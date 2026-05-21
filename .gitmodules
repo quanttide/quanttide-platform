@@ -120,3 +120,6 @@
 [submodule "packages/quanttide-agent-toolkit"]
 	path = packages/quanttide-agent-toolkit
 	url = https://github.com/quanttide/quanttide-agent-toolkit
+[submodule "packages/quanttide-knowl-toolkit"]
+	path = packages/quanttide-knowl-toolkit
+	url = https://github.com/Guo-Zhang/quanttide-knowl-toolkit
