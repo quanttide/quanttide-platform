@@ -1,9 +1,15 @@
 # ROADMAP
 
-## QtClass — `apps/qtclass/ROADMAP.md`
+## qtcloud-knowl-cli v0.2 — 重新设计 domain
 
-视频录制功能改进、集成测试覆盖、稳定性提升。
+当前 extract 按文件生成 domain，但知识库应按故事/作品系列组织。
+v0.2 解决 domain 合并问题，让多文件能够合并到同一个 domain 下。
 
-## QtData — `apps/qtdata/ROADMAP.md`
+方向见 `apps/qtcloud-knowl/src/cli/ROADMAP.md`。
 
-数据页面（数据处理流程建模 + UI + CRUD API）和资产页面（交付物管理）。
+## qtcloud-devops v0.2 — 增加 audit
+
+当前 `qtcloud-devops release` 只负责发布流程。v0.2 增加审计能力，
+让工具能检测发布过程中的常见问题（如 CHANGELOG 未写、版本未升等）。
+
+盲区见 `apps/qtcloud-devops/src/cli/STATUS.md`。
