@@ -123,3 +123,6 @@
 [submodule "packages/quanttide-knowl-toolkit"]
 	path = packages/quanttide-knowl-toolkit
 	url = https://github.com/Guo-Zhang/quanttide-knowl-toolkit
+[submodule "manifests/github"]
+	path = manifests/github
+	url = https://github.com/quanttide/.github.git
