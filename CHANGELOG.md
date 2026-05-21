@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## [0.7.0] - 2026-05-22
+
+Agent 基础设施统一与工具链体系建立。
+
+### Added
+
+- manifests/github — GitHub 可复用工作流（pypi-publish、myst-deploy）
+- packages/quanttide-agent-toolkit — 代理工具包（ToolDef、LLM、ReActAgent）
+- packages/quanttide-knowl-toolkit — 知识工具包
+- quanttide-base-toolkit — 基础工具包（django-quanttide、flutter-quanttide 迁移）
+- quanttide-course-toolkit — 课程工具包（Dart/Python SDK）
+- qtcloud-connect Python SDK（三种 Service，99% 覆盖率）
+- qtcloud-connect-toolkit Dart SDK（DocumentCubit + DocumentRepository）
+- qtcloud-docs-toolkit — 文档工程工具包（Dart/Python/Flutter SDK）
+- examples/default — think-agent Flutter 项目初始化
+
+### Changed
+
+- qtcloud-think、qtcloud-write、qtcloud-connect、qtcloud-finance 统一迁移至 quanttide-agent LLM
+- qtcloud-devops 升级至 v0.0.2（release CLI 发布流程自动化）
+- quanttide-agent 升级至 v0.3.0
+- qtcloud-knowl 升级至 v0.0.20（CLI + Python SDK）
+- qtclass 升级至 v0.0.2（Lecture model + LectureScreen）
+- devops-review SKILL 支持 monorepo scope 版本格式
+
+### Chore
+
+- 同步 qtadmin、qtcloud、qtcloud-agent、qtcloud-asset、examples 等子模块
+- 同步 quanttide-agent-toolkit 子模块（多版本演进至 v0.2.0）
+- examples/default code-agent/asset-agent 文档体系建立
+- manifests/ 工作流重组与过期工作流清理
+
 ## [0.6.1] - 2026-05-15
 
 ### Added
