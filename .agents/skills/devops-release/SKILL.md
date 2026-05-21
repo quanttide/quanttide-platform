@@ -26,46 +26,33 @@ description: 发布 Git 仓库 Release。必须先写 CHANGELOG 再打 tag，禁
 
 ## 工作流
 
+### 0. 先决条件
+
+确保 `qtcloud-devops` 命令可用：
+
+```bash
+which qtcloud-devops
+```
+
+如未安装，在 `apps/qtcloud-devops` 目录下执行：
+
+```bash
+cd apps/qtcloud-devops && pip install -e src/cli
+```
+
 ### 1. 预检查
 
 **必须执行，不可跳过**
 
 ```bash
-# 检查工作区状态
-git status
-
-# 检查版本号格式（semver）
+# 设置版本号（替换为实际值）
 VERSION="v0.4.0"
-if ! [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
-  echo "错误: 版本号格式错误，应为 vX.Y.Z 或 vX.Y.Z-qualifier"
-  exit 1
-fi
 
-# 检查 CHANGELOG 是否包含目标版本
-if ! grep -q "^## \[${VERSION#v}\]" CHANGELOG.md; then
-  echo "错误: CHANGELOG.md 未找到 ${VERSION#v} 版本记录"
-  echo "请先更新 CHANGELOG.md"
-  exit 1
-fi
-
-# 提取版本内容测试
-NOTES=$(sed -n "/^## \[${VERSION#v}\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')
-if [ -z "$NOTES" ]; then
-  echo "错误: 无法提取 ${VERSION#v} 版本内容"
-  exit 1
-fi
-
-# 检查标签是否已存在
-if git tag -l | grep -q "^${VERSION}$"; then
-  echo "错误: 标签 $VERSION 已存在"
-  exit 1
-fi
-
-# 预览 Release Notes
-echo "=== Release Notes 预览 ==="
-echo "$NOTES"
-echo "========================="
+# 执行预检查（dry-run 模式）
+qtcloud-devops release --version "$VERSION" --dry-run
 ```
+
+若预检查失败，根据提示修复后重新执行。
 
 ### 2. 发布前确认
 
@@ -81,38 +68,44 @@ echo "========================="
 ✓ 标签不存在
 ✓ 工作区干净
 
-待执行命令:
-1. git tag vX.Y.Z
-2. git push origin vX.Y.Z
-3. gh release create vX.Y.Z --title "vX.Y.Z" --notes "..."
-
 确认发布? (y/n)
 ```
 
+使用 `-y` 跳过确认直接发布，或不加 `-y` 让 CLI 交互式确认。
+
 ### 3. 子模块发布 Release
+
+子模块使用 scoped tag（如 `cli/v0.1.0`、`python/v0.1.0`），需在子模块目录内执行：
 
 ```bash
 # 1. 进入子模块目录
 cd <子模块路径>
 
-# 2. 执行预检查（步骤 1）
+# 2. 执行预检查（使用 scoped 版本号）
+qtcloud-devops release --version "scope/vX.Y.Z" --dry-run
 
-# 3. 创建并推送标签
-git tag <version>
-git push origin <version>
+# 3. 发布
+VERSION="scope/vX.Y.Z"
+REPO="quanttide/<仓库名>"
 
-# 4. 创建 GitHub Release
-gh release create <version> \
-  --title "v<version>" \
-  --notes "$(sed -n "/^## \[${VERSION#v}\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')" \
-  --repo quanttide/<仓库名>
+# 创建并推送标签 + GitHub Release
+qtcloud-devops release --version "$VERSION" --repo "$REPO" -y
+
+# 4. 返回主仓库，更新子模块引用
+cd <主仓库根目录>
+git add <子模块路径>
+git commit -m "chore: update <子模块路径> submodule — $VERSION"
+git push
 ```
 
 ### 4. 主仓库发布 Release
 
 ```bash
+VERSION="vX.Y.Z"
+REPO="quanttide/quanttide-platform"
+
 # 1. 创建预发布版本（可选）
-gh release create vX.Y.Z-rc.1 \
+gh release create "${VERSION}-rc.1" \
   --prerelease \
   --title "vX.Y.Z RC" \
   --notes "$(sed -n "/^## \[X.Y.Z\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')"
@@ -124,37 +117,33 @@ git status
 # 3. 更新 CHANGELOG.md
 
 # 4. 提交 CHANGELOG.md
-git add CHANGELOG.md && git commit -m "docs: update CHANGELOG for vX.Y.Z"
+git add CHANGELOG.md && git commit -m "chore: prepare CHANGELOG for $VERSION"
+git push
 
-# 5. 执行预检查（步骤 1）
+# 5. 预检查 + 发布前确认
+qtcloud-devops release --version "$VERSION" --dry-run
 
-# 6. 发布前确认（步骤 2）
-
-# 7. 创建标签并推送
-git tag <version> && git push origin <version>
-
-# 8. 创建 GitHub Release
-gh release create <version> \
-  --title "v<version>" \
-  --notes "$(sed -n "/^## \[${VERSION#v}\]/,/^## \[/p" CHANGELOG.md | sed '1d;$d')" \
-  --repo quanttide/quanttide-founder
-
-# 9. 验证 Release
-gh release view <version> --repo quanttide/quanttide-founder
+# 6. 发布（创建标签 + 推送 + GitHub Release）
+qtcloud-devops release --version "$VERSION" --repo "$REPO" -y
 ```
 
 ### 5. 错误处理和回滚
 
 ```bash
-# 标签已创建但 Release 失败
-git tag -d <version>
-git push origin --delete <version> 2>/dev/null || true
+# 标签已创建但 GitHub Release 失败（qtcloud-devops 自动回滚标签）
+# 手动回滚：
+
+# 删除本地标签
+git tag -d vX.Y.Z
+
+# 删除远程标签
+git push origin --delete vX.Y.Z 2>/dev/null || true
 
 # 恢复到发布前状态（如果有提交）
 git reset --hard HEAD~1
 
 # 清理预发布版本
-gh release delete vX.Y.Z-rc.1 --repo quanttide/quanttide-founder --yes
+gh release delete vX.Y.Z-rc.1 --repo quanttide/quanttide-platform --yes
 ```
 
 ## 常见错误
