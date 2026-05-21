@@ -7,7 +7,7 @@ v0.2 解决 domain 合并与 world 分类问题。
 
 详情见 `apps/qtcloud-knowl/src/cli/ROADMAP.md`。
 
-## qtcloud-devops v0.2 — 增加 audit
+## qtcloud-devops-cli v0.2 — 增加 audit
 
 当前 `qtcloud-devops release` 只负责发布流程。v0.2 增加审计能力。
 
