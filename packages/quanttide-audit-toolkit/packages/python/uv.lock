@@ -330,7 +330,7 @@ wheels = [
 ]
 
 [[package]]
-name = "quanttide-audit-toolkit"
+name = "quanttide-audit"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

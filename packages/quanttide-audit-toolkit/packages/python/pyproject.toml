@@ -1,5 +1,5 @@
 [project]
-name = "quanttide-audit-toolkit"
+name = "quanttide-audit"
 version = "0.1.0"
 description = "量潮审计工具箱（Python SDK）"
 readme = "README.md"
