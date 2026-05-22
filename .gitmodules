@@ -126,3 +126,6 @@
 [submodule "manifests/github"]
 	path = manifests/github
 	url = https://github.com/quanttide/.github.git
+[submodule "packages/quanttide-audit-toolkit"]
+	path = packages/quanttide-audit-toolkit
+	url = https://github.com/quanttide/quanttide-audit-toolkit.git
