@@ -4,7 +4,6 @@ from quanttide_audit.models import (
     AuditFinding,
     AuditReport,
     AuditSeverity,
-    AuditStatus,
 )
 
 __all__ = [
@@ -13,5 +12,4 @@ __all__ = [
     "AuditFinding",
     "AuditReport",
     "AuditSeverity",
-    "AuditStatus",
 ]
