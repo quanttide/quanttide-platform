@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from enum import Enum
-
 from pydantic import BaseModel, Field
 from quanttide import (
     CreatedAtField,
@@ -12,57 +10,10 @@ from quanttide import (
     UpdatedAtField,
 )
 
-
-class AuditSeverity(str, Enum):
-    ERROR = "error"
-    WARNING = "warning"
-    SUGGESTION = "suggestion"
-
-
-class AuditStatus(str, Enum):
-    PASSED = "passed"
-    FAILED = "failed"
-    NEEDS_REVIEW = "needs_review"
-
-
-class AuditCriteria(BaseModel):
-    """审计标准：定义检查规则。
-
-    作为"标尺"独立存在，不引用证据或发现。
-    """
-
-    id: IdField
-    name: NameField
-    title: TitleField
-    description: DescriptionField
-    severity: AuditSeverity
-    category: str = Field(default="", max_length=50)
-
-
-class AuditEvidence(BaseModel):
-    """审计证据：原始数据。
-
-    独立收集，不引用标准或发现，作为素材等待被标准检验。
-    """
-
-    id: IdField
-    name: NameField
-    location: str
-    detail: str
-    created_at: CreatedAtField
-
-
-class AuditFinding(BaseModel):
-    """审计发现：由"证据匹配标准"产生。"""
-
-    id: IdField
-    name: NameField
-    criterion_name: NameField
-    evidence_names: list[NameField] = Field(default_factory=list)
-    message: str
-    severity: AuditSeverity
-    suggestion: str | None = None
-    created_at: CreatedAtField
+from quanttide_audit.models.criteria import AuditCriteria
+from quanttide_audit.models.enums import AuditSeverity, AuditStatus  # noqa: F401
+from quanttide_audit.models.evidence import AuditEvidence
+from quanttide_audit.models.finding import AuditFinding
 
 
 class AuditReport(BaseModel):

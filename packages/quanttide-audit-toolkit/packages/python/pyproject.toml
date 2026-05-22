@@ -45,7 +45,7 @@ dev = [
 select = ["E", "F", "I", "N", "W"]
 
 [tool.coverage.run]
-omit = ["src/quanttide_audit/__init__.py"]
+omit = ["src/quanttide_audit/__init__.py", "src/quanttide_audit/models/__init__.py"]
 
 [tool.coverage.report]
 exclude_lines = [
