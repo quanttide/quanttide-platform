@@ -38,13 +38,22 @@ qtcloud-knowl audit
 
 ## SKILL 快速索引
 
-| Skill | 用途 | 约束 |
+| Skill | 领域 | 用途 |
 |-------|------|------|
-| devops-commit | 规范提交 | 先 `git status` 再 `git diff`，确认无误后提交 |
-| devops-release | 基于`qtcloud-devops release`发布 | **必须逐行执行**，跳过预检查则禁止发布 |
-| devops-review | 流程审查 | — |
-| docs-deploy | MyST 文档站构建与 GitHub Pages 部署 | — |
-| product-drd | 数据需求文档（DRD）编写 | 按 SKILL.md 风格规范编写 |
+| devops-code | DevOps | Code 阶段基础设施：脚手架、规范配置、pre-commit、CI 门禁 |
+| devops-commit | DevOps | 规范提交 |
+| devops-review | DevOps | 流程审查 |
+| devops-release | DevOps | 基于 `qtcloud-devops release` 发布 |
+| code-audit | 编程 | 代码质量审计：lizard 复杂度 + ruff 规范检查 |
+| docs-deploy | 文档 | MyST 文档站构建与 GitHub Pages 部署 |
+| docs-format | 文档 | 文档格式规范检查 |
+| product-brd | 产品 | 业务需求文档编写 |
+| product-drd | 产品 | 数据需求文档编写 |
+| product-prd | 产品 | 产品需求文档编写 |
+| product-provider | 产品 | QTData product provider (FastAPI) |
+| product-python | 产品 | Python 库完整实现流程 |
+| product-studio | 产品 | Flutter Studio 客户端开发 |
+| product-tests | 产品 | 三层测试体系 |
 
 ### 执行规则
 
