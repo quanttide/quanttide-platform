@@ -129,3 +129,6 @@
 [submodule "packages/quanttide-audit-toolkit"]
 	path = packages/quanttide-audit-toolkit
 	url = https://github.com/quanttide/quanttide-audit-toolkit.git
+[submodule "packages/quanttide-docs-toolkit"]
+	path = packages/quanttide-docs-toolkit
+	url = https://github.com/quanttide/quanttide-docs-toolkit.git

@@ -1,6 +1,0 @@
-__pycache__/
-*.pyc
-.dart_tool/
-.packages
-build/
-pubspec.lock
