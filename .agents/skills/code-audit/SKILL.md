@@ -25,6 +25,13 @@ ruff check --statistics <source_dir>                              # 按规则统
 ruff check --fix <source_dir>                                     # 自动修复
 ruff format --check <source_dir>                                  # 检查格式
 ruff format <source_dir>                                          # 自动格式化
+
+# 死代码检测
+vulture <source_dir>                                              # 未使用的函数/变量/导入/类
+vulture <source_dir> --min-confidence 100                          # 只报告确定无用的代码
+
+# 依赖检测
+deptry <source_dir>                                               # pyproject.toml 中未使用的依赖
 ```
 
 ## 规则
@@ -57,6 +64,8 @@ ruff format <source_dir>                                          # 自动格式
 ```bash
 which lizard && lizard --version
 which ruff && ruff --version
+which vulture && vulture --version
+which deptry && deptry --version
 ```
 
 ### 1. 代码规范检查
@@ -85,6 +94,26 @@ lizard --languages python <source_dir>
 - 总函数数、总 NLOC、平均 CCN
 - 所有 CCN > 15 警告的函数及其位置
 - 高 CCN 函数的文件名/行号/函数名
+
+### 2.5 死代码检测
+
+**必须执行，不可跳过**
+
+```bash
+vulture <source_dir>
+```
+
+记录所有未使用的函数、变量、导入和类，标注置信度。
+
+### 2.6 依赖检测
+
+**必须执行，不可跳过**
+
+```bash
+deptry <source_dir>
+```
+
+记录 `pyproject.toml` 中声明了但代码中没有使用的依赖。
 
 ### 3. 格式检查
 
@@ -141,6 +170,8 @@ ruff format --check <source_dir>
 lizard --languages python <source_dir>
 ruff check <source_dir>
 ruff format --check <source_dir>
+vulture <source_dir>
+deptry <source_dir>
 ```
 
 ## 常见问题
