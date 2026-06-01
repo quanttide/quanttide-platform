@@ -125,3 +125,24 @@
 [submodule "packages/quanttide-devops-toolkit"]
 	path = packages/quanttide-devops-toolkit
 	url = https://github.com/quanttide/quanttide-devops-toolkit.git
+[submodule "examples/company"]
+	path = examples/company
+	url = https://github.com/quanttide/quanttide-laboratory-of-business-entity.git
+[submodule "examples/execute"]
+	path = examples/execute
+	url = https://github.com/quanttide/quanttide-laboratory-of-execution.git
+[submodule "examples/game"]
+	path = examples/game
+	url = https://github.com/quanttide/quanttide-laboratory-of-game-developing.git
+[submodule "examples/founder"]
+	path = examples/founder
+	url = https://github.com/quanttide/quanttide-example-of-founder.git
+[submodule "examples/human"]
+	path = examples/human
+	url = https://github.com/quanttide/quanttide-laboratory-of-human-resources.git
+[submodule "examples/org"]
+	path = examples/org
+	url = https://github.com/quanttide/quanttide-laboratory-of-organization.git
+[submodule "examples/innov"]
+	path = examples/innov
+	url = https://github.com/quanttide/quanttide-laboratory-of-innovation.git
