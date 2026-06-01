@@ -98,16 +98,6 @@
 [submodule "packages/quanttide-project-toolkit"]
 	path = packages/quanttide-project-toolkit
 	url = https://github.com/quanttide/quanttide-project-toolkit.git
-[submodule "examples/founder"]
-	path = examples/founder
-	url = https://github.com/quanttide/quanttide-example-of-founder.git
-[submodule "examples/company"]
-	path = examples/company
-	url = https://github.com/quanttide/quanttide-example-of-business-entity.git
-[submodule "examples/default"]
-	path = examples/default
-	url = https://github.com/quanttide/quanttide-example-of-platform.git
-	branch = main
 [submodule "packages/quanttide-course-toolkit"]
 	path = packages/quanttide-course-toolkit
 	url = https://github.com/quanttide/quanttide-course-toolkit.git
