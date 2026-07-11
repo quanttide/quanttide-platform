@@ -22,7 +22,7 @@ uv run pytest tests/qtclass/ -v --log-cli-level=INFO
 
 | 测试类 | 覆盖服务 | 描述 |
 |--------|---------|------|
-| `test_admin.py` | **后台管理** | |
+| `test_qtadmin.py` | **后台管理** | |
 | `TestAdminAuth` | qtcloud-auth | 管理员登录、身份校验、用户信息 |
 | `TestAdminCourseContent` | qtcloud-course | Program/Course/Lesson/Scene CRUD 与关联 |
 | `TestAdminClassManagement` | qtcloud-course | 班级创建、状态流转、删除 |
