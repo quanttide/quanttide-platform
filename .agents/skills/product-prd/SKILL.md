@@ -1,4 +1,7 @@
-# Skill: product-prd
+---
+name: product-prd
+description: 产品需求文档（PRD）编写技能。基于用户故事方法，指导围绕用户价值组织文档，以解决方案为中心。
+---
 
 # product-prd
 
