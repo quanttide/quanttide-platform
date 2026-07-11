@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## [0.8.0] - 2026-07-11
+
+端到端测试体系建立与基础设施子模块扩展。
+
+### Added
+
+- tests/qtclass/ — qtclass 跨服务端到端测试套件
+  - qtcloud-auth 身份认证（密码授权、userinfo、错误处理）
+  - qtcloud-course 课程管理（Program→Course→Lesson 三级 CRUD）
+  - qtcloud-course Class 班级生命周期（创建/状态流转）
+  - qtcloud-pay 支付（支付/查询/退款）
+  - 跨服务契约验证
+- pyproject.toml — 根项目 Python 配置（uv + pytest）
+- uv.lock — Python 依赖锁定文件
+- apps/qtcloud-auth — 身份云子模块
+- apps/qtcloud-pay — 支付云子模块
+
+### Changed
+
+- .gitignore 新增 Python 缓存忽略规则（__pycache__、.pytest_cache、.ruff_cache）
+
+### Chore
+
+- 同步 qtclound-course 子模块（provider Go 服务端初始化）
+- 同步 qtclass 子模块
+
 ## [0.7.0] - 2026-05-22
 
 Agent 基础设施统一与工具链体系建立。
