@@ -146,3 +146,9 @@
 [submodule "examples/innov"]
 	path = examples/innov
 	url = https://github.com/quanttide/quanttide-laboratory-of-innovation.git
+[submodule "apps/qtcloud-auth"]
+	path = apps/qtcloud-auth
+	url = https://github.com/quanttide/qtcloud-auth
+[submodule "apps/qtcloud-pay"]
+	path = apps/qtcloud-pay
+	url = https://github.com/quanttide/qtcloud-pay
