@@ -22,11 +22,11 @@ uv run pytest tests/qtclass/ -v --log-cli-level=INFO
 
 | 测试类 | 覆盖服务 | 描述 |
 |--------|---------|------|
-| `TestAuthFlow` | qtcloud-auth | 管理员密码登录、获取 JWT、查询用户信息 |
-| `TestProgramCurd` | qtcloud-course | Program/Course/Lesson 扁平 CRUD 与关联 |
-| `TestClassLifecycle` | qtcloud-course | 班级创建、状态流转 (preparing→active→ended) |
-| `TestPayFlow` | qtcloud-pay | 支付发起、订单查询、退款 |
-| `TestTeacherPreparesClass` | qtcloud-course | 教师开课备课：课程体系 + 班级创建 |
-| `TestStudentEnrollsAndAttends` | qtcloud-course + qtcloud-pay | 学员报名支付 + 上课结课 |
-| `TestAuthGate` | qtcloud-auth | 身份校验、未授权拦截 |
-| `TestSceneTeaching` | qtcloud-course | 互动课时创建（视频片段 + 分支选项） |
+| `test_admin.py` | **后台管理** | |
+| `TestAdminAuth` | qtcloud-auth | 管理员登录、身份校验、用户信息 |
+| `TestAdminCourseContent` | qtcloud-course | Program/Course/Lesson/Scene CRUD 与关联 |
+| `TestAdminClassManagement` | qtcloud-course | 班级创建、状态流转、删除 |
+| `TestAdminPayManagement` | qtcloud-pay | 支付发起、订单查询、退款 |
+| `test_qtclass.py` | **前台课堂** | |
+| `TestStudentEnrollsAndAttends` | qtcloud-course + qtcloud-pay | 学员报名支付 → 开课 → 上课 → 结课 |
+| `TestSceneTeaching` | qtcloud-course | 互动课时（视频片段 + 分支选项） |
