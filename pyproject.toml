@@ -1,0 +1,15 @@
+[project]
+name = "quanttide-platform"
+description = "量潮工作平台 — 跨子模块系统测试与契约验证"
+version = "0.1.0"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+log_cli_level = "INFO"

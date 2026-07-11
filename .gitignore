@@ -11,6 +11,11 @@ _build/
 .venv/
 .python-version
 
+# Python
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
 # Terraform
 **/.terraform/
 *.tfstate
