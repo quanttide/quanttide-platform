@@ -1,41 +1,21 @@
-# 文档说明
+# 产品边界与关系
 
-## 仓库层级关系
+## 引导引擎：共享内核
+
+`qtclass`（教学）和 `qtdata`（数据服务）共享同一个产品内核——**引导引擎**：
 
 ```
-quanttide-platform (主仓库)
-├── apps/qtcloud      → quanttide/qtcloud (组合所有 qtcloud-*)
-├── apps/qtadmin      → quanttide/qtadmin (组合部分子仓库)
-├── apps/qtdata      → quanttide/qtdata (组合部分子仓库)
-├── apps/qtclass     → quanttide/qtclass (组合部分子仓库)
-└── apps/qtcloud-*  → quanttide/qtcloud-* (独立产品)
+引导引擎
+├── 把复杂过程拆成用户可理解的 Scene（场景）
+├── 每步：展示信息 → 用户选择/确认 → 进入下一 Scene
+├── 选择影响分支路径
+└── 最终完成"从模糊到确认"的转化
 ```
 
-## 文档类型
-
-| 目录 | 角色 |
-|------|------|
-| `docs/add/` | 架构决策（why、约束、原则） |
-| `docs/dev/` | 开发操作指南（how、命令、代码示例） |
-| `docs/brd/` | 业务需求 |
-| `docs/prd/` | 产品需求 |
-
-## 设计逻辑
-
-### 1. 组合与被组合
-
-- **主仓库**（qtcloud, qtadmin, qtdata, qtclass）：组合多个子仓库
-- **子仓库**（qtcloud-*）：独立产品，有自己的 PRD
-
-### 2. 文档层级
-
-- **子仓库**：`docs/prd/` 存放自己的 PRD
-- **主仓库**：`docs/prd/relations/` 存放产品边界说明
-
-### 3. 边界文档
-
-每个主仓库需要有 `docs/prd/relations/` 说明：
-- 自己组合了哪些子仓库
-- 各子仓库的功能边界
-
-→ [qtcloud 产品边界](apps/qtcloud/docs/prd/relations/index.md)
+| | qtclass（教学） | qtdata（数据服务） |
+|---|---|---|
+| 用户 | 学员 | 客户（业务方） |
+| 困境 | 不懂某个知识点 | 说不清数据需求、看不懂处理过程 |
+| 场景输出 | 教学视频 + 分支练习 | 数据预览 + 处理步骤可视化 |
+| 确认节点 | 课后测验 | 需求确认、中间结果确认、验收确认 |
+| 最终产出 | 学员获得知识 | 客户获得数据产物 |
