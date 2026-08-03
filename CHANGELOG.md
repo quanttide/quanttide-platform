@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.8.1] - 2026-08-03
+
+系统级 IaC 输出完善与基础设施文档归位。
+
+### Added
+
+- manifests/terraform — 系统级 IaC output 新增 `resource_group_id`（应用资源归入 quanttide 资源组）
+- docs/dev/iac/index.md — 系统级 IaC 开发指南（资源清单、输出引用）
+
+### Docs
+
+- docs/dev/README.md 目录更新，登记 iac/ 与 flutter/
+- 移除过时的 docs/dev/infra（本地 Vault/StackAuth 引导文档，已被系统级阿里云 IaC 取代）
+
 ## [0.8.0] - 2026-07-11
 
 端到端测试体系建立与基础设施子模块扩展。
