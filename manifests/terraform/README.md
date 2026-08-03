@@ -1,60 +1,39 @@
-# Terraform — 系统基础设施
+# quanttide-platform IaC（系统级）
 
-文件按组件划分：
+quanttide 体系**系统级共享基础设施**的 Terraform 代码（阿里云）：
 
-| 文件 | 管理层 | 部署层 |
-|------|--------|--------|
-| `main.tf` | provider 声明 | — |
-| `vault.tf` | `vault_mount.kv_secret` | `local_file.vault_config` |
-| `postgres.tf` | — | 密码生成、建库、备份、连通性验证 |
-| `stack_auth.tf` | — | 密钥写入 Vault、克隆脚本、启动脚本 |
+- 网络：VPC / 交换机（cn-hangzhou-k）/ 安全组
+- 数据库：RDS PostgreSQL Serverless（PG 18，共享实例，各应用自建库）
+- 资源组：`quanttide`
+- 命名：`quanttide-<env>`（命名规则见 quanttide-pay 的 docs/dev-guide/iac.md）
 
-## 依赖
+**管理边界**：本仓库只管理系统级共享资源；应用级资源（数据库/账号、FC 函数、RAM 角色）由各应用仓库管理（如 quanttide-pay），通过本仓库的 `outputs` 引用。
 
-```
-Vault (手动启动, unseal)
-    └→ terraform apply
-        ├→ vault_mount.kv_secret (KV v2 引擎)
-        ├→ random_password.stack_db → vault_kv_secret_v2.stack_auth (密钥入 Vault)
-        ├→ random_password.stack_db → postgres_bootstrap (TCP 建库)
-        └→ local_file.* (配置脚本)
+## 使用
 
-PostgreSQL (手动安装)
-    └→ sudo bootstrap-postgres.sh (设密码, 建库, 一次性)
-```
-
-## 首次部署
-
-```bash
-# 1. 启动 Vault
-vault server -config=~/.vault-data/config/vault.hcl
-vault operator unseal
-
-# 2. 手动安装 PostgreSQL
-sudo apt-get install -y postgresql postgresql-client
-sudo bash ~/.local/bin/bootstrap-postgres.sh
-
-# 3. 运行 Terraform
-VAULT_TOKEN=$(cat ~/.vault-token) terraform apply
-
-# 4. 克隆 Stack Auth 并启动
-bash ~/.local/bin/clone-stack-auth.sh
-cd ~/repos/stack-auth && ~/.stack-auth/start.sh pnpm dev
+```sh
+# 凭证：本地 ~/.aliyun/config.json + ALICLOUD_PROFILE；CI 经 ALIYUN_ACCESS_KEY_ID/SECRET
+terraform init \
+  -backend-config="bucket=quanttide-terraform-state" \
+  -backend-config="key=quanttide-platform/terraform.tfstate" \
+  -backend-config="region=cn-hangzhou"
+cp terraform.tfvars.example terraform.tfvars
+terraform plan -var-file=terraform.tfvars
+terraform apply -var-file=terraform.tfvars
 ```
 
-## 变量
+## 前置条件（账号级一次性）
 
-| 变量 | 默认 | 说明 |
-|------|------|------|
-| `home` | **(必填)** | 用户家目录 |
-| `backup_dir` | `null` | Nutstore 备份目录 |
-| `bind_ip` | `127.0.0.1` | Vault 监听 IP |
-| `container_port` | `8200` | Vault 端口 |
-| `stack_db_user` | `postgres` | 数据库用户 |
-| `stack_db_password` | 自动生成 | 数据库密码（入 Vault） |
-| `stack_db_name` | `stackframe` | 数据库名 |
-| `stack_db_port` | `5432` | 数据库端口 |
-| `stack_api_port` | `8102` | Stack Auth API 端口 |
-| `stack_dashboard_port` | `8101` | Dashboard 端口 |
-| `stack_target_dir` | `~/repos/stack-auth` | Stack Auth 源码目录 |
-| `stack_repo_url` | `https://github.com/stack-auth/stack-auth.git` | 仓库地址 |
+- RDS 服务关联角色（两个都需存在）：
+  ```sh
+  aliyun rds CreateServiceLinkedRole --RegionId cn-hangzhou --ServiceLinkedRole AliyunServiceRoleForRdsPgsqlOnEcs
+  aliyun rds CreateServiceLinkedRole --RegionId cn-hangzhou --ServiceLinkedRole AliyunServiceRoleForRDSProxyOnEcs
+  ```
+- OSS 状态桶 `quanttide-terraform-state`（含版本控制）
+
+## 踩坑记录
+
+- **可用区**：cn-hangzhou-b 无 RDS Serverless 库存（工单确认），固定使用 cn-hangzhou-k
+- **PayType**：Serverless 实例 `instance_charge_type` 必须为 `Serverless`，否则报 `InvalidSaleComponentFault`
+- **SLR**：`ServiceLinkedRole.NotExist` 需两个角色都存在，错误信息不指向第二个
+- **版本**：官方文档称 Serverless 暂不支持 PG 18（已过时）；大版本升级预检查确认 17→18 合法，实例可直接建 18

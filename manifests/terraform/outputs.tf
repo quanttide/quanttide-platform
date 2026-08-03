@@ -1,30 +1,30 @@
-output "stack_auth_dir" {
-  description = "Stack Auth 配置文件目录（含 start.sh）"
-  value       = local.stack_auth_dir
+# 系统级输出：供应用仓库（quanttide-pay 等）通过 terraform_remote_state 或 data source 引用
+output "vpc_id" {
+  description = "系统级 VPC ID"
+  value       = alicloud_vpc.this.id
 }
 
-output "stack_auth_start_command" {
-  description = "Stack Auth 启动命令"
-  value       = "cd ${local.stack_target_dir} && ~/.stack-auth/start.sh pnpm dev"
+output "vswitch_id" {
+  description = "系统级交换机 ID（cn-hangzhou-k）"
+  value       = alicloud_vswitch.this.id
 }
 
-output "stack_setup_commands" {
-  description = "首次部署步骤"
-  value = <<-EOT
-    sudo bash ~/.local/bin/bootstrap-postgres.sh
-    bash ~/.local/bin/clone-stack-auth.sh
-    cd ${local.stack_target_dir} && ~/.stack-auth/start.sh pnpm dev
-  EOT
+output "security_group_id" {
+  description = "系统级安全组 ID（应用 FC 挂载用）"
+  value       = alicloud_security_group.this.id
 }
 
-output "stack_db_password" {
-  description = "Stack Auth 数据库密码（已写入 Vault）"
-  value       = local.db_password
-  sensitive   = true
+output "rds_instance_id" {
+  description = "共享 RDS 实例 ID"
+  value       = alicloud_db_instance.this.id
 }
 
-output "stack_server_secret" {
-  description = "Stack Auth 服务端签名密钥（已写入 Vault）"
-  value       = local.server_secret
-  sensitive   = true
+output "rds_connection_string" {
+  description = "共享 RDS 内网连接地址（应用建库/连接用）"
+  value       = alicloud_db_instance.this.connection_string
+}
+
+output "rds_port" {
+  description = "RDS 端口"
+  value       = alicloud_db_instance.this.port
 }

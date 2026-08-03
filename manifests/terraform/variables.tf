@@ -1,106 +1,47 @@
-variable "bind_ip" {
-  description = "Vault 监听 IP"
+variable "region" {
+  description = "阿里云地域"
   type        = string
-  default     = "127.0.0.1"
+  default     = "cn-hangzhou"
 }
 
-variable "container_port" {
-  description = "Vault 监听端口"
+variable "environment" {
+  description = "环境：dev / staging / prod"
+  type        = string
+  default     = "prod"
+}
+
+variable "vpc_cidr" {
+  description = "VPC 网段"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "vswitch_cidr" {
+  description = "交换机网段（FC 等应用资源所在子网）"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "db_engine_version" {
+  description = "RDS PostgreSQL 版本（Serverless 支持 18.0，官方文档过时；预检查已确认 17→18 合法）"
+  type        = string
+  default     = "18.0"
+}
+
+variable "db_category" {
+  description = "RDS 系列：serverless_basic（Serverless 基础版，可用区 cn-hangzhou-k）"
+  type        = string
+  default     = "serverless_basic"
+}
+
+variable "db_min_capacity" {
+  description = "RDS Serverless 最小算力（RCU）"
   type        = number
-  default     = 8200
+  default     = 0.5
 }
 
-variable "tls_disable" {
-  description = "是否关闭 TLS"
-  type        = bool
-  default     = true
-}
-
-variable "home" {
-  description = "用户家目录（不含 ~，需传绝对路径）"
-  type        = string
-}
-
-variable "data_dir" {
-  description = "存储数据目录"
-  type        = string
-  default     = null
-}
-
-variable "logs_dir" {
-  description = "审计日志目录"
-  type        = string
-  default     = null
-}
-
-# --- Stack Auth ---
-
-variable "stack_server_secret" {
-  description = "Stack Auth 服务端签名密钥（留空自动生成）"
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
-variable "stack_db_user" {
-  description = "Stack Auth 数据库用户"
-  type        = string
-  default     = null
-}
-
-variable "stack_db_password" {
-  description = "Stack Auth 数据库密码（留空自动生成）"
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
-variable "stack_db_name" {
-  description = "Stack Auth 数据库名"
-  type        = string
-  default     = null
-}
-
-variable "stack_vault_mount" {
-  description = "Vault KV secrets engine 挂载路径"
-  type        = string
-  default     = null
-}
-
-variable "stack_api_port" {
-  description = "Stack Auth API 端口"
+variable "db_max_capacity" {
+  description = "RDS Serverless 最大算力（RCU）"
   type        = number
-  default     = null
-}
-
-variable "stack_dashboard_port" {
-  description = "Stack Auth Dashboard 端口"
-  type        = number
-  default     = null
-}
-
-variable "stack_db_port" {
-  description = "PostgreSQL 端口"
-  type        = number
-  default     = null  # 默认 5432
-}
-
-variable "stack_repo_url" {
-  description = "Stack Auth 源码仓库地址"
-  type        = string
-  default     = "https://github.com/stack-auth/stack-auth.git"
-}
-
-variable "stack_target_dir" {
-  description = "Stack Auth 源码本地目录"
-  type        = string
-  default     = null  # 需传绝对路径，如 /home/user/repos/stack-auth
-}
-
-# --- 备份 ---
-
-variable "backup_dir" {
-  description = "备份目录（本地指向 Nutstore，模拟云端 HSM 备份）"
-  type        = string
-  default     = null
+  default     = 4
 }

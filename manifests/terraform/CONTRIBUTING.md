@@ -2,20 +2,19 @@
 
 ## 文件组织
 
-每个 `.tf` 文件按上下分为两个区域：
+按资源域组织 `.tf` 文件：
 
-**管理员（环境无关）**
-- 声明 Vault 运行时的资源：secrets engine、policies
-- 本地和云共用，上云不修改
-
-**部署层（环境专属）**
-- 生成本地配置文件、随机密码、启动脚本、备份文件
-- 上云时整个区域替换为云模块
+| 文件 | 内容 |
+|------|------|
+| `providers.tf` / `versions.tf` | provider 与远程状态 |
+| `network.tf` | VPC / 交换机 / 安全组 |
+| `rds.tf` | 共享 RDS 实例 |
+| `resource-group.tf` | quanttide 资源组 |
+| `outputs.tf` | 供应用仓库引用的输出 |
 
 ## 规则
 
-- 文件内先用 `# ====` 分隔线标出管理层和部署层
-- 管理层在上，部署层在下
-- 部署层依赖管理层，不得反向引用
-- `locals` 归入所属区域的尾部
-- 涉及敏感值的备份文件使用 `count = var.backup_dir != null ? 1 : 0` 条件创建
+- 命名遵循 quanttide 命名规则：系统级 `quanttide-<env>` 前缀
+- 本仓库只管理系统级共享资源；应用级资源交给应用仓库
+- 关键资源（VPC/RDS）保持 `prevent_destroy` + 删除保护
+- 新增踩坑记录写入 README「踩坑记录」
