@@ -10,7 +10,7 @@ Vault 层 (加密微服务)
 存储层：本地 file / 云端 S3 兼容存储
 ```
 
-密钥由应用直接从 Vault 获取，不经过 shell 环境变量或中间层。操作指南见 [dev/infra/vault.md](../../dev/infra/vault.md)。
+密钥由应用直接从 Vault 获取，不经过 shell 环境变量或中间层。
 
 ## 解封策略
 

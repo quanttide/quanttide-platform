@@ -5,43 +5,33 @@ project:
   description: 量潮工作平台（quanttide-platform）— 主仓库文档
   toc:
     - file: index.md
-    - title: BRD（问题领域边界）
+    - title: 开发指南（架构与操作）
       children:
-        - file: brd/index.md
-    - title: PRD（产品组合策略）
-      children:
-        - file: prd/index.md
-    - title: ADD（跨模块架构标准）
-      children:
-        - file: add/index.md
-        - title: 应用
-          children:
-            - file: add/apps/README.md
-            - file: add/apps/domains/index.md
-            - file: add/apps/domains/qtcloud-data.md
-        - title: 基础设施
-          children:
-            - file: add/infra/index.md
-            - file: add/infra/cloud_services.md
-            - file: add/infra/access_control.md
-            - file: add/infra/databases.md
-            - file: add/infra/logging_services.md
-            - file: add/infra/microservers.md
-            - file: add/infra/storages.md
-            - file: add/infra/websites.md
-        - title: 语言和框架
-          children:
-            - file: add/packages/index.md
-            - file: add/packages/flutter.md
+        - file: dev-guide/index.md
         - title: 关键问题
           children:
-            - file: add/intro/README.md
-            - file: add/intro/ubiquitous_language.md
-            - file: add/intro/domain_events.md
-            - file: add/intro/domain_models.md
-            - file: add/intro/evolution.md
-            - file: add/intro/multi-tenants.md
-            - file: add/intro/pushing_notifications.md
-            - file: add/intro/timer.md
+            - file: dev-guide/intro/README.md
+            - file: dev-guide/intro/ubiquitous_language.md
+            - file: dev-guide/intro/domain_events.md
+            - file: dev-guide/intro/domain_models.md
+            - file: dev-guide/intro/evolution.md
+            - file: dev-guide/intro/multi-tenants.md
+            - file: dev-guide/intro/pushing_notifications.md
+            - file: dev-guide/intro/timer.md
+        - title: Flutter 开发
+          children:
+            - file: dev-guide/flutter/apps.md
+            - file: dev-guide/flutter/blocs.md
+            - file: dev-guide/flutter/packages.md
+        - title: 基础设施与 IaC
+          children:
+            - file: dev-guide/iac/index.md
+            - file: dev-guide/iac/access_control.md
+            - file: dev-guide/iac/databases.md
+            - file: dev-guide/iac/logging_services.md
+            - file: dev-guide/iac/microservers.md
+            - file: dev-guide/iac/secrets.md
+            - file: dev-guide/iac/storages.md
+            - file: dev-guide/iac/websites.md
 site:
   template: book-theme

@@ -1,4 +1,6 @@
-# 系统架构文档
+# 开发指南
+
+面向开发者的架构决策与操作指南：`index.md` 记录架构风格（为什么），各子目录记录具体设计与操作（怎么做）。
 
 ## 架构风格
 
@@ -21,13 +23,12 @@
 
 每个 `apps/qtcloud-*` 是一个独立的产品级子模块，拥有自己的生命周期、文档体系和部署流程。主仓库只负责编排和组合，不持有领域逻辑。
 
-## 文档覆盖
+## 目录
 
 | 目录 | 内容 |
 |------|------|
-| [apps](apps/README.md) | 产品应用架构与分层 |
-| [infra](infra/index.md) | 基础设施与云服务 |
-| [packages](packages/README.md) | 技术栈与框架 |
-| [intro](intro/README.md) | 关键概念与设计思想 |
+| [intro/](intro/README.md) | 关键概念与设计思想 |
+| [flutter/](flutter/apps.md) | Flutter 开发指南（apps / blocs / packages） |
+| [iac/](iac/index.md) | 基础设施设计、系统级 IaC（阿里云 Terraform） |
 
-实现细节和操作指南另见 [../dev/](../dev/README.md)。
+产品应用架构文档（各产品云的定位与分层）已迁移至 [quanttide-profile-of-product-development](https://github.com/quanttide/quanttide-profile-of-product-development) 仓库的 `products/default/apps/`。

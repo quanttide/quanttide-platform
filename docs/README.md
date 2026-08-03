@@ -15,10 +15,9 @@ quanttide-platform (主仓库)
 
 | 目录 | 角色 |
 |------|------|
-| `docs/add/` | 架构决策（why、约束、原则） |
-| `docs/dev/` | 开发操作指南（how、命令、代码示例） |
-| `docs/brd/` | 业务需求 |
-| `docs/prd/` | 产品需求 |
+| `docs/dev-guide/` | 开发指南（架构决策 why + 操作 how） |
+
+平台级 BRD/PRD 已迁移至 [quanttide-profile-of-product-development](https://github.com/quanttide/quanttide-profile-of-product-development) 仓库的 `products/default/`。
 
 ## 设计逻辑
 
