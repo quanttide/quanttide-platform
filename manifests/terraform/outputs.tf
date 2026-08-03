@@ -28,3 +28,8 @@ output "rds_port" {
   description = "RDS 端口"
   value       = alicloud_db_instance.this.port
 }
+
+output "resource_group_id" {
+  description = "quanttide 资源组 ID（应用资源归入同一组）"
+  value       = local.resource_group_id
+}
