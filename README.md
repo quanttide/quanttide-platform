@@ -12,7 +12,7 @@ quanttide-platform/
 
 → [产品边界说明](docs/index.md)
 
-版本策略、设计原则见 [docs/prd/index.md](docs/prd/index.md)，目录结构与 packages/apps 约定见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+版本策略、设计原则见 [quanttide-profile-of-product-development](https://github.com/quanttide/quanttide-profile-of-product-development) 仓库的 `products/default/prd/index.md`，目录结构与 packages/apps 约定见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 产品清单
 

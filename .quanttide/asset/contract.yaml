@@ -4,26 +4,16 @@
 # ── 资产组成 ──────────────────────────────────────────
 
 assets:
-  # 架构与设计文档
-  add_docs:
-    title: 架构设计文档
+  # 开发指南文档
+  dev_guide_docs:
+    title: 开发指南文档
     kind: documentation
-    path: docs/add
-    description: 平台架构、云服务设计、基础设施等设计文档
+    path: docs/dev-guide
+    description: 架构设计、基础设施、开发操作等开发文档
     subassets:
-      - path: docs/add/applications # 应用设计
-      - path: docs/add/cloud_services # 云服务设计
-      - path: docs/add/general # 通用设计
-      - path: docs/add/infra # 基础设施
-      - path: docs/add/layers # 架构层次
-      - path: docs/add/topics # 专题
-
-  # 产品需求文档
-  prd_docs:
-    title: 产品需求文档
-    kind: documentation
-    path: docs/prd
-    description: 产品需求规格文档
+      - path: docs/dev-guide/iac # 基础设施与系统级 IaC
+      - path: docs/dev-guide/intro # 关键问题
+      - path: docs/dev-guide/flutter # Flutter 开发
 
   # 根目录文档
   root_docs:
@@ -154,14 +144,10 @@ skills:
     title: 文档归档
     description: 将 journal 类文档移动到 archive 目录
     contracts:
-      - name: prd_archive
-        asset: prd_docs
-        from: docs/prd
-        to: docs/archive/prd
-      - name: add_archive
-        asset: add_docs
-        from: docs/add
-        to: docs/archive/add
+      - name: dev_guide_archive
+        asset: dev_guide_docs
+        from: docs/dev-guide
+        to: docs/archive/dev-guide
 
   # 同步 Skill
   sync_submodules:

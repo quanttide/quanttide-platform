@@ -67,4 +67,4 @@ apps/qtconsult/src/studio/
 
 ---
 
-设计原则与版本策略等见 [docs/prd/index.md](docs/prd/index.md)。
+设计原则与版本策略见 [quanttide-profile-of-product-development](https://github.com/quanttide/quanttide-profile-of-product-development) 仓库的 `products/default/prd/index.md`。

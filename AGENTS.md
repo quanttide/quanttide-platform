@@ -63,17 +63,17 @@ qtcloud-knowl audit
 
 | 文档 | 认知角色 | 内容概要 |
 |------|----------|----------|
-| [docs/prd/index.md](docs/prd/index.md) | 程序记忆 | 设计原则、版本策略 |
+| [PRD 设计原则](https://github.com/quanttide/quanttide-profile-of-product-development/blob/main/products/default/prd/index.md) | 程序记忆 | 设计原则、版本策略（已迁移至 profile 仓库） |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | 程序记忆 | 目录结构、apps/packages 约定 |
 | [README.md](README.md) | 陈述记忆 | 项目定位、仓库结构、产品清单 |
 | [ROADMAP.md](ROADMAP.md) | 方向 | 当前阶段目标、待办事项、优先级 |
 | [CHANGELOG.md](CHANGELOG.md) | 记忆 | 版本变更历史、发布记录 |
-| [docs/index.md](docs/index.md) | 架构 | 仓库层级关系、文档类型（add/dev/brd/prd） |
+| [docs/index.md](docs/index.md) | 架构 | 仓库层级关系、文档类型（dev-guide） |
 | [apps/qtclass/docs/drd/](apps/qtclass/docs/drd/) | 程序记忆 | 子模块 DRD（数据需求文档），与 IXD/ADD 同级 |
 
 ## AI 执行指引
 
-开始工作前，先阅读 [docs/prd/index.md](docs/prd/index.md) 的设计原则与 [CONTRIBUTING.md](CONTRIBUTING.md) 的项目约定。
+开始工作前，先阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 的项目约定；设计原则见 [quanttide-profile-of-product-development](https://github.com/quanttide/quanttide-profile-of-product-development) 仓库的 `products/default/prd/index.md`。
 
 过往经验表明 AI 最容易在这些地方犯错，请特别注意：
 
@@ -105,7 +105,7 @@ Vault key 只需在路径范围内自描述即可，不要跟应用字段名强�
 | [CHANGELOG.md](CHANGELOG.md) | 对用户可见的变更（新功能、重构、修复） |
 | [ROADMAP.md](ROADMAP.md) | 方向调整、阶段性成果达成 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | 目录结构或 packages/apps 约定变化 |
-| [docs/prd/index.md](docs/prd/index.md) | 工作方式或原则发生变化 |
+| [PRD 设计原则](https://github.com/quanttide/quanttide-profile-of-product-development/blob/main/products/default/prd/index.md) | 工作方式或原则发生变化 |
 | [README.md](README.md) | 产品功能或仓库结构变化 |
 | [AGENTS.md](AGENTS.md) | AI 工作经验增加 |
 
