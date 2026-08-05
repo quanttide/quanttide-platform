@@ -41,7 +41,7 @@ OSS 桶（*-site / *-studio）
 ### 备用域名
 
 - `data.quanttide.com` → 同样指向 `qtdata-studio`
-- `quanttide.tank.com` — 预生产环境（待部署）
+- `quanttidetech.com` — 预生产环境（待部署）
 
 ## 三、日常操作
 
