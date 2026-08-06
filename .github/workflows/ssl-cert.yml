@@ -1,0 +1,51 @@
+name: SSL Cert Renewal
+
+# 每周一 02:17 自动检查续期；也可手动触发
+on:
+  schedule:
+    - cron: '17 2 * * 1'
+  workflow_dispatch:
+
+jobs:
+  renew-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install acme.sh
+        run: |
+          curl https://get.acme.sh | sh -s email=we@quanttide.com
+
+      - name: Issue / Renew wildcard cert
+        env:
+          Ali_Key: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          Ali_Secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+        run: |
+          export Ali_Key="${{ secrets.ALIYUN_ACCESS_KEY_ID }}"
+          export Ali_Secret="${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}"
+          # SAN: 根域 + 单级通配 + cloud 层通配（一次覆盖 data.cloud / delib.cloud / 未来全部 xxx.cloud）
+          ~/.acme.sh/acme.sh --issue --dns dns_ali \
+            -d quanttide.com \
+            -d '*.quanttide.com' \
+            -d '*.cloud.quanttide.com' \
+            --force || true
+
+      - name: Install Python SDK
+        run: pip install aliyun-python-sdk-core aliyun-python-sdk-cdn
+
+      - name: Bind cert to all CDN domains
+        env:
+          ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+        run: |
+          python3 scripts/ssl/deploy-cert-cdn.py --cert-dir ~/.acme.sh/quanttide.com_ecc
+
+      - name: Verify HTTPS
+        env:
+          ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+        run: |
+          for d in quanttide.com founder.quanttide.com data.quanttide.com data.cloud.quanttide.com; do
+            code=$(curl -sk -o /dev/null -w "%{http_code}" "https://${d}" || true)
+            echo "${d}: ${code}"
+          done
