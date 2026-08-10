@@ -31,7 +31,7 @@ jobs:
             --force || true
 
       - name: Install Python SDK
-        run: pip install aliyun-python-sdk-core aliyun-python-sdk-cdn
+        run: pip install aliyun-python-sdk-core aliyun-python-sdk-cdn aliyun-python-sdk-cloudapi
 
       - name: Bind cert to all CDN domains
         env:
@@ -39,6 +39,13 @@ jobs:
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
           python3 scripts/ssl/deploy-cert-cdn.py --cert-dir ~/.acme.sh/quanttide.com_ecc
+
+      - name: Bind cert to API Gateway (api.quanttide.com)
+        env:
+          ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+        run: |
+          python3 scripts/ssl/deploy-cert-gateway.py --cert-dir ~/.acme.sh/quanttide.com_ecc --group-id 34c138c4bec1405d942a57d9bb5ede37
 
       - name: Verify HTTPS
         env:
