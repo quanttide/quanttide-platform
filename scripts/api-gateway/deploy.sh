@@ -6,7 +6,7 @@
 #
 # 职责：
 #   1. 分组 qtcloud（已存在则跳过）
-#   2. API 定义（按名称幂等创建 + 发布）：/qtcloud-auth/*、/qtcloud-pay/* 各端点
+#   2. API 定义（按名称幂等创建 + 发布）：/qtcloud-auth/*、/qtcloud-pay/* 各端点（含 Authorization 头透传）
 #   3. 域名绑定 api.quanttide.com（需 DNS CNAME 先生效）
 #   4. DNS 记录 api.quanttide.com CNAME（幂等）
 #
@@ -78,9 +78,14 @@ for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
   else
     REQ="{\"RequestProtocol\":\"HTTPS\",\"RequestHttpMethod\":\"$method\",\"RequestPath\":\"$reqpath\",\"BodyFormat\":\"STREAM\"}"
     SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\"}"
+    # Authorization 头透传（JWT 鉴权；传统网关默认丢弃未定义 Header）
+    P_REQ='[{"ApiParameterName":"Authorization","Location":"HEAD","ParameterType":"String","Required":"OPTIONAL","DefaultValue":"","ApiParameterDesc":"JWT Bearer"}]'
+    P_SVC='[{"ServiceParameterName":"Authorization","Location":"HEAD","Type":"String","ParameterCatalog":"REQUEST","ServiceParameterApiName":"Authorization"}]'
+    P_MAP='[{"ServiceParameterName":"Authorization","RequestParameterName":"Authorization"}]'
     API_ID=$(aliyun_retry aliyun cloudapi CreateApi \
       --GroupId "$GROUP_ID" --ApiName "$name" --Description "$name" \
       --RequestConfig "$REQ" --ServiceConfig "$SVC" \
+      --RequestParameters "$P_REQ" --ServiceParameters "$P_SVC" --ServiceParametersMap "$P_MAP" \
       --Visibility PUBLIC --AuthType ANONYMOUS --ResultType JSON --ResultSample '{}' |
       python3 -c "import json,sys; print(json.load(sys.stdin)['ApiId'])")
     echo "created api: $name ($API_ID)"
