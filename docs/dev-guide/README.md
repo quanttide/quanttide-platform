@@ -17,7 +17,7 @@
 
 ### 微服务化
 
-系统从单体向微服务演进。每个领域产品（qtcloud-asset、qtcloud-hr 等）独立部署、独立演进，通过聚合仓库 qtadmin、qtcloud 等组合为完整产品。
+系统从单体向微服务演进。每个领域产品（qtcloud-asset、qtcloud-human 等）独立部署、独立演进，通过聚合仓库 qtadmin、qtcloud 等组合为完整产品。
 
 ### 子模块即产品
 
