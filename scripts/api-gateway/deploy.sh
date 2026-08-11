@@ -21,6 +21,7 @@ REGION=cn-hangzhou
 # 后端 FC 地址（公网 HTTP 触发器）
 AUTH_FC="http://qtclouduth-prod-gnuguyxinh.cn-hangzhou.fcapp.run"
 PAY_FC="http://qtcloudpay-prod-bgqlorwtph.cn-hangzhou.fcapp.run"
+DELIB_FC="http://qtcloudlib-prod-eqppqgaboh.cn-hangzhou.fcapp.run"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
 aliyun_retry() {
@@ -62,6 +63,9 @@ APIS=(
   "qtcloud-pay-recharges|POST|/qtcloud-pay/accounts/{account_id}/recharges|/accounts/{account_id}/recharges|$PAY_FC"
   "qtcloud-pay-orders|POST|/qtcloud-pay/orders|/orders|$PAY_FC"
   "qtcloud-pay-health|GET|/qtcloud-pay/reconcile/consistency|/reconcile/consistency|$PAY_FC"
+  "qtcloud-delib-resolutions|GET|/qtcloud-delib/resolutions|/resolutions|$DELIB_FC"
+  "qtcloud-delib-resolutions-post|POST|/qtcloud-delib/resolutions|/resolutions|$DELIB_FC"
+  "qtcloud-delib-resolution-delete|DELETE|/qtcloud-delib/resolutions/{name}|/resolutions/{name}|$DELIB_FC"
 )
 
 for entry in "${APIS[@]}"; do
