@@ -33,5 +33,6 @@ project:
             - file: dev-guide/iac/secrets.md
             - file: dev-guide/iac/storages.md
             - file: dev-guide/iac/websites.md
+            - file: dev-guide/site-ops-handbook.md
 site:
   template: book-theme
