@@ -18,15 +18,27 @@
 
 ### 二级域名
 
-- <hostname>用于企业官网。
+- <hostname>用于企业官网（site 用主域名）。
 - class.<hostname>用于课程平台（量潮课堂APP）。
 - services.<hostname>用于数据服务平台（量潮数据服务APP）。
 - admin.<hostname>用于内部管理平台（量潮企业后台APP）。
+
+### 前端应用域名规则（2026-08-12 果总决策）
+
+**一域名、一存储桶、一前端应用一一对应**：前端客户端统一用 `studio.<hostname>` 子域名。
+
+- `studio.class.quanttide.com`：课程平台客户端（qtclass studio）
+- `studio.delib.cloud.quanttide.com`：议事云客户端（qtcloud-delib studio）
+- 其余应用客户端同理（`studio.<应用主域名>`）
+
+即：应用主域名（如 class.quanttide.com）承载站点/服务端入口，`studio.` 前缀承载该应用的前端应用。
 
 ### 已分配域名
 
 - 管理后台客户端：`admin.quanttide.com`
 - 管理后台服务端：`api.admin.quanttide.com`
+- 课程平台客户端：`studio.class.quanttide.com`
+- 系统级 API 网关：`api.quanttide.com`
 
 ## 部署规则
 
