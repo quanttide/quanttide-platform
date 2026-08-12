@@ -22,6 +22,7 @@ REGION=cn-hangzhou
 AUTH_FC="http://qtclouduth-prod-gnuguyxinh.cn-hangzhou.fcapp.run"
 PAY_FC="http://qtcloudpay-prod-bgqlorwtph.cn-hangzhou.fcapp.run"
 DELIB_FC="http://qtcloudlib-prod-eqppqgaboh.cn-hangzhou.fcapp.run"
+COURSE_FC="http://qtcloudrse-prod-lsqdodhmqh.cn-hangzhou.fcapp.run"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
 aliyun_retry() {
@@ -66,6 +67,9 @@ APIS=(
   "qtcloud-delib-resolutions|GET|/qtcloud-delib/resolutions|/resolutions|$DELIB_FC"
   "qtcloud-delib-resolutions-post|POST|/qtcloud-delib/resolutions|/resolutions|$DELIB_FC"
   "qtcloud-delib-resolution-delete|DELETE|/qtcloud-delib/resolutions/{name}|/resolutions/{name}|$DELIB_FC"
+  "qtcloud-course-player-data|GET|/qtcloud-course/player-data|/player-data|$COURSE_FC"
+  "qtcloud-course-programs|GET|/qtcloud-course/programs|/programs|$COURSE_FC"
+  "qtcloud-course-courses|GET|/qtcloud-course/courses|/courses|$COURSE_FC"
 )
 
 for entry in "${APIS[@]}"; do
