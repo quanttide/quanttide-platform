@@ -100,7 +100,8 @@ for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
     echo "api exists: $name ($API_ID)"
   else
     REQ="{\"RequestProtocol\":\"HTTPS\",\"RequestHttpMethod\":\"$method\",\"RequestPath\":\"$reqpath\",\"BodyFormat\":\"STREAM\"}"
-    SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\"}"
+    # ServiceTimeout=30s：FC 冷启动可达 6-9s，默认超时导致 504（2026-08-13 排查确认）
+    SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\",\"ServiceTimeout\":30}"
     # Authorization 头透传（JWT 鉴权；传统网关默认丢弃未定义 Header）
     P_REQ='[{"ApiParameterName":"Authorization","Location":"HEAD","ParameterType":"String","Required":"OPTIONAL","DefaultValue":"","ApiParameterDesc":"JWT Bearer"}]'
     P_SVC='[{"ServiceParameterName":"Authorization","Location":"HEAD","Type":"String","ParameterCatalog":"REQUEST","ServiceParameterApiName":"Authorization"}]'
