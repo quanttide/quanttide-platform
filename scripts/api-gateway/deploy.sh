@@ -24,6 +24,7 @@ PAY_FC="http://qtcloudpay-prod-bgqlorwtph.cn-hangzhou.fcapp.run"
 DELIB_FC="http://qtcloudlib-prod-eqppqgaboh.cn-hangzhou.fcapp.run"
 COURSE_FC="http://qtcloudrse-prod-lsqdodhmqh.cn-hangzhou.fcapp.run"
 FINANCE_FC="http://qtcloudnce-prod-bobbsmtsfr.cn-hangzhou.fcapp.run"
+HUMAN_FC="http://qtcloudman-prod-eqpdghspoh.cn-hangzhou.fcapp.run"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
 aliyun_retry() {
@@ -81,6 +82,9 @@ APIS=(
   "qtcloud-delib-topic-debate|POST|/qtcloud-delib/topics/{id}/debate|/topics/{id}/debate|$DELIB_FC"
   "qtcloud-delib-topic-vote|POST|/qtcloud-delib/topics/{id}/vote|/topics/{id}/vote|$DELIB_FC"
   "qtcloud-delib-topic-close|POST|/qtcloud-delib/topics/{id}/close|/topics/{id}/close|$DELIB_FC"
+  "qtcloud-human-healthz|GET|/qtcloud-human/healthz|/healthz|$HUMAN_FC"
+  "qtcloud-human-timesheets|GET|/qtcloud-human/timesheets|/timesheets|$HUMAN_FC"
+  "qtcloud-human-timesheets-post|POST|/qtcloud-human/timesheets|/timesheets|$HUMAN_FC"
 )
 
 for entry in "${APIS[@]}"; do
