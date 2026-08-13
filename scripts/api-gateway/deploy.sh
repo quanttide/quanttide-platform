@@ -62,6 +62,7 @@ APIS=(
   "qtcloud-auth-sms|POST|/qtcloud-auth/oauth/sms/send|/oauth/sms/send|$AUTH_FC"
   "qtcloud-auth-register|POST|/qtcloud-auth/oauth/register|/oauth/register|$AUTH_FC"
   "qtcloud-auth-userinfo|GET|/qtcloud-auth/userinfo|/userinfo|$AUTH_FC"
+  "qtcloud-auth-password-change|POST|/qtcloud-auth/oauth/password/change|/oauth/password/change|$AUTH_FC"
   "qtcloud-pay-accounts|POST|/qtcloud-pay/accounts|/accounts|$PAY_FC"
   "qtcloud-pay-recharges|POST|/qtcloud-pay/accounts/{account_id}/recharges|/accounts/{account_id}/recharges|$PAY_FC"
   "qtcloud-pay-orders|POST|/qtcloud-pay/orders|/orders|$PAY_FC"
