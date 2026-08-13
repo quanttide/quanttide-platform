@@ -74,6 +74,13 @@ APIS=(
   "qtadmin-finance-budgets|GET|/qtadmin-finance/budgets|/budgets|$FINANCE_FC"
   "qtadmin-finance-budgets-post|POST|/qtadmin-finance/budgets|/budgets|$FINANCE_FC"
   "qtadmin-finance-budget|GET|/qtadmin-finance/budgets/{id}|/budgets/{id}|$FINANCE_FC"
+  "qtcloud-delib-topics|GET|/qtcloud-delib/topics|/topics|$DELIB_FC"
+  "qtcloud-delib-topics-post|POST|/qtcloud-delib/topics|/topics|$DELIB_FC"
+  "qtcloud-delib-topic|GET|/qtcloud-delib/topics/{id}|/topics/{id}|$DELIB_FC"
+  "qtcloud-delib-topic-second|POST|/qtcloud-delib/topics/{id}/second|/topics/{id}/second|$DELIB_FC"
+  "qtcloud-delib-topic-debate|POST|/qtcloud-delib/topics/{id}/debate|/topics/{id}/debate|$DELIB_FC"
+  "qtcloud-delib-topic-vote|POST|/qtcloud-delib/topics/{id}/vote|/topics/{id}/vote|$DELIB_FC"
+  "qtcloud-delib-topic-close|POST|/qtcloud-delib/topics/{id}/close|/topics/{id}/close|$DELIB_FC"
 )
 
 for entry in "${APIS[@]}"; do
