@@ -23,7 +23,7 @@ AUTH_FC="http://qtclouduth-prod-gnuguyxinh.cn-hangzhou.fcapp.run"
 PAY_FC="http://qtcloudpay-prod-bgqlorwtph.cn-hangzhou.fcapp.run"
 DELIB_FC="http://qtcloudlib-prod-eqppqgaboh.cn-hangzhou.fcapp.run"
 COURSE_FC="http://qtcloudrse-prod-lsqdodhmqh.cn-hangzhou.fcapp.run"
-FINANCE_FC="http://qtadminnce-prod-robbskbsdn.cn-hangzhou.fcapp.run"
+FINANCE_FC="http://qtcloudnce-prod-bobbsmtsfr.cn-hangzhou.fcapp.run"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
 aliyun_retry() {
@@ -71,9 +71,9 @@ APIS=(
   "qtcloud-course-player-data|GET|/qtcloud-course/player-data|/player-data|$COURSE_FC"
   "qtcloud-course-programs|GET|/qtcloud-course/programs|/programs|$COURSE_FC"
   "qtcloud-course-courses|GET|/qtcloud-course/courses|/courses|$COURSE_FC"
-  "qtadmin-finance-budgets|GET|/qtadmin-finance/budgets|/budgets|$FINANCE_FC"
-  "qtadmin-finance-budgets-post|POST|/qtadmin-finance/budgets|/budgets|$FINANCE_FC"
-  "qtadmin-finance-budget|GET|/qtadmin-finance/budgets/{id}|/budgets/{id}|$FINANCE_FC"
+  "qtcloud-finance-budgets|GET|/qtcloud-finance/budgets|/budgets|$FINANCE_FC"
+  "qtcloud-finance-budgets-post|POST|/qtcloud-finance/budgets|/budgets|$FINANCE_FC"
+  "qtcloud-finance-budget|GET|/qtcloud-finance/budgets/{id}|/budgets/{id}|$FINANCE_FC"
   "qtcloud-delib-topics|GET|/qtcloud-delib/topics|/topics|$DELIB_FC"
   "qtcloud-delib-topics-post|POST|/qtcloud-delib/topics|/topics|$DELIB_FC"
   "qtcloud-delib-topic|GET|/qtcloud-delib/topics/{id}|/topics/{id}|$DELIB_FC"
