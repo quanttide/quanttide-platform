@@ -49,3 +49,33 @@
 每个环境一个固定存储桶，命名规范为`qtapps-web-<env>`，比如`qtapps-web-prod`。
 
 存储桶内以应用隔离文件夹，以应用标识为文件夹名称，如`qtclass`、`qtadmin`。
+
+## CDN 缓存策略与 SPA 深链回退
+
+### 缓存策略分离
+
+对象存储 + CDN 静态托管时，缓存策略按文件类型分离（清单见 flutter/apps.md「Web 发布与缓存」）：
+
+- 入口/引导/固定文件名产物（如 `index.html`、`main.dart.js`）→ `Cache-Control: no-cache`
+- 带内容哈希的产物（`assets/` 等）→ 长缓存
+
+CDN 刷新只能清 CDN 边缘缓存，清不掉浏览器本地缓存——发布后"没变化"通常是历史长缓存策略留下的存量浏览器，需版本化引用破环（给入口文件里的 JS 引用附加构建哈希查询串）。
+
+### Path URL 策略需要 SPA 深链回退改写
+
+客户端改用 Path URL 策略（地址栏无 `#`，Flutter 用 `usePathUrlStrategy()`）后，直接访问或刷新子路由（如 `/record`）会回源 404。CDN 增加回源改写规则，把"非真实产物"的路径统一改写为 `/index.html`：
+
+- 函数：`back_to_origin_url_rewrite`，`flag: break`
+- source 用负向断言正则排除真实产物（阿里云 CDN 实测支持）：
+
+```
+^/(?!index\.html$|main\.dart\.js$|flutter\.js$|flutter_bootstrap\.js$|flutter_service_worker\.js$|manifest\.json$|version\.json$|favicon\.png$|assets/|icons/|canvaskit/).*
+```
+
+- 真实产物清单以 `flutter build web --release` 产物目录为准，Flutter 版本升级后需复查
+
+### 多状态文件与 -target 局部应用
+
+同一仓库多个站点各自独立状态文件（如 `qthealth/site.tfstate`、`qthealth/studio.tfstate`），CI 用 `-target` 只应用本站点资源，避免互相创建重复资源。
+
+教训：`terraform init` 更换后端 key 后必须加 `-reconfigure`，否则 init 报错且 apply 仍按旧指针执行（会尝试创建已存在的资源，报 `DomainAlreadyExist` 等幂等错误——虽无害但状态指针混乱）。多状态文件下不要用整目录 apply。
