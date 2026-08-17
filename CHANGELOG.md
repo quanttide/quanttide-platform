@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [Unreleased]
+
+### Changed
+
+- 计算原则调整：大型系统从"以 k8s 为主"改为"以 FaaS 为主"，k8s 与服务器为辅（docs/dev-guide/iac/index.md、docs/dev-guide/intro/evolution.md、ROADMAP.md）
+
 ## [0.8.1] - 2026-08-03
 
 系统级 IaC 输出完善与基础设施文档归位。
