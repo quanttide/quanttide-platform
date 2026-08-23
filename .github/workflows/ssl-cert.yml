@@ -23,11 +23,13 @@ jobs:
         run: |
           export Ali_Key="${{ secrets.ALIYUN_ACCESS_KEY_ID }}"
           export Ali_Secret="${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}"
-          # SAN: 根域 + 单级通配 + cloud 层通配（一次覆盖 data.cloud / delib.cloud / 未来全部 xxx.cloud）
+          # SAN: 根域 + 单级通配 + cloud 层通配 + execute.cloud 层通配
+          # （一次覆盖 data.cloud / delib.cloud / 未来全部 xxx.cloud；*.execute.cloud.quanttide.com 覆盖 studio.execute）
           ~/.acme.sh/acme.sh --issue --dns dns_ali \
             -d quanttide.com \
             -d '*.quanttide.com' \
             -d '*.cloud.quanttide.com' \
+            -d '*.execute.cloud.quanttide.com' \
             --force || true
 
       - name: Install Python SDK
@@ -52,7 +54,7 @@ jobs:
           ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
-          for d in quanttide.com founder.quanttide.com data.quanttide.com data.cloud.quanttide.com; do
+          for d in quanttide.com founder.quanttide.com data.quanttide.com data.cloud.quanttide.com studio.execute.cloud.quanttide.com; do
             code=$(curl -sk -o /dev/null -w "%{http_code}" "https://${d}" || true)
             echo "${d}: ${code}"
           done
