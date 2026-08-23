@@ -25,6 +25,7 @@ DELIB_FC="http://qtcloudlib-prod-eqppqgaboh.cn-hangzhou.fcapp.run"
 COURSE_FC="http://qtcloudrse-prod-lsqdodhmqh.cn-hangzhou.fcapp.run"
 FINANCE_FC="http://qtcloudnce-prod-bobbsmtsfr.cn-hangzhou.fcapp.run"
 HUMAN_FC="http://qtcloudman-prod-eqpdghspoh.cn-hangzhou.fcapp.run"
+EXECUTE_FC="http://qtcloudute-prod-boyqzkoffr.cn-hangzhou.fcapp.run"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
 aliyun_retry() {
@@ -86,6 +87,11 @@ APIS=(
   "qtcloud-human-healthz|GET|/qtcloud-human/healthz|/healthz|$HUMAN_FC"
   "qtcloud-human-timesheets|GET|/qtcloud-human/timesheets|/timesheets|$HUMAN_FC"
   "qtcloud-human-timesheets-post|POST|/qtcloud-human/timesheets|/timesheets|$HUMAN_FC"
+  # qtcloud-execute：任务清单 API（公开读，网关转发到 FC；应用层无 CORS）
+  "qtcloud-execute-health|GET|/qtcloud-execute/health|/health|$EXECUTE_FC"
+  "qtcloud-execute-lists|GET|/qtcloud-execute/api/lists|/api/lists|$EXECUTE_FC"
+  "qtcloud-execute-list-tasks|GET|/qtcloud-execute/api/lists/{id}/tasks|/api/lists/{id}/tasks|$EXECUTE_FC"
+  "qtcloud-execute-task-update|PUT|/qtcloud-execute/api/lists/{id}/tasks/{taskId}|/api/lists/{id}/tasks/{taskId}|$EXECUTE_FC"
 )
 
 for entry in "${APIS[@]}"; do
