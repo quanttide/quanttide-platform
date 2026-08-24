@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- apps/qtmedia — 媒体中心子模块
+- apps/qtcrowd — 众包销售子模块
+- apps/qtfounder — 创始人项目（创作现场）子模块
+- apps/qtfiction — 小说平台子模块
+
 ### Changed
 
 - 计算原则调整：大型系统从"以 k8s 为主"改为"以 FaaS 为主"，k8s 与服务器为辅（docs/dev-guide/iac/index.md、docs/dev-guide/intro/evolution.md、ROADMAP.md）

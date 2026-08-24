@@ -108,3 +108,15 @@
 [submodule "apps/qtrecurit"]
 	path = apps/qtrecurit
 	url = https://github.com/quanttide/qtrecurit
+[submodule "apps/qtmedia"]
+	path = apps/qtmedia
+	url = https://github.com/quanttide/qtmedia.git
+[submodule "apps/qtcrowd"]
+	path = apps/qtcrowd
+	url = https://github.com/quanttide/qtcrowd.git
+[submodule "apps/qtfounder"]
+	path = apps/qtfounder
+	url = https://github.com/quanttide/qtfounder.git
+[submodule "apps/qtfiction"]
+	path = apps/qtfiction
+	url = https://github.com/quanttide/qtfiction.git

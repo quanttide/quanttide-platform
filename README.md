@@ -50,7 +50,11 @@ quanttide-platform/
 | qtcloud-think | 知识收集 | cli/v0.1.0-alpha.1 |
 | qtcloud-write | 写作辅助 | studio/v0.1.0-alpha.5 |
 | qtconsult | 咨询 | studio/v0.3.0 |
+| qtcrowd | 众包销售 | site/v0.1.1-beta.5 |
 | qtdata | 数据服务 | studio/v0.1.0-beta.4 |
+| qtfiction | 小说平台 | site/v0.1.0-alpha.2 |
+| qtfounder | 创始人项目（创作现场） | site/v0.1.0-beta.2 |
+| qtmedia | 媒体中心 | site/v0.1.7 |
 | qtrecurit | 招聘 | site/v0.1.0-beta.4 |
 | qtweb | 官网 | v0.1.0-alpha.1 |
 
