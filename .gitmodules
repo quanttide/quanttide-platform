@@ -105,3 +105,6 @@
 [submodule "apps/qtcloud-econ"]
 	path = apps/qtcloud-econ
 	url = https://github.com/quanttide/qtcloud-econ.git
+[submodule "apps/qtrecurit"]
+	path = apps/qtrecurit
+	url = https://github.com/quanttide/qtrecurit
