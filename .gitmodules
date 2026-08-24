@@ -123,3 +123,18 @@
 [submodule "apps/qtbusiness"]
 	path = apps/qtbusiness
 	url = https://github.com/quanttide/qtbusiness.git
+[submodule "apps/qtacademics"]
+	path = apps/qtacademics
+	url = https://github.com/quanttide/qtacademics.git
+[submodule "apps/qtaccount"]
+	path = apps/qtaccount
+	url = https://github.com/quanttide/qtaccount.git
+[submodule "apps/qtalliance"]
+	path = apps/qtalliance
+	url = https://github.com/quanttide/qtalliance.git
+[submodule "apps/qtopen"]
+	path = apps/qtopen
+	url = https://github.com/quanttide/qtopen.git
+[submodule "apps/qtproduct"]
+	path = apps/qtproduct
+	url = https://github.com/quanttide/qtproduct.git
