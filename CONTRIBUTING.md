@@ -5,7 +5,7 @@
 ```
 quanttide-platform/
 ├── apps/       → 独立可部署的应用/产品（子模块）
-│   └── qtconsult/ 等 39 个
+│   └── qtconsult/ 等 40 个
 ├── packages/   → 跨应用共享的 SDK/工具包（子模块）
 │   ├── quanttide-connect-toolkit/ — 沟通工程工具包（Dart）
 │   ├── quanttide-course-toolkit/  — 课程 SDK

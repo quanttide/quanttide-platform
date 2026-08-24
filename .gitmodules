@@ -120,3 +120,6 @@
 [submodule "apps/qtfiction"]
 	path = apps/qtfiction
 	url = https://github.com/quanttide/qtfiction.git
+[submodule "apps/qtbusiness"]
+	path = apps/qtbusiness
+	url = https://github.com/quanttide/qtbusiness.git

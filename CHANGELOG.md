@@ -8,6 +8,7 @@
 - apps/qtcrowd — 众包销售子模块
 - apps/qtfounder — 创始人项目（创作现场）子模块
 - apps/qtfiction — 小说平台子模块
+- apps/qtbusiness — 服务黄页子模块
 
 ### Changed
 

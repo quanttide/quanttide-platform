@@ -19,6 +19,7 @@ quanttide-platform/
 | 产品 | 定位 | 版本 |
 |------|------|------|
 | qtadmin | 管理后台 | studio/v0.2.0-alpha.1 |
+| qtbusiness | 服务黄页 | site/v0.1.0 |
 | qtclass | 课堂服务 | site/v0.1.1 |
 | qtcloud | 产品线主仓库 | studio/v0.1.0-alpha.1 |
 | qtcloud-agent | 智能体云 | site/v0.1.0 |
