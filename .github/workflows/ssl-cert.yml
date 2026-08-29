@@ -25,7 +25,8 @@ jobs:
           export Ali_Secret="${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}"
           # SAN: 根域 + 单级通配 + cloud 层通配 + execute.cloud 层通配
           # （一次覆盖 data.cloud / delib.cloud / 未来全部 xxx.cloud；*.execute.cloud.quanttide.com 覆盖 studio.execute）
-          ~/.acme.sh/acme.sh --issue --dns dns_ali \
+          # --server letsencrypt：ZeroSSL 注册在 CI 全新 runner 上被拒（Account registration error），改用 Let's Encrypt
+          ~/.acme.sh/acme.sh --issue --server letsencrypt --dns dns_ali \
             -d quanttide.com \
             -d '*.quanttide.com' \
             -d '*.cloud.quanttide.com' \
