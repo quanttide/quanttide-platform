@@ -25,6 +25,7 @@ CDN_DOMAINS = [
     "data.cloud.quanttide.com",
     "studio.execute.cloud.quanttide.com",
     "org.quanttide.com",
+    "growth.quanttide.com",
 ]
 
 
