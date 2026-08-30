@@ -55,7 +55,7 @@ jobs:
           ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
-          for d in quanttide.com founder.quanttide.com data.quanttide.com data.cloud.quanttide.com studio.execute.cloud.quanttide.com org.quanttide.com growth.quanttide.com; do
+          for d in quanttide.com founder.quanttide.com data.quanttide.com data.cloud.quanttide.com studio.execute.cloud.quanttide.com org.quanttide.com growth.quanttide.com code.quanttide.com; do
             code=$(curl -sk -o /dev/null -w "%{http_code}" "https://${d}" || true)
             echo "${d}: ${code}"
           done
