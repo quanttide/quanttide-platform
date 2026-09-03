@@ -92,6 +92,7 @@ APIS=(
   "qtcloud-execute-lists|GET|/qtcloud-execute/api/lists|/api/lists|$EXECUTE_FC"
   "qtcloud-execute-list-tasks|GET|/qtcloud-execute/api/lists/{id}/tasks|/api/lists/{id}/tasks|$EXECUTE_FC"
   "qtcloud-execute-task-update|PUT|/qtcloud-execute/api/lists/{id}/tasks/{taskId}|/api/lists/{id}/tasks/{taskId}|$EXECUTE_FC"
+  "qtcloud-execute-task-delete|DELETE|/qtcloud-execute/api/lists/{id}/tasks/{taskId}|/api/lists/{id}/tasks/{taskId}|$EXECUTE_FC"
 )
 
 for entry in "${APIS[@]}"; do
