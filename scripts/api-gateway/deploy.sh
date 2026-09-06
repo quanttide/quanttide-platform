@@ -119,8 +119,8 @@ for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
     if a['ApiName']=='$name': print(a['ApiId'])
 " || true)
   REQ="{\"RequestProtocol\":\"HTTPS\",\"RequestHttpMethod\":\"$method\",\"RequestPath\":\"$reqpath\",\"BodyFormat\":\"STREAM\"}"
-  # ServiceTimeout=60s：FC 冷启动可达 7-9s，30s 仍偶发 504（2026-08-13 排查确认）
-  SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\",\"ServiceTimeout\":30}"
+  # ServiceTimeout 单位为毫秒：FC 冷启动和 provider 外部 CLI 调用需要完整的 60s 窗口。
+  SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\",\"ServiceTimeout\":60000}"
   # Authorization 头透传（JWT 鉴权；传统网关默认丢弃未定义 Header）
   P_REQ='[{"ApiParameterName":"Authorization","Location":"HEAD","ParameterType":"String","Required":"OPTIONAL","DefaultValue":"","ApiParameterDesc":"JWT Bearer"}]'
   P_SVC='[{"ServiceParameterName":"Authorization","Location":"HEAD","Type":"String","ParameterCatalog":"REQUEST","ServiceParameterApiName":"Authorization"}]'
