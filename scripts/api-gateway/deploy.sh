@@ -17,6 +17,7 @@ set -euo pipefail
 GROUP_NAME=qtcloud
 DOMAIN=api.quanttide.com
 REGION=cn-hangzhou
+PYTHON="${PYTHON:-python}"
 
 # 后端 FC 地址（公网 HTTP 触发器）
 AUTH_FC="http://qtclouduth-prod-gnuguyxinh.cn-hangzhou.fcapp.run"
@@ -26,6 +27,7 @@ COURSE_FC="http://qtcloudrse-prod-lsqdodhmqh.cn-hangzhou.fcapp.run"
 FINANCE_FC="http://qtcloudnce-prod-bobbsmtsfr.cn-hangzhou.fcapp.run"
 HUMAN_FC="http://qtcloudman-prod-eqpdghspoh.cn-hangzhou.fcapp.run"
 EXECUTE_FC="http://qtcloudute-prod-boyqzkoffr.cn-hangzhou.fcapp.run"
+HUMAN_GATEWAY_SHARED_SECRET="${QTCLOUD_HUMAN_GATEWAY_SHARED_SECRET:-}"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
 aliyun_retry() {
@@ -34,13 +36,17 @@ aliyun_retry() {
     out=$("$@" 2>&1) && ! echo "$out" | grep -q "i/o timeout\|lookup" && { echo "$out"; return 0; }
     sleep 2
   done
-  echo "FAILED: $*" >&2
+  local command_text="$*"
+  if [ -n "$HUMAN_GATEWAY_SHARED_SECRET" ]; then
+    command_text="${command_text//$HUMAN_GATEWAY_SHARED_SECRET/***}"
+  fi
+  echo "FAILED: $command_text" >&2
   return 1
 }
 
 # ── 1. 分组 ──
 GROUP_ID=$(aliyun_retry aliyun cloudapi DescribeApiGroups --PageNumber 1 --PageSize 100 |
-  python3 -c "
+  "$PYTHON" -c "
 import json,sys
 d=json.load(sys.stdin)
 for g in d.get('ApiGroupAttributes',{}).get('ApiGroupAttribute',[]):
@@ -48,13 +54,13 @@ for g in d.get('ApiGroupAttributes',{}).get('ApiGroupAttribute',[]):
 " || true)
 if [ -z "$GROUP_ID" ]; then
   GROUP_ID=$(aliyun_retry aliyun cloudapi CreateApiGroup --GroupName "$GROUP_NAME" --Description "qtcloud" |
-    python3 -c "import json,sys; print(json.load(sys.stdin)['GroupId'])")
+    "$PYTHON" -c "import json,sys; print(json.load(sys.stdin)['GroupId'])")
   echo "created group: $GROUP_ID"
 else
   echo "group exists: $GROUP_ID"
 fi
 SUB_DOMAIN=$(aliyun_retry aliyun cloudapi DescribeApiGroup --GroupId "$GROUP_ID" |
-  python3 -c "import json,sys; print(json.load(sys.stdin)['SubDomain'])" || echo "")
+  "$PYTHON" -c "import json,sys; print(json.load(sys.stdin)['SubDomain'])" || echo "")
 
 # ── 2. API 定义（名称幂等） ──
 # 每行：ApiName|方法|请求路径|后端路径|FC 地址
@@ -87,6 +93,14 @@ APIS=(
   "qtcloud-human-healthz|GET|/qtcloud-human/healthz|/healthz|$HUMAN_FC"
   "qtcloud-human-timesheets|GET|/qtcloud-human/timesheets|/timesheets|$HUMAN_FC"
   "qtcloud-human-timesheets-post|POST|/qtcloud-human/timesheets|/timesheets|$HUMAN_FC"
+  "qtcloud-human-provider-status|GET|/qtcloud-human/api/v1/recruitment/provider/status|/api/v1/recruitment/provider/status|$HUMAN_FC"
+  "qtcloud-human-candidates|GET|/qtcloud-human/api/v1/recruitment/candidates|/api/v1/recruitment/candidates|$HUMAN_FC"
+  "qtcloud-human-inbox-sync|POST|/qtcloud-human/api/v1/recruitment/inbox/sync|/api/v1/recruitment/inbox/sync|$HUMAN_FC"
+  "qtcloud-human-reports|POST|/qtcloud-human/api/v1/recruitment/reports|/api/v1/recruitment/reports|$HUMAN_FC"
+  "qtcloud-human-candidate-status|PATCH|/qtcloud-human/api/v1/recruitment/candidates/{candidate_id}|/api/v1/recruitment/candidates/{candidate_id}|$HUMAN_FC"
+  "qtcloud-human-candidate-actions|POST|/qtcloud-human/api/v1/recruitment/candidates/{candidate_id}/actions|/api/v1/recruitment/candidates/{candidate_id}/actions|$HUMAN_FC"
+  "qtcloud-human-resume-view-create|POST|/qtcloud-human/api/v1/recruitment/candidates/{candidate_id}/resume/{attachment_index}/view|/api/v1/recruitment/candidates/{candidate_id}/resume/{attachment_index}/view|$HUMAN_FC"
+  "qtcloud-human-resume-view|GET|/qtcloud-human/api/v1/recruitment/resume-view/{token}|/api/v1/recruitment/resume-view/{token}|$HUMAN_FC"
   # qtcloud-execute：任务清单 API（公开读，网关转发到 FC；应用层无 CORS）
   "qtcloud-execute-health|GET|/qtcloud-execute/health|/health|$EXECUTE_FC"
   "qtcloud-execute-lists|GET|/qtcloud-execute/api/lists|/api/lists|$EXECUTE_FC"
@@ -98,42 +112,75 @@ APIS=(
 for entry in "${APIS[@]}"; do
   IFS='|' read -r name method reqpath svcpath fc <<< "$entry"
   API_ID=$(aliyun_retry aliyun cloudapi DescribeApis --GroupId "$GROUP_ID" --ApiName "$name" --PageNumber 1 --PageSize 100 |
-    python3 -c "
+    "$PYTHON" -c "
 import json,sys
 d=json.load(sys.stdin)
 for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
     if a['ApiName']=='$name': print(a['ApiId'])
 " || true)
+  REQ="{\"RequestProtocol\":\"HTTPS\",\"RequestHttpMethod\":\"$method\",\"RequestPath\":\"$reqpath\",\"BodyFormat\":\"STREAM\"}"
+  # ServiceTimeout=60s：FC 冷启动可达 7-9s，30s 仍偶发 504（2026-08-13 排查确认）
+  SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\",\"ServiceTimeout\":30}"
+  # Authorization 头透传（JWT 鉴权；传统网关默认丢弃未定义 Header）
+  P_REQ='[{"ApiParameterName":"Authorization","Location":"HEAD","ParameterType":"String","Required":"OPTIONAL","DefaultValue":"","ApiParameterDesc":"JWT Bearer"}]'
+  P_SVC='[{"ServiceParameterName":"Authorization","Location":"HEAD","Type":"String","ParameterCatalog":"REQUEST","ServiceParameterApiName":"Authorization"}]'
+  P_MAP='[{"ServiceParameterName":"Authorization","RequestParameterName":"Authorization"}]'
+  EXTRA_ARGS=()
+  if [[ "$reqpath" == /qtcloud-human/api/v1/recruitment* ]]; then
+    test -n "$HUMAN_GATEWAY_SHARED_SECRET" || { echo "QTCLOUD_HUMAN_GATEWAY_SHARED_SECRET is required for qtcloud-human recruitment APIs." >&2; exit 1; }
+    CONST_PARAMS="[{\"ServiceParameterName\":\"X-Qtcloud-Gateway-Secret\",\"Location\":\"HEAD\",\"ConstantValue\":\"$HUMAN_GATEWAY_SHARED_SECRET\",\"Description\":\"qtcloud-human gateway shared secret\"}]"
+    EXTRA_ARGS+=(--constant-parameters "$CONST_PARAMS")
+  fi
   if [ -n "$API_ID" ]; then
     echo "api exists: $name ($API_ID)"
+    if [[ "$reqpath" == /qtcloud-human/api/v1/recruitment* ]]; then
+      aliyun_retry aliyun cloudapi modify-api \
+        --group-id "$GROUP_ID" --api-id "$API_ID" --api-name "$name" --description "$name" \
+        --request-config "$REQ" --service-config "$SVC" \
+        --request-parameters "$P_REQ" --service-parameters "$P_SVC" --service-parameters-map "$P_MAP" \
+        "${EXTRA_ARGS[@]}" \
+        --visibility PUBLIC --auth-type ANONYMOUS --result-type JSON --result-sample '{}' > /dev/null
+      echo "updated recruitment gateway secret: $name"
+    fi
   else
-    REQ="{\"RequestProtocol\":\"HTTPS\",\"RequestHttpMethod\":\"$method\",\"RequestPath\":\"$reqpath\",\"BodyFormat\":\"STREAM\"}"
-    # ServiceTimeout=60s：FC 冷启动可达 7-9s，30s 仍偶发 504（2026-08-13 排查确认）
-    SVC="{\"ServiceProtocol\":\"HTTP\",\"ServiceAddress\":\"$fc\",\"ServicePath\":\"$svcpath\",\"ServiceHttpMethod\":\"$method\",\"Mock\":\"FALSE\",\"ContentTypeCatagory\":\"CLIENT\",\"ServiceTimeout\":60}"
-    # Authorization 头透传（JWT 鉴权；传统网关默认丢弃未定义 Header）
-    P_REQ='[{"ApiParameterName":"Authorization","Location":"HEAD","ParameterType":"String","Required":"OPTIONAL","DefaultValue":"","ApiParameterDesc":"JWT Bearer"}]'
-    P_SVC='[{"ServiceParameterName":"Authorization","Location":"HEAD","Type":"String","ParameterCatalog":"REQUEST","ServiceParameterApiName":"Authorization"}]'
-    P_MAP='[{"ServiceParameterName":"Authorization","RequestParameterName":"Authorization"}]'
     API_ID=$(aliyun_retry aliyun cloudapi CreateApi \
       --GroupId "$GROUP_ID" --ApiName "$name" --Description "$name" \
       --RequestConfig "$REQ" --ServiceConfig "$SVC" \
       --RequestParameters "$P_REQ" --ServiceParameters "$P_SVC" --ServiceParametersMap "$P_MAP" \
+      "${EXTRA_ARGS[@]}" \
       --Visibility PUBLIC --AuthType ANONYMOUS --ResultType JSON --ResultSample '{}' |
-      python3 -c "import json,sys; print(json.load(sys.stdin)['ApiId'])")
+      "$PYTHON" -c "import json,sys; print(json.load(sys.stdin)['ApiId'])")
     echo "created api: $name ($API_ID)"
   fi
   aliyun_retry aliyun cloudapi DeployApi --GroupId "$GROUP_ID" --ApiId "$API_ID" --StageName RELEASE --Description "deploy.sh" > /dev/null 2>&1 || true
 done
 
 # ── 3. DNS 记录（幂等） ──
-EXISTING_DNS=$(aliyun_retry aliyun cloudapi DescribeApiGroup --GroupId "$GROUP_ID" >/dev/null 2>&1; echo "")
-# DNS 用 alidns SDK 处理（aliyun CLI 无 dns 产品），见 dns.py
-${PYTHON:-python3} "$(dirname "$0")/dns.py" --rr api --type CNAME --value "${SUB_DOMAIN}."
+DNS_STATE=$(aliyun_retry aliyun alidns DescribeDomainRecords \
+  --DomainName quanttide.com --RRKeyWord api --TypeKeyWord CNAME \
+  --PageNumber 1 --PageSize 100)
+DNS_EXISTS=$(printf '%s' "$DNS_STATE" | "$PYTHON" -c "
+import json,sys
+d=json.load(sys.stdin)
+for record in d.get('DomainRecords',{}).get('Record',[]):
+    if record.get('RR') == 'api' and record.get('Type') == 'CNAME':
+        print(record.get('Value',''))
+        break
+")
+if [ -n "$DNS_EXISTS" ]; then
+  echo "dns record exists: api CNAME -> $DNS_EXISTS"
+else
+  aliyun_retry aliyun alidns AddDomainRecord \
+    --DomainName quanttide.com --RR api --Type CNAME --Value "${SUB_DOMAIN}." > /dev/null
+  echo "dns record added: api CNAME -> ${SUB_DOMAIN}."
+fi
 
 # ── 4. 域名绑定（需 DNS 生效；幂等：已绑定则跳过） ──
 DOMAIN_STATE=$(aliyun_retry aliyun cloudapi DescribeDomain --GroupId "$GROUP_ID" --DomainName "$DOMAIN" 2>&1 || true)
 if echo "$DOMAIN_STATE" | grep -q "DomainName"; then
   echo "domain bound: $DOMAIN"
+elif echo "$DOMAIN_STATE" | grep -q "NoPermission"; then
+  echo "domain check skipped: current Aliyun identity cannot inspect $DOMAIN"
 else
   aliyun_retry aliyun cloudapi SetDomain --GroupId "$GROUP_ID" --DomainName "$DOMAIN" --IsHttpRedirectToHttps true > /dev/null
   echo "domain bound: $DOMAIN（等待证书绑定，见 ssl-cert.yml）"
