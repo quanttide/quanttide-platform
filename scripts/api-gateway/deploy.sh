@@ -125,6 +125,10 @@ for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
   P_REQ='[{"ApiParameterName":"Authorization","Location":"HEAD","ParameterType":"String","Required":"OPTIONAL","DefaultValue":"","ApiParameterDesc":"JWT Bearer"}]'
   P_SVC='[{"ServiceParameterName":"Authorization","Location":"HEAD","Type":"String","ParameterCatalog":"REQUEST","ServiceParameterApiName":"Authorization"}]'
   P_MAP='[{"ServiceParameterName":"Authorization","RequestParameterName":"Authorization"}]'
+  RESULT_TYPE="JSON"
+  if [[ "$reqpath" == /qtcloud-human/api/v1/recruitment/resume-view/* ]]; then
+    RESULT_TYPE="BINARY"
+  fi
   EXTRA_ARGS=()
   if [[ "$reqpath" == /qtcloud-human/api/v1/recruitment* ]]; then
     test -n "$HUMAN_GATEWAY_SHARED_SECRET" || { echo "QTCLOUD_HUMAN_GATEWAY_SHARED_SECRET is required for qtcloud-human recruitment APIs." >&2; exit 1; }
@@ -139,7 +143,7 @@ for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
         --request-config "$REQ" --service-config "$SVC" \
         --request-parameters "$P_REQ" --service-parameters "$P_SVC" --service-parameters-map "$P_MAP" \
         "${EXTRA_ARGS[@]}" \
-        --visibility PUBLIC --auth-type ANONYMOUS --result-type JSON --result-sample '{}' > /dev/null
+        --visibility PUBLIC --auth-type ANONYMOUS --result-type "$RESULT_TYPE" --result-sample '{}' > /dev/null
       echo "updated recruitment gateway secret: $name"
     fi
   else
@@ -148,7 +152,7 @@ for a in d.get('ApiSummarys',{}).get('ApiSummary',[]):
       --RequestConfig "$REQ" --ServiceConfig "$SVC" \
       --RequestParameters "$P_REQ" --ServiceParameters "$P_SVC" --ServiceParametersMap "$P_MAP" \
       "${EXTRA_ARGS[@]}" \
-      --Visibility PUBLIC --AuthType ANONYMOUS --ResultType JSON --ResultSample '{}' |
+      --Visibility PUBLIC --AuthType ANONYMOUS --ResultType "$RESULT_TYPE" --ResultSample '{}' |
       "$PYTHON" -c "import json,sys; print(json.load(sys.stdin)['ApiId'])")
     echo "created api: $name ($API_ID)"
   fi
