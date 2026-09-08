@@ -129,9 +129,6 @@
 [submodule "apps/qtaccount"]
 	path = apps/qtaccount
 	url = https://github.com/quanttide/qtaccount.git
-[submodule "apps/qtalliance"]
-	path = apps/qtalliance
-	url = https://github.com/quanttide/qtalliance.git
 [submodule "apps/qtopen"]
 	path = apps/qtopen
 	url = https://github.com/quanttide/qtopen.git
