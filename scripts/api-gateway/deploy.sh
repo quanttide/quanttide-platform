@@ -27,6 +27,7 @@ COURSE_FC="http://qtcloudrse-prod-lsqdodhmqh.cn-hangzhou.fcapp.run"
 FINANCE_FC="http://qtcloudnce-prod-bobbsmtsfr.cn-hangzhou.fcapp.run"
 HUMAN_FC="http://qtcloudman-prod-eqpdghspoh.cn-hangzhou.fcapp.run"
 EXECUTE_FC="http://qtcloudute-prod-boyqzkoffr.cn-hangzhou.fcapp.run"
+QTFUNDER_FC="https://qtfounder-prod-hwqnwikxtn.cn-hangzhou.fcapp.run"
 HUMAN_GATEWAY_SHARED_SECRET="${QTCLOUD_HUMAN_GATEWAY_SHARED_SECRET:-}"
 
 # retry：aliyun CLI 偶发 DNS 超时（本地网络），重试 8 次
@@ -107,6 +108,9 @@ APIS=(
   "qtcloud-execute-list-tasks|GET|/qtcloud-execute/api/lists/{id}/tasks|/api/lists/{id}/tasks|$EXECUTE_FC"
   "qtcloud-execute-task-update|PUT|/qtcloud-execute/api/lists/{id}/tasks/{taskId}|/api/lists/{id}/tasks/{taskId}|$EXECUTE_FC"
   "qtcloud-execute-task-delete|DELETE|/qtcloud-execute/api/lists/{id}/tasks/{taskId}|/api/lists/{id}/tasks/{taskId}|$EXECUTE_FC"
+  "qtfounder-health|GET|/qtfounder/health|/health|$QTFUNDER_FC"
+  "qtfounder-chapters|GET|/qtfounder/chapters|/chapters|$QTFUNDER_FC"
+  "qtfounder-memory|GET|/qtfounder/memory|/memory|$QTFUNDER_FC"
 )
 
 for entry in "${APIS[@]}"; do
