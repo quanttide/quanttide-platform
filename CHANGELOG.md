@@ -12,6 +12,7 @@
 
 ### Changed
 
+- `scripts/ssl/deploy-cert-cdn.py` CDN_DOMAINS 补 `support.quanttide.com` 与 `delib.cloud.quanttide.com`——两者已上线但不在续期重绑列表，证书存在过期缺口
 - 计算原则调整：大型系统从"以 k8s 为主"改为"以 FaaS 为主"，k8s 与服务器为辅（docs/dev-guide/iac/index.md、docs/dev-guide/intro/evolution.md、ROADMAP.md）
 
 ## [0.8.1] - 2026-08-03
