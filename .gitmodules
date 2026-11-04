@@ -135,3 +135,6 @@
 [submodule "apps/qtproduct"]
 	path = apps/qtproduct
 	url = https://github.com/quanttide/qtproduct.git
+[submodule "apps/qtcloud-market"]
+	path = apps/qtcloud-market
+	url = https://github.com/quanttide/qtcloud-market.git

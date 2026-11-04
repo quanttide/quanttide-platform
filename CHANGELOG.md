@@ -4,6 +4,7 @@
 
 ### Added
 
+- apps/qtcloud-market — 营销云子模块
 - apps/qtmedia — 媒体中心子模块
 - apps/qtcrowd — 众包销售子模块
 - apps/qtfounder — 创始人项目（创作现场）子模块

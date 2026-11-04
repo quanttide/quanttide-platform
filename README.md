@@ -41,6 +41,7 @@ quanttide-platform/
 | qtcloud-infra | 基础设施云 | — |
 | qtcloud-knowl | 知识云 | cli/v0.2.2 |
 | qtcloud-media | 媒体云 | — |
+| qtcloud-market | 营销云 | — |
 | qtcloud-org | 组织云 | studio/v0.1.0-alpha.2 |
 | qtcloud-pay | 支付云 | provider/v0.1.0-alpha.8 |
 | qtcloud-product | 产品云 | studio/v0.1.0-beta.3 |
